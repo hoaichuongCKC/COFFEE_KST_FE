@@ -1,6 +1,6 @@
 # coffee_kst
 
-A new Flutter project.
+This is my little project. I'm currently a final year student at winning high technical college.
 
 ## Getting Started
 
