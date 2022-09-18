@@ -1,4 +1,5 @@
 import 'package:coffee_kst/main_export.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const MaterialColor kSwatchTheme = MaterialColor(
   0xFF7409FF, // 0% comes in here, this will be color picked if no shade is selected when defining a Color property which doesn’t require a swatch.
@@ -22,9 +23,23 @@ ThemeData themeDataDark = ThemeData(
   scaffoldBackgroundColor: AppColors.darkColor,
   dividerColor: AppColors.disableTextColor,
   primarySwatch: kSwatchTheme,
-  appBarTheme: const AppBarTheme(
+  appBarTheme: AppBarTheme(
     backgroundColor: AppColors.darkColor,
     centerTitle: true,
+    iconTheme: const IconThemeData(
+      color: AppColors.lightColor,
+      size: 20.0,
+    ),
+    actionsIconTheme: const IconThemeData(
+      color: AppColors.lightColor,
+      size: 20.0,
+    ),
+    titleTextStyle: GoogleFonts.poppins(
+      fontSize: AppDimens.text22,
+      color: AppColors.lightColor,
+      fontWeight: FontWeight.w700,
+    ),
+    elevation: 0.0,
     systemOverlayStyle: SystemUiOverlayStyle.light,
   ),
   // ignore: deprecated_member_use

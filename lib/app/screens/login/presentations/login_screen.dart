@@ -18,6 +18,8 @@ class LoginScreen extends StatelessWidget {
       child: BlocProvider(
         create: (context) => sl<AuthenticationBloc>(),
         child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
+          listenWhen: (previous, current) =>
+              previous.formState != current.formState,
           listener: (context, authState) {
             if (authState.formState is FormSubmitSuccessState) {
               context.goNamed('profile');

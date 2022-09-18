@@ -79,9 +79,17 @@ class _BodyLoginState extends State<BodyLogin> {
       valueListenable: loginMethod,
       builder: (context, LoginMethod currentMethod, child) {
         return GestureDetector(
-          onTap: () => currentMethod.name == LoginMethod.PASSWORD_LOGIN.name
-              ? loginMethod.value = LoginMethod.OTP_LOGIN
-              : loginMethod.value = LoginMethod.PASSWORD_LOGIN,
+          onTap: () {
+            if (currentMethod.name == LoginMethod.PASSWORD_LOGIN.name) {
+              loginMethod.value = LoginMethod.OTP_LOGIN;
+              context
+                  .read<AuthenticationBloc>()
+                  .add(ChangedPasswordEvent(password: ''));
+              passwordController.text = "";
+            } else {
+              loginMethod.value = LoginMethod.PASSWORD_LOGIN;
+            }
+          },
           child: FadeInUp(
             delay: const Duration(milliseconds: 1900),
             child: LimitedBox(
@@ -194,9 +202,12 @@ class _BodyLoginState extends State<BodyLogin> {
                                     .add(ChangedPasswordEvent(password: value)),
                                 obscureText: currentObscureText,
                                 onSubmit: (value) {
-                                  context
-                                      .read<AuthenticationBloc>()
-                                      .add(SubmitFormEvent());
+                                  if (phoneController.text.isNotEmpty &&
+                                      passwordController.text.isNotEmpty) {
+                                    context
+                                        .read<AuthenticationBloc>()
+                                        .add(SubmitFormEvent());
+                                  }
                                 },
                                 controller: passwordController,
                                 label: 'Mật khẩu',
@@ -255,7 +266,12 @@ class _BodyLoginState extends State<BodyLogin> {
       label: 'Đăng nhập',
       onClicked: () {
         if (formKey.currentState!.validate()) {
-          context.read<AuthenticationBloc>().add(SubmitFormEvent());
+          FocusScope.of(context).unfocus();
+          if (loginMethod.value == LoginMethod.PASSWORD_LOGIN) {
+            context.read<AuthenticationBloc>().add(SubmitFormEvent());
+          } else {
+            context.read<AuthenticationBloc>().add(SubmitFormOTPEvent());
+          }
         }
       },
     );

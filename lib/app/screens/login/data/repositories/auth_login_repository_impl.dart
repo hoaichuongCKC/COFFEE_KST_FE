@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:coffee_kst/app/screens/login/domain/entities/login_otp.dart';
 import 'package:coffee_kst/core/error/exception.dart';
 import 'package:coffee_kst/core/network/network_info.dart';
 import 'package:dartz/dartz.dart';
@@ -21,6 +22,20 @@ class AuthLoginRepositoryImpl implements AuthLoginRepository {
     if (await networkInfo.isConnected) {
       try {
         final remoteLogin = await remoteDataSource.login(phone, password);
+        return Right(remoteLogin);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, LoginOTPEntity>> loginOTP(String phone) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteLogin = await remoteDataSource.loginOTP(phone);
         return Right(remoteLogin);
       } on ServerException {
         return Left(ServerFailure());

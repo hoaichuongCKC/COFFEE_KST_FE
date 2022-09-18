@@ -15,4 +15,6 @@ class AppColors {
   static const Color disableTextColor = Color(0xFFABA8A5);
   static const Color disablePrimaryButtonColor =
       Color.fromARGB(255, 206, 189, 230);
+
+  static const Color borderAvatarColor = Color(0xFFFCDBDB);
 }

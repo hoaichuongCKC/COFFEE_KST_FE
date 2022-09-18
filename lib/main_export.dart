@@ -21,3 +21,4 @@ export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:coffee_kst/core/utils/constants_login.dart';
 export 'package:go_router/go_router.dart';
+export 'package:cached_network_image/cached_network_image.dart';

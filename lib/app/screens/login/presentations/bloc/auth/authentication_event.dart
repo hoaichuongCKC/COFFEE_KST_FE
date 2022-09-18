@@ -19,3 +19,5 @@ class ChangedPasswordEvent extends AuthenticationEvent {
 }
 
 class SubmitFormEvent extends AuthenticationEvent {}
+
+class SubmitFormOTPEvent extends AuthenticationEvent {}
