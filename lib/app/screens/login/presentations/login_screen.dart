@@ -1,4 +1,4 @@
-import 'package:coffee_kst/app/common/overlay/success.dart';
+import 'package:coffee_kst/app/common/overlay/loading.dart';
 import 'package:coffee_kst/app/common/toast/toast.dart';
 import 'package:coffee_kst/app/screens/login/presentations/bloc/auth/authentication_bloc.dart';
 import 'package:coffee_kst/app/screens/login/presentations/components/body_login.dart';
@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
           builder: (context, authState) {
             return BgFlowLogin(
               overlay: authState.formState is FormSubmittingState
-                  ? const SuccessOverlay(message: 'Đang xử lý')
+                  ? const LoadingOverlay(message: 'Đang xử lý')
                   : null,
               child: const SafeArea(
                 child: BodyLogin(),

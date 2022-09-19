@@ -65,6 +65,9 @@ class BodyProfile extends StatelessWidget {
       case ITEM_INFORMATION:
         context.goNamed('personal_information', extra: userEntity);
         break;
+      case ITEM_CHANGE_PASSWORD:
+        context.goNamed('change_password');
+        break;
       default:
     }
   }

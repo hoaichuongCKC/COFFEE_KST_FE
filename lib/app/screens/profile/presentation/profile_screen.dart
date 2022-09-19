@@ -3,12 +3,23 @@ import 'package:coffee_kst/app/screens/profile/presentation/components/body_prof
 import 'package:coffee_kst/app/screens/profile/presentation/components/header_profile.dart';
 import 'package:coffee_kst/injection_container.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final loading = SpinKitFadingCircle(
+      itemBuilder: (BuildContext context, int index) {
+        return DecoratedBox(
+          decoration: ShapeDecoration(
+            color: index.isEven ? AppColors.lightColor : AppColors.primaryColor,
+            shape: const CircleBorder(),
+          ),
+        );
+      },
+    );
     return Scaffold(
       body: BlocProvider(
         create: (context) => sl<PersonalInformationBloc>()..add(LoadPIEvent()),
@@ -24,8 +35,8 @@ class ProfileScreen extends StatelessWidget {
                 );
               }
               if (state is PILoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Center(
+                  child: loading,
                 );
               }
               if (state is PILoadedState) {

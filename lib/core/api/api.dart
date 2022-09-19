@@ -3,7 +3,8 @@ import 'package:dio/dio.dart';
 
 abstract class Api {
   Dio get _dio => _initDio();
-  static String BASE_URL = "http://10.0.2.2:8000/api/v2.0";
+  static String BASE_URL =
+      "https://156b-2405-4802-a236-5470-8d89-bab7-3bd0-cc16.ap.ngrok.io/api/v2.0";
   Dio _initDio() {
     final Dio dio = Dio();
 
@@ -30,6 +31,27 @@ abstract class Api {
       final response = await _dio.post(
         BASE_URL + endpoint,
         data: data,
+        queryParameters: query,
+        options: options,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgres,
+      );
+      return response;
+    } on Exception {
+      rethrow;
+    }
+  }
+
+  Future<Response> getService(
+    String endpoint, {
+    Map<String, dynamic>? query,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgres,
+  }) async {
+    try {
+      final response = await _dio.get(
+        endpoint,
         queryParameters: query,
         options: options,
         cancelToken: cancelToken,

@@ -1,10 +1,8 @@
 import 'package:coffee_kst/app/common/components/avatar.dart';
+import 'package:coffee_kst/app/common/widgets/appbar_widget.dart';
 import 'package:coffee_kst/app/screens/profile/domain/entities/user.dart';
-import 'package:coffee_kst/app/screens/profile/presentation/bloc/personal_information_bloc.dart';
 import 'package:coffee_kst/core/utils/constants_profile.dart';
-import 'package:coffee_kst/injection_container.dart';
 import 'package:coffee_kst/main_export.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'components/body_information.dart';
 
@@ -44,21 +42,8 @@ class PersonalInformationScreen extends StatelessWidget {
   }
 
   AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
-      elevation: 0.0,
-      leading: InkWell(
-        onTap: () => context.pop(),
-        child: const Icon(
-          Icons.arrow_back_ios,
-          size: 20.0,
-          color: AppColors.lightColor,
-        ),
-      ),
-      title: TextWidgets(
-        text: SCREEN_NAME_PI,
-        fontSize: AppDimens.text22,
-        weight: FontWeight.w600,
-      ),
+    return AppBarWidget(
+      title: SCREEN_NAME_PI,
       actions: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -72,6 +57,7 @@ class PersonalInformationScreen extends StatelessWidget {
           ),
         )
       ],
+      context: context,
     );
   }
 }

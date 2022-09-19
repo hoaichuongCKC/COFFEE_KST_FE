@@ -1,7 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
-import 'package:coffee_kst/app/screens/login/domain/entities/login_otp.dart';
-import 'package:coffee_kst/app/screens/login/domain/repositories/auth_login_repository.dart';
 import 'package:coffee_kst/app/screens/profile/domain/entities/user.dart';
 import 'package:coffee_kst/app/screens/profile/domain/repositories/profile_repository.dart';
 import 'package:coffee_kst/core/error/failures.dart';

@@ -9,6 +9,7 @@ class AppIcons {
 
   //icon for screens
   static const String SUCCESS_ASSET = "assets/icons/success.svg";
+  static const String WARNING_ASSET = "assets/icons/warning.svg";
   static const String CLEAR_ASSET = "assets/icons/clear.svg";
   static const String ARROW_LEFT_ASSET = "assets/icons/arrow_left.svg";
   static const String ARROW_RIGHT_ASSET = "assets/icons/arrow_right.svg";

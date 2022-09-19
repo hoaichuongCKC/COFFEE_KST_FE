@@ -7,8 +7,10 @@ import 'package:coffee_kst/app/screens/login/presentations/bloc/auth/authenticat
 import 'package:coffee_kst/app/screens/profile/data/datasource/user_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/profile/data/repositories/user_repository_impl.dart';
 import 'package:coffee_kst/app/screens/profile/domain/repositories/profile_repository.dart';
+import 'package:coffee_kst/app/screens/profile/domain/usecases/change_password_user.dart';
 import 'package:coffee_kst/app/screens/profile/domain/usecases/get_information_user.dart';
 import 'package:coffee_kst/app/screens/profile/presentation/bloc/personal_information_bloc.dart';
+import 'package:coffee_kst/app/screens/profile/screens/change_password/bloc/change_password_bloc.dart';
 import 'package:coffee_kst/core/network/network_info.dart';
 import 'package:coffee_kst/main_export.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -53,9 +55,14 @@ Future<void> init() async {
       getInformationUserUsecases: sl(),
     ),
   );
+  sl.registerFactory(
+    () => ChangePasswordBloc(
+      changePasswordUserUsecases: sl(),
+    ),
+  );
   //Use cases - UserController
   sl.registerLazySingleton(() => GetInformationUserUsecases(sl()));
-
+  sl.registerLazySingleton(() => ChangePasswordUserUsecases(sl()));
   // Repository - UserController
   sl.registerLazySingleton(
     () => UserRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),

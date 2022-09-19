@@ -1,4 +1,5 @@
 import 'package:coffee_kst/main_export.dart';
+import 'components/body_create_address.dart';
 
 class CreateAddressScreen extends StatelessWidget {
   const CreateAddressScreen({super.key});
@@ -7,10 +8,7 @@ class CreateAddressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [],
-      ),
+      body: const BodyCreateAddress(),
     );
   }
 

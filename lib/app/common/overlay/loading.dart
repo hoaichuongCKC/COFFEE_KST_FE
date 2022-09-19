@@ -1,8 +1,8 @@
 import 'package:coffee_kst/main_export.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class SuccessOverlay extends StatelessWidget {
-  const SuccessOverlay({Key? key, required this.message}) : super(key: key);
+class LoadingOverlay extends StatelessWidget {
+  const LoadingOverlay({Key? key, required this.message}) : super(key: key);
   final String message;
   @override
   Widget build(BuildContext context) {

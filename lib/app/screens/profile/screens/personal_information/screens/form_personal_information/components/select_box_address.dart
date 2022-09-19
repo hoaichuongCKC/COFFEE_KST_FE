@@ -15,7 +15,7 @@ class SelectBoxAddressPI extends StatelessWidget {
         ),
         const SizedBox(height: 8.0),
         GestureDetector(
-          onTap: () {},
+          onTap: () => context.goNamed('create_address'),
           child: Container(
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 0.08,
