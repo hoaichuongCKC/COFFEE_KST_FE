@@ -7,4 +7,6 @@ abstract class UserRepository {
   Future<Either<Failure, UserEntity>> getInformationUser();
   Future<Either<Failure, AppEntity>> changePasswordUser(
       String oldPassowrd, String newPassword);
+  Future<Either<Failure, UserEntity>> editInformationUser(
+      String? phone, String? fullname, String? gender, String? address);
 }

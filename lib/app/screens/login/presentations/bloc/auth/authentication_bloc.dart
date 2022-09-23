@@ -7,6 +7,7 @@ import 'package:coffee_kst/app/screens/login/domain/usecases/auth_login.dart';
 import 'package:coffee_kst/app/screens/login/domain/usecases/auth_otp.dart';
 import 'package:coffee_kst/core/error/failures.dart';
 import 'package:coffee_kst/core/utils/const_form_state.dart';
+import 'package:coffee_kst/database/box/box_user.dart';
 import 'package:coffee_kst/main_export.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -52,11 +53,10 @@ class AuthenticationBloc
         },
         (LoginEntity result) {
           if (result.code == SUCCESS_CODE) {
-            // BoxesUser.instance.setUser(
-            //   UserHive(
-            //       token: result.data!.token,
-            //       refreshToken: result.data!.refreshToken),
-            // );
+            BoxesUser.instance.setUser({
+              'token': result.data!.token,
+              'refresh_token': result.data!.refreshToken
+            });
             emit(state.copyWith(formState: FormSubmitSuccessState()));
           } else if (result.code == FAILED_CODE) {
             emit(state.copyWith(message: result.message));

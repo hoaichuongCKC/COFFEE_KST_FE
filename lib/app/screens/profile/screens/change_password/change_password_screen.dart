@@ -4,10 +4,11 @@ import 'package:coffee_kst/app/common/widgets/appbar_widget.dart';
 import 'package:coffee_kst/app/screens/profile/screens/change_password/bloc/change_password_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/screens/change_password/components/form_confirm_password.dart';
 import 'package:coffee_kst/app/screens/profile/screens/change_password/components/form_new_password.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/core/utils/const_form_state.dart';
 import 'package:coffee_kst/injection_container.dart';
 import 'package:coffee_kst/main_export.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'components/form_old_password.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
@@ -24,14 +25,15 @@ class ChangePasswordScreen extends StatelessWidget {
         create: (context) => sl<ChangePasswordBloc>(),
         child: Scaffold(
           appBar: AppBarWidget(
-            title: 'Đổi mật khẩu',
+            title: LocaleKeys.change_password.tr(),
             context: context,
           ),
           bottomNavigationBar: Builder(builder: (context) {
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
               child: ButtonWidget(
-                label: 'Thay đổi',
+                label: LocaleKeys.confirm.tr(),
                 onClicked: () {
                   if (formKey.currentState!.validate()) {
                     context
@@ -46,6 +48,12 @@ class ChangePasswordScreen extends StatelessWidget {
             return BlocConsumer<ChangePasswordBloc, ChangePasswordState>(
               listener: (context, state) {
                 if (state.formAppState is FormSubmitSuccessState) {
+                  oldPass.text = '';
+                  newPass.text = '';
+                  confirmPass.text = '';
+                  context
+                      .read<ChangePasswordBloc>()
+                      .add(InitChangedPasswordEvent());
                   DialogController.instance
                       .success(message: state.message, context: context);
                 }
@@ -63,9 +71,10 @@ class ChangePasswordScreen extends StatelessWidget {
                   children: [
                     _buildBody(context),
                     changePassState.formAppState is FormSubmittingState
-                        ? const Align(
+                        ? Align(
                             alignment: Alignment.center,
-                            child: LoadingOverlay(message: 'Đang xử lý'),
+                            child: LoadingOverlay(
+                                message: '${LocaleKeys.processing.tr()}...'),
                           )
                         : const SizedBox()
                   ],

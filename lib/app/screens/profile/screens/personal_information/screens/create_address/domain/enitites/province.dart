@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 
 class ProvinceEntity extends Equatable {
   final String name;
-  final int idProvince;
+  final String idProvince;
   const ProvinceEntity({
     required this.name,
     required this.idProvince,

@@ -1,5 +1,4 @@
 import 'package:coffee_kst/main_export.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingOverlay extends StatelessWidget {
   const LoadingOverlay({Key? key, required this.message}) : super(key: key);
@@ -7,16 +6,7 @@ class LoadingOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final loading = SpinKitFadingCircle(
-      itemBuilder: (BuildContext context, int index) {
-        return DecoratedBox(
-          decoration: ShapeDecoration(
-            color: index.isEven ? AppColors.lightColor : AppColors.primaryColor,
-            shape: const CircleBorder(),
-          ),
-        );
-      },
-    );
+
     return Container(
       width: size.width * 0.65,
       height: size.height * 0.15,

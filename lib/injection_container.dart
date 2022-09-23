@@ -8,9 +8,18 @@ import 'package:coffee_kst/app/screens/profile/data/datasource/user_remote_datas
 import 'package:coffee_kst/app/screens/profile/data/repositories/user_repository_impl.dart';
 import 'package:coffee_kst/app/screens/profile/domain/repositories/profile_repository.dart';
 import 'package:coffee_kst/app/screens/profile/domain/usecases/change_password_user.dart';
+import 'package:coffee_kst/app/screens/profile/domain/usecases/edit_information_user.dart';
 import 'package:coffee_kst/app/screens/profile/domain/usecases/get_information_user.dart';
 import 'package:coffee_kst/app/screens/profile/presentation/bloc/personal_information_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/screens/change_password/bloc/change_password_bloc.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/data/datasource/address_remote_datasource.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/data/repositories/address_repository_impl.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/domain/repositories/address_repository.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/domain/usecases/get_commnue.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/domain/usecases/get_district.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/domain/usecases/get_province.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/bloc/address_country/address_country_bloc.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
 import 'package:coffee_kst/core/network/network_info.dart';
 import 'package:coffee_kst/main_export.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -60,9 +69,23 @@ Future<void> init() async {
       changePasswordUserUsecases: sl(),
     ),
   );
+  sl.registerFactory(
+    () => AddressCountryBloc(
+      getProvinceUseCase: sl(),
+      getCommuneUsecase: sl(),
+      getDistrictUseCase: sl(),
+    ),
+  );
+  sl.registerFactory(
+    () => EditInformationUserBloc(editInformationUserUsecases: sl()),
+  );
   //Use cases - UserController
   sl.registerLazySingleton(() => GetInformationUserUsecases(sl()));
   sl.registerLazySingleton(() => ChangePasswordUserUsecases(sl()));
+  sl.registerLazySingleton(() => GetProvinceUseCase(repository: sl()));
+  sl.registerLazySingleton(() => GetDistrictUseCase(repository: sl()));
+  sl.registerLazySingleton(() => GetCommuneUsecase(repository: sl()));
+  sl.registerLazySingleton(() => EditInformationUserUsecases(sl()));
   // Repository - UserController
   sl.registerLazySingleton(
     () => UserRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),
@@ -73,10 +96,19 @@ Future<void> init() async {
       remoteDataSource: sl(),
     ),
   );
+  sl.registerLazySingleton<AddressRepository>(
+    () => AddressRepositoryImpl(
+      networkInfo: sl(),
+      remoteDataSource: sl(),
+    ),
+  );
 
   //data source -UserController
   sl.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(),
+  );
+  sl.registerLazySingleton<AddressRemoteDataSource>(
+    () => AddressRemoteDataSourceImpl(),
   );
   //---------------------------------------------------------
   // //! Core

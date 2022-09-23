@@ -44,4 +44,20 @@ class UserRepositoryImpl implements UserRepository {
       return Left(InternetFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> editInformationUser(
+      String? phone, String? fullname, String? gender, String? address) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteLogin = await remoteDataSource.editInformationUser(
+            phone, fullname, gender, address);
+        return Right(remoteLogin);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
 }

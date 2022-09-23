@@ -6,6 +6,8 @@ import 'package:coffee_kst/app/screens/profile/domain/usecases/get_information_u
 import 'package:coffee_kst/core/error/failures.dart';
 import 'package:coffee_kst/core/usecases/usecase.dart';
 import 'package:coffee_kst/core/utils/constants_login.dart';
+import 'package:coffee_kst/database/box/information_user.dart';
+import 'package:coffee_kst/database/hive/infor_user/infor_user.dart';
 import 'package:equatable/equatable.dart';
 
 part 'personal_information_event.dart';
@@ -20,6 +22,7 @@ class PersonalInformationBloc
       emit(PILoadingState());
       try {
         final result = await getInformationUserUsecases.call(NoParams());
+
         result.fold(
           (Failure result) {
             if (result is InternetFailure) {
@@ -29,6 +32,15 @@ class PersonalInformationBloc
             }
           },
           (UserEntity result) {
+            BoxesInformationUser.instance
+                .saveInformationUser(InformationUserHive(
+              result.userId,
+              result.phone,
+              result.fullname,
+              result.fullAddress,
+              result.gender,
+              result.avatarUrl,
+            ));
             emit(PILoadedState(userEntity: result));
           },
         );

@@ -24,6 +24,9 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   
+  #translate language
+  easy_localization:
+
   #icons and fonts
   flutter_svg: ^1.1.5
   google_fonts: ^3.0.1
@@ -61,6 +64,9 @@ dependencies:
   cached_network_image: ^3.2.1
   path_provider: ^2.0.11
 
+  #skeleton
+  shimmer: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:
@@ -87,7 +93,8 @@ flutter:
   assets:
     - assets/bg_svg/
     - assets/icons/
-
+    - assets/images/settings/
+    - assets/translations/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

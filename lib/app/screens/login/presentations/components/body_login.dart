@@ -126,7 +126,8 @@ class _BodyLoginState extends State<BodyLogin> {
             TextWidgets(
               text: 'Đăng nhập',
               fontSize: AppDimens.text24,
-              weight: FontWeight.w700,
+              weight: FontWeight.w600,
+              textColor: Theme.of(context).textTheme.titleLarge!.color!,
             ),
             const SizedBox(height: 25.0),
             TextFormFieldLabel(
@@ -290,7 +291,8 @@ class _BodyLoginState extends State<BodyLogin> {
                 child: TextWidgets(
                   text: 'XIN CHÀO BẠN,',
                   fontSize: AppDimens.text24,
-                  weight: FontWeight.w500,
+                  weight: FontWeight.w600,
+                  textColor: Theme.of(context).textTheme.titleLarge!.color!,
                 ),
               ),
               FadeInLeft(
@@ -299,7 +301,8 @@ class _BodyLoginState extends State<BodyLogin> {
                 child: TextWidgets(
                   text: 'CHÀO MỪNG BẠN ĐẾN',
                   fontSize: AppDimens.text24,
-                  weight: FontWeight.w500,
+                  weight: FontWeight.w600,
+                  textColor: Theme.of(context).textTheme.titleLarge!.color!,
                 ),
               ),
               FadeInUp(
@@ -310,13 +313,14 @@ class _BodyLoginState extends State<BodyLogin> {
                     TextWidgets(
                       text: 'VỚI ',
                       fontSize: AppDimens.text24,
-                      weight: FontWeight.w500,
+                      weight: FontWeight.w600,
+                      textColor: Theme.of(context).textTheme.titleLarge!.color!,
                     ),
                     TextWidgets(
                       text: 'COFFEE KST',
                       fontSize: AppDimens.text24,
                       textColor: AppColors.primaryColor,
-                      weight: FontWeight.w500,
+                      weight: FontWeight.w600,
                     ),
                   ],
                 ),

@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 
 class DistrictEntity extends Equatable {
   final String name;
-  final int idDistrict;
-  final int idProvince;
+  final String idDistrict;
+  final String idProvince;
   const DistrictEntity({
     required this.name,
     required this.idDistrict,

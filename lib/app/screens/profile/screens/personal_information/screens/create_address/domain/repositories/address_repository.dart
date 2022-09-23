@@ -5,7 +5,7 @@ import 'package:coffee_kst/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class AddressRepository {
-  Future<Either<Failure, ProvinceEntity>> getProvince();
-  Future<Either<Failure, DistrictEntity>> getDistrict(int idProvince);
-  Future<Either<Failure, CommuneEntity>> getCommune(int idDistrict);
+  Future<Either<Failure, List<ProvinceEntity>>> getProvince();
+  Future<Either<Failure, List<DistrictEntity>>> getDistrict(String idProvince);
+  Future<Either<Failure, List<CommuneEntity>>> getCommune(String idDistrict);
 }

@@ -9,7 +9,7 @@ class DialogSuccess extends StatelessWidget {
   }) : super(key: key);
   final String message;
   final String confirm;
-  final Function onConfirm;
+  final Function()? onConfirm;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -37,7 +37,7 @@ class DialogSuccess extends StatelessWidget {
             ),
             ButtonWidget(
               label: confirm,
-              onClicked: () => Navigator.pop(context),
+              onClicked: onConfirm ?? () => Navigator.pop(context),
             )
           ],
         ),

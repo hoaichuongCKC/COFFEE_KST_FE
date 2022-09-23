@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 
 class CommuneEntity extends Equatable {
   final String name;
-  final int idCommune;
-  final int idDistrict;
+  final String idCommune;
+  final String idDistrict;
   const CommuneEntity({
     required this.name,
     required this.idDistrict,

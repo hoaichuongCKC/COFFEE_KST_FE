@@ -16,13 +16,13 @@ class BoxesUser {
       await Hive.openBox<UserHive>(NAME_BOX_USER);
 
   //save token and freshtoken of user
-  void setUser(UserHive hive) async {
+  void setUser(Map<String, dynamic> data) async {
     var box = await BoxesUser.openBoxUser();
     box.put(
       KEY_BOX,
       UserHive(
-        token: hive.token,
-        refreshToken: hive.refreshToken,
+        token: data['token'],
+        refreshToken: data['refresh_token'],
       ),
     );
   }

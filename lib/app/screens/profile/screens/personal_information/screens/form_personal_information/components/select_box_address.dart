@@ -1,43 +1,68 @@
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
 import 'package:coffee_kst/main_export.dart';
 
 class SelectBoxAddressPI extends StatelessWidget {
-  const SelectBoxAddressPI({super.key});
-
+  const SelectBoxAddressPI({super.key, required this.address});
+  final String? address;
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TextWidgets(
-          text: 'Địa chỉ',
-          fontSize: AppDimens.text18,
-          textColor: AppColors.disableTextColor,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextWidgets(
+              text: 'Địa chỉ',
+              fontSize: AppDimens.text18,
+              textColor: AppColors.disableTextColor,
+            ),
+            const SizedBox(width: 5.0),
+            context.watch<EditInformationUserBloc>().state.address.isEmpty
+                ? const SizedBox()
+                : TextWidgets(
+                    text: '(Đã chỉnh sửa)',
+                    fontSize: AppDimens.text10,
+                    textColor: AppColors.textErrorColor,
+                  ),
+          ],
         ),
         const SizedBox(height: 8.0),
         GestureDetector(
           onTap: () => context.goNamed('create_address'),
           child: Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.08,
             padding: const EdgeInsets.all(15.0),
             decoration: BoxDecoration(
-              color: AppColors.lightColor.withAlpha(230),
-              borderRadius: AppStyles.borderRadius12,
-            ),
-            constraints: const BoxConstraints(
-              minWidth: double.infinity,
-              maxHeight: 50.0,
-              minHeight: 45.0,
-            ),
+                color: AppColors.lightColor.withAlpha(230),
+                borderRadius: AppStyles.borderRadius12,
+                border: Theme.of(context).brightness == Brightness.light
+                    ? Border.all(color: AppColors.primaryColor, width: 0.5)
+                    : null),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextWidgets(
-                  text: 'Chọn địa chỉ của bạn',
-                  fontSize: AppDimens.text14,
-                  textColor: AppColors.disableTextColor,
+                Expanded(
+                  child: TextWidgets(
+                    text: address!.isEmpty
+                        ? 'Chọn địa chỉ của bạn'
+                        : context
+                                .watch<EditInformationUserBloc>()
+                                .state
+                                .address
+                                .isNotEmpty
+                            ? context
+                                .watch<EditInformationUserBloc>()
+                                .state
+                                .address
+                            : address!,
+                    fontSize: AppDimens.text14,
+                    maxline: 2,
+                    textColor: address!.isEmpty
+                        ? AppColors.disableTextColor
+                        : AppColors.darkColor,
+                  ),
                 ),
-                const Spacer(),
                 SvgPicture.asset(AppIcons.ARROW_RIGHT_ASSET)
               ],
             ),

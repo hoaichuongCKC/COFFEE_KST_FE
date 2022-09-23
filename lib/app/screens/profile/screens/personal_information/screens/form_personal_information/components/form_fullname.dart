@@ -1,17 +1,20 @@
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
 import 'package:coffee_kst/main_export.dart';
 
 class FormFullNamePI extends StatefulWidget {
-  const FormFullNamePI({Key? key}) : super(key: key);
-
+  const FormFullNamePI({Key? key, required this.fullname}) : super(key: key);
+  final String fullname;
   @override
   State<FormFullNamePI> createState() => _FormFullNamePIState();
 }
 
 class _FormFullNamePIState extends State<FormFullNamePI> {
   final fullnameController = TextEditingController();
+  String get getFullname => widget.fullname;
   ValueNotifier<bool> isClear = ValueNotifier(false);
   @override
   void initState() {
+    fullnameController.text = getFullname;
     fullnameController.addListener(() {
       if (fullnameController.text.isNotEmpty && !isClear.value) {
         isClear.value = true;
@@ -35,6 +38,11 @@ class _FormFullNamePIState extends State<FormFullNamePI> {
       controller: fullnameController,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.name,
+      isRequired: true,
+      nameRequired:
+          context.watch<EditInformationUserBloc>().state.fullname.isEmpty
+              ? ''
+              : '(Đã chỉnh sửa)',
       hintText: 'Nhập họ tên của bạn',
       label: 'Họ và tên',
       suffixIcon: ValueListenableBuilder(
@@ -45,6 +53,9 @@ class _FormFullNamePIState extends State<FormFullNamePI> {
               child: InkWell(
                 onTap: () {
                   fullnameController.text = "";
+                  context
+                      .read<EditInformationUserBloc>()
+                      .add(const ChangedFullnameEvent(fullname: ''));
                   isClear.value = false;
                 },
                 child: const SizedBox(
@@ -59,7 +70,11 @@ class _FormFullNamePIState extends State<FormFullNamePI> {
               ),
             );
           }),
-      onChanged: (value) {},
+      onChanged: (value) {
+        context
+            .read<EditInformationUserBloc>()
+            .add(ChangedFullnameEvent(fullname: value));
+      },
       validator: (value) {
         return null;
       },

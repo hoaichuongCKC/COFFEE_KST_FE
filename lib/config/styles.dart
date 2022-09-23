@@ -6,6 +6,8 @@ class AppStyles {
 
   //style container
   // -container - borderRadius all
+  static const BorderRadius borderRadius5 =
+      BorderRadius.all(Radius.circular(5.0));
   static const BorderRadius borderRadius10 =
       BorderRadius.all(Radius.circular(10.0));
 

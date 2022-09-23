@@ -8,6 +8,8 @@ abstract class ChangePasswordEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class InitChangedPasswordEvent extends ChangePasswordEvent {}
+
 class ChangedOldPasswordEvent extends ChangePasswordEvent {
   final String oldPassword;
   const ChangedOldPasswordEvent({

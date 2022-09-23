@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:coffee_kst/main_export.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,32 +18,88 @@ const MaterialColor kSwatchTheme = MaterialColor(
     900: AppColors.primaryColor, //100%
   },
 );
-ThemeData themeDataDark = ThemeData(
-  backgroundColor: AppColors.darkColor,
-  toggleableActiveColor: AppColors.primaryColor,
-  dialogBackgroundColor: AppColors.lightColor,
-  scaffoldBackgroundColor: AppColors.darkColor,
-  dividerColor: AppColors.disableTextColor,
-  primarySwatch: kSwatchTheme,
-  appBarTheme: AppBarTheme(
+
+class MyThemes {
+  static final ThemeData darkTheme = ThemeData(
     backgroundColor: AppColors.darkColor,
-    centerTitle: true,
+    primaryColor: AppColors.darkColor,
+    scaffoldBackgroundColor: AppColors.darkColor,
+    colorScheme: const ColorScheme.dark(),
     iconTheme: const IconThemeData(
       color: AppColors.lightColor,
       size: 20.0,
     ),
-    actionsIconTheme: const IconThemeData(
-      color: AppColors.lightColor,
-      size: 20.0,
+    primarySwatch: kSwatchTheme,
+    cardColor: AppColors.lightColor,
+    textTheme: TextTheme(
+      bodyMedium: GoogleFonts.poppins(
+        color: AppColors.lightColor,
+      ),
+      titleSmall: GoogleFonts.poppins(
+        color: AppColors.darkColor,
+      ),
+      titleLarge: GoogleFonts.poppins(
+        color: AppColors.lightColor,
+      ),
     ),
-    titleTextStyle: GoogleFonts.poppins(
-      fontSize: AppDimens.text22,
-      color: AppColors.lightColor,
-      fontWeight: FontWeight.w700,
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.darkColor,
+      centerTitle: true,
+      iconTheme: const IconThemeData(
+        color: AppColors.lightColor,
+        size: 20.0,
+      ),
+      actionsIconTheme: const IconThemeData(
+        color: AppColors.lightColor,
+        size: 20.0,
+      ),
+      titleTextStyle: GoogleFonts.poppins(
+        fontSize: AppDimens.text22,
+        color: AppColors.lightColor,
+        fontWeight: FontWeight.w700,
+      ),
+      elevation: 0.0,
+      systemOverlayStyle: SystemUiOverlayStyle.light,
     ),
-    elevation: 0.0,
-    systemOverlayStyle: SystemUiOverlayStyle.light,
-  ),
-  // ignore: deprecated_member_use
-  androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
-);
+    androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
+  );
+
+  static final lightTheme = ThemeData(
+    scaffoldBackgroundColor: Colors.white,
+    primaryColor: Colors.white,
+    colorScheme: const ColorScheme.light(),
+    cardColor: AppColors.disableTextColor.withAlpha(150),
+    iconTheme: const IconThemeData(color: AppColors.darkColor, opacity: 0.8),
+    androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
+    textTheme: TextTheme(
+      titleMedium: GoogleFonts.poppins(
+        color: AppColors.darkColor,
+      ),
+      titleLarge: GoogleFonts.poppins(
+        color: AppColors.darkColor,
+      ),
+      bodyMedium: GoogleFonts.poppins(
+        color: AppColors.darkColor,
+      ),
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.lightColor,
+      centerTitle: true,
+      iconTheme: const IconThemeData(
+        color: AppColors.darkColor,
+        size: 20.0,
+      ),
+      actionsIconTheme: const IconThemeData(
+        color: AppColors.darkColor,
+        size: 20.0,
+      ),
+      titleTextStyle: GoogleFonts.poppins(
+        fontSize: AppDimens.text22,
+        color: AppColors.darkColor,
+        fontWeight: FontWeight.w700,
+      ),
+      elevation: 0.0,
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
+    ),
+  );
+}

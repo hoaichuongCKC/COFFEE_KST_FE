@@ -26,6 +26,6 @@ class TextWidgets extends Text {
           ),
           maxLines: maxline,
           textAlign: textAlign,
-          overflow: TextOverflow.visible,
+          overflow: TextOverflow.ellipsis,
         );
 }

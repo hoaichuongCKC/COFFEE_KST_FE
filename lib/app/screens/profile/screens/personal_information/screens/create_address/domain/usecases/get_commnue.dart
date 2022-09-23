@@ -7,23 +7,23 @@ import 'package:coffee_kst/app/screens/profile/screens/personal_information/scre
 import 'package:coffee_kst/core/error/failures.dart';
 import 'package:coffee_kst/core/usecases/usecase.dart';
 
-class GetCommuneUsecase extends UseCase<CommuneEntity, ParamsCommune> {
+class GetCommuneUsecase extends UseCase<List<CommuneEntity>, ParamsCommune> {
   final AddressRepository repository;
   GetCommuneUsecase({
     required this.repository,
   });
   @override
-  Future<Either<Failure, CommuneEntity>> call(ParamsCommune params) async {
-    return await repository.getCommune(params.idProvince);
+  Future<Either<Failure, List<CommuneEntity>>> call(
+      ParamsCommune params) async {
+    return await repository.getCommune(params.idDistrict);
   }
 }
 
 class ParamsCommune extends Equatable {
-  final int idProvince;
+  final String idDistrict;
   const ParamsCommune({
-    required this.idProvince,
+    required this.idDistrict,
   });
   @override
-  // TODO: implement props
-  List<Object?> get props => [idProvince];
+  List<Object?> get props => [idDistrict];
 }

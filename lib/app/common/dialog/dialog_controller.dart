@@ -1,5 +1,6 @@
 import 'package:coffee_kst/app/common/dialog/dialog_failed.dart';
 import 'package:coffee_kst/app/common/dialog/dialog_success.dart';
+import 'package:coffee_kst/app/common/dialog/dialog_warning.dart';
 import 'package:flutter/material.dart';
 
 class DialogController {
@@ -8,13 +9,14 @@ class DialogController {
   void success({
     required String message,
     required BuildContext context,
+    Function()? onClicked,
   }) async {
     await showGeneralDialog(
       barrierColor: Colors.black.withOpacity(0.5),
       transitionBuilder: (context, a1, a2, child) {
         return ScaleTransition(
           scale: Tween<double>(
-            begin: 0.1,
+            begin: 0.4,
             end: 1.0,
           ).animate(
             CurvedAnimation(parent: a1, curve: Curves.linearToEaseOut),
@@ -34,7 +36,7 @@ class DialogController {
         return DialogSuccess(
           confirm: 'Ok',
           message: message,
-          onConfirm: () {},
+          onConfirm: onClicked!,
         );
       },
     );
@@ -49,7 +51,7 @@ class DialogController {
       transitionBuilder: (context, a1, a2, child) {
         return ScaleTransition(
           scale: Tween<double>(
-            begin: 0.1,
+            begin: 0.4,
             end: 1.0,
           ).animate(
             CurvedAnimation(parent: a1, curve: Curves.linearToEaseOut),
@@ -60,7 +62,7 @@ class DialogController {
           ),
         );
       },
-      transitionDuration: const Duration(milliseconds: 500),
+      transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: true,
       barrierLabel: '',
       context: context,
@@ -70,6 +72,43 @@ class DialogController {
           confirm: 'Thử lại',
           message: message,
           onConfirm: () {},
+        );
+      },
+    );
+  }
+
+  void warning({
+    required String message,
+    required BuildContext context,
+    required Function() onConfirm,
+    required Function() onCancle,
+  }) async {
+    await showGeneralDialog(
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionBuilder: (context, a1, a2, child) {
+        return ScaleTransition(
+          scale: Tween<double>(
+            begin: 0.4,
+            end: 1.0,
+          ).animate(
+            CurvedAnimation(parent: a1, curve: Curves.linearToEaseOut),
+          ),
+          child: Opacity(
+            opacity: a1.value,
+            child: child,
+          ),
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 200),
+      barrierDismissible: true,
+      barrierLabel: '',
+      context: context,
+      pageBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation) {
+        return DialogWarning(
+          message: message,
+          onConfirm: onConfirm,
+          onCancel: onCancle,
         );
       },
     );

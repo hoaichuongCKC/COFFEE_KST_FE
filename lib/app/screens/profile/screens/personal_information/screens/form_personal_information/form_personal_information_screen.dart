@@ -1,6 +1,12 @@
+import 'package:coffee_kst/app/common/dialog/dialog_controller.dart';
+import 'package:coffee_kst/app/common/overlay/loading.dart';
+import 'package:coffee_kst/app/common/widgets/appbar_widget.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
+import 'package:coffee_kst/core/utils/const_form_state.dart';
 import 'package:coffee_kst/core/utils/constants_profile.dart';
+import 'package:coffee_kst/database/box/information_user.dart';
+import 'package:coffee_kst/database/hive/infor_user/infor_user.dart';
 import 'package:coffee_kst/main_export.dart';
-
 import 'components/form_fullname.dart';
 import 'components/form_phone.dart';
 import 'components/personal_gender.dart';
@@ -11,61 +17,147 @@ class FormPersonalInformationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Builder(builder: (context) {
-          return Scaffold(
-            appBar: _buildAppBar(context),
-            bottomNavigationBar: Container(
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
-              child: ButtonWidget(
-                label: 'Hoàn thành',
-                onClicked: () {},
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Builder(builder: (context) {
+            final bloc = context.watch<EditInformationUserBloc>().state;
+            return InkWell(
+              onTap: () {
+                if (bloc.address.isNotEmpty ||
+                    bloc.fullname.isNotEmpty ||
+                    bloc.phone.isNotEmpty ||
+                    bloc.gender.isNotEmpty) {
+                  DialogController.instance.warning(
+                    message: 'Bạn có chắc muốn thoát?',
+                    context: context,
+                    onCancle: () {
+                      Navigator.of(context).pop();
+                    },
+                    onConfirm: () {
+                      context
+                          .read<EditInformationUserBloc>()
+                          .add(ChangedEditInitial());
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    },
+                  );
+                } else {
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: 20.0,
+                color: Theme.of(context).iconTheme.color,
               ),
-            ),
-            resizeToAvoidBottomInset: false,
-            body: Padding(
-              padding: MediaQuery.of(context).viewInsets,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
-                    FormFullNamePI(),
-                    SizedBox(height: 16.0),
-                    FormPhonePI(),
-                    SizedBox(height: 16.0),
-                    SelectBoxAddressPI(),
-                    SizedBox(height: 16.0),
-                    GenderPersonalPI(),
-                  ],
+            );
+          }),
+          title: TextWidgets(
+            text: 'Chỉnh sửa thông tin',
+            fontSize: AppDimens.text20,
+            textColor: Theme.of(context).textTheme.titleSmall!.color!,
+            weight: FontWeight.w600,
+          ),
+        ),
+        bottomNavigationBar: Builder(builder: (context) {
+          return Container(
+            margin:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+            child: Builder(builder: (context) {
+              final bloc = context.watch<EditInformationUserBloc>().state;
+              return ButtonWidget(
+                label: 'Hoàn thành',
+                onClicked: bloc.address.isEmpty &&
+                        bloc.fullname.isEmpty &&
+                        bloc.phone.isEmpty &&
+                        bloc.gender.isEmpty
+                    ? null
+                    : () {
+                        context
+                            .read<EditInformationUserBloc>()
+                            .add(SubmitEditInformationUser());
+                      },
+              );
+            }),
+          );
+        }),
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Padding(
+                padding: MediaQuery.of(context).viewInsets,
+                child: ValueListenableBuilder<Box<InformationUserHive>>(
+                  valueListenable:
+                      Hive.box<InformationUserHive>(NAME_BOX_INFORMATION)
+                          .listenable(),
+                  builder: (context, Box<InformationUserHive> box, child) {
+                    final user = box.get(KEY_BOX_INFORMATION);
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        FormFullNamePI(
+                          fullname: user!.fullname,
+                        ),
+                        const SizedBox(height: 16.0),
+                        FormPhonePI(phone: user.phone),
+                        const SizedBox(height: 16.0),
+                        SelectBoxAddressPI(address: user.full_address),
+                        const SizedBox(height: 16.0),
+                        GenderPersonalPI(
+                            gender: user.gender == PersonalGender.MALE.name
+                                ? PersonalGender.MALE
+                                : user.gender == PersonalGender.FEMALE.name
+                                    ? PersonalGender.FEMALE
+                                    : PersonalGender.ANOTHER),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),
-          );
-        }),
+            overlayHandle,
+          ],
+        ),
       ),
     );
   }
 
-  AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
-      elevation: 0.0,
-      leading: InkWell(
-        onTap: () => context.pop(),
-        child: const Icon(
-          Icons.arrow_back_ios,
-          size: 20.0,
-          color: AppColors.lightColor,
-        ),
-      ),
-      title: TextWidgets(
-        text: SCREEN_NAME_PI,
-        fontSize: AppDimens.text22,
-        weight: FontWeight.w600,
-      ),
+  Widget get overlayHandle {
+    return BlocConsumer<EditInformationUserBloc, EditInformationUserState>(
+      listenWhen: (previous, current) =>
+          current.state is FormSubmitFailedState ||
+          current.state is FormSubmitSuccessState,
+      listener: (context, state) {
+        if (state.state is FormSubmitSuccessState) {
+          DialogController.instance.success(
+              message: 'Chỉnh sửa thành công',
+              context: context,
+              onClicked: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              });
+        }
+        if (state.state is FormSubmitFailedState) {
+          DialogController.instance
+              .failed(message: state.message, context: context);
+        }
+      },
+      builder: (context, state) {
+        if (state.state is FormSubmittingState) {
+          return const Align(
+            alignment: Alignment.center,
+            child: LoadingOverlay(
+              message: 'Đang xử lý',
+            ),
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 }

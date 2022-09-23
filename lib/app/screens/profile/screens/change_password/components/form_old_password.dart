@@ -1,6 +1,7 @@
 import 'package:coffee_kst/app/screens/profile/screens/change_password/bloc/change_password_bloc.dart';
-import 'package:coffee_kst/injection_container.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FormOldPassword extends StatefulWidget {
   const FormOldPassword({Key? key, required this.controller}) : super(key: key);
@@ -25,7 +26,7 @@ class _FormOldPasswordState extends State<FormOldPassword> {
         valueListenable: isVisibility,
         builder: (context1, bool currentIsVisibility, child) {
           return TextFormFieldLabel(
-              label: 'Mật khẩu cũ',
+              label: LocaleKeys.old_password.tr(),
               isRequired: true,
               obscureText: currentIsVisibility,
               controller: widget.controller,
@@ -34,7 +35,7 @@ class _FormOldPasswordState extends State<FormOldPassword> {
               onChanged: (value) => context
                   .read<ChangePasswordBloc>()
                   .add(ChangedOldPasswordEvent(oldPassword: value)),
-              hintText: 'Nhập mật khẩu hiện tại',
+              hintText: LocaleKeys.enter_old_passowrd.tr(),
               suffixIcon: InkWell(
                 onTap: () {
                   isVisibility.value = !isVisibility.value;

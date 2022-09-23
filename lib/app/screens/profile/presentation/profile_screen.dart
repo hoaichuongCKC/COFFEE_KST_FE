@@ -14,7 +14,11 @@ class ProfileScreen extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return DecoratedBox(
           decoration: ShapeDecoration(
-            color: index.isEven ? AppColors.lightColor : AppColors.primaryColor,
+            color: index.isEven
+                ? (Theme.of(context).brightness == Brightness.light)
+                    ? AppColors.borderAvatarColor
+                    : AppColors.lightColor
+                : AppColors.primaryColor,
             shape: const CircleBorder(),
           ),
         );
@@ -28,9 +32,25 @@ class ProfileScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is PIFailedState) {
                 return Center(
-                  child: TextWidgets(
-                    text: state.message,
-                    fontSize: AppDimens.text14,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextWidgets(
+                        text: state.message,
+                        fontSize: AppDimens.text14,
+                        textColor:
+                            Theme.of(context).textTheme.bodyMedium!.color!,
+                      ),
+                      const SizedBox(height: 10.0),
+                      ButtonWidget(
+                        width: 150,
+                        label: 'Kết nối lại',
+                        onClicked: () => context
+                            .read<PersonalInformationBloc>()
+                            .add(LoadPIEvent()),
+                      )
+                    ],
                   ),
                 );
               }
@@ -42,12 +62,9 @@ class ProfileScreen extends StatelessWidget {
               if (state is PILoadedState) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    HeaderProfileWidget(
-                      nameUser: state.userEntity.fullname,
-                      phone: state.userEntity.phone,
-                    ),
-                    BodyProfile(userEntity: state.userEntity),
+                  children: const <Widget>[
+                    HeaderProfileWidget(),
+                    BodyProfile(),
                   ],
                 );
               }

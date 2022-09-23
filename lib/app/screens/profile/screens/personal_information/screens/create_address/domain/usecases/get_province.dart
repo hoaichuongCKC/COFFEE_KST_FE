@@ -5,11 +5,11 @@ import 'package:dartz/dartz.dart';
 
 import '../repositories/address_repository.dart';
 
-class GetProvinceUseCase extends UseCase<ProvinceEntity, NoParams> {
+class GetProvinceUseCase extends UseCase<List<ProvinceEntity>, NoParams> {
   final AddressRepository repository;
   GetProvinceUseCase({required this.repository});
   @override
-  Future<Either<Failure, ProvinceEntity>> call(NoParams params) async {
+  Future<Either<Failure, List<ProvinceEntity>>> call(NoParams params) async {
     return await repository.getProvince();
   }
 }

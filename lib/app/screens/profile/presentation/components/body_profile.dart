@@ -2,6 +2,7 @@ import 'package:coffee_kst/app/common/animations/do_fade/fade_in_right.dart';
 import 'package:coffee_kst/app/screens/profile/domain/entities/user.dart';
 import 'package:coffee_kst/core/utils/constants_profile.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 List<Map<String, dynamic>> listProfile = [
   {
@@ -29,9 +30,8 @@ List<Map<String, dynamic>> listProfile = [
 class BodyProfile extends StatelessWidget {
   const BodyProfile({
     Key? key,
-    required this.userEntity,
   }) : super(key: key);
-  final UserEntity userEntity;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -63,10 +63,13 @@ class BodyProfile extends StatelessWidget {
   _handleScreenSwitching(String label, BuildContext context) {
     switch (label) {
       case ITEM_INFORMATION:
-        context.goNamed('personal_information', extra: userEntity);
+        context.goNamed('personal_information');
         break;
       case ITEM_CHANGE_PASSWORD:
         context.goNamed('change_password');
+        break;
+      case ITEM_SETTINGS:
+        context.goNamed('settings');
         break;
       default:
     }
@@ -74,16 +77,26 @@ class BodyProfile extends StatelessWidget {
 
   Widget _buildItemProfile(
       BuildContext context, Widget icon, String label, int index) {
+    bool isLight = (Theme.of(context).brightness == Brightness.light);
+
     return FadeInRight(
       delay: Duration(milliseconds: 300 * index),
       child: ClipPath(
-        clipper: DrawItemProfile(),
+        clipper: isLight ? null : DrawItemProfile(),
         child: Container(
           width: double.infinity,
           padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * 0.05),
           height: MediaQuery.of(context).size.height * 0.08,
-          color: AppColors.lightColor,
+          decoration: BoxDecoration(
+            color: AppColors.lightColor,
+            border: isLight
+                ? Border(
+                    bottom: BorderSide(
+                        color: AppColors.disableTextColor.withAlpha(200),
+                        width: 0.2))
+                : null,
+          ),
           constraints: const BoxConstraints(
             minHeight: 50.0,
             maxHeight: 60.0,
@@ -96,9 +109,9 @@ class BodyProfile extends StatelessWidget {
               const SizedBox(width: 8.0),
               Expanded(
                 child: TextWidgets(
-                  text: label,
+                  text: label.tr(),
                   fontSize: AppDimens.text14,
-                  textColor: AppColors.darkColor,
+                  textColor: Theme.of(context).textTheme.titleSmall!.color!,
                 ),
               ),
               SvgPicture.asset(AppIcons.ARROW_RIGHT_ASSET),

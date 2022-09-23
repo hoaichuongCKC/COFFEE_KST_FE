@@ -29,6 +29,5 @@ class ParamsChangePassword extends Equatable {
   });
 
   @override
-  // TODO: implement props
   List<Object?> get props => [old_password, new_password];
 }

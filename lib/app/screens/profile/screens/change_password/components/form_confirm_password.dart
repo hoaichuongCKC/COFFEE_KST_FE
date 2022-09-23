@@ -1,5 +1,7 @@
 import 'package:coffee_kst/app/screens/profile/screens/change_password/bloc/change_password_bloc.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FormConfirmPassword extends StatefulWidget {
   const FormConfirmPassword(
@@ -26,7 +28,7 @@ class _FormConfirmPasswordState extends State<FormConfirmPassword> {
         valueListenable: isVisibility,
         builder: (context, bool currentIsVisibility, child) {
           return TextFormFieldLabel(
-              label: 'Xác nhận mật khẩu',
+              label: LocaleKeys.confirm_password.tr(),
               isRequired: true,
               obscureText: currentIsVisibility,
               controller: widget.controller,
@@ -35,7 +37,7 @@ class _FormConfirmPasswordState extends State<FormConfirmPassword> {
               onChanged: (value) => context
                   .read<ChangePasswordBloc>()
                   .add(ChangedConfirmPasswordEvent(confirmPassword: value)),
-              hintText: 'Nhập lại mật khẩu mới',
+              hintText: LocaleKeys.enter_confirm_passowrd.tr(),
               suffixIcon: InkWell(
                 onTap: () {
                   isVisibility.value = !isVisibility.value;
@@ -48,7 +50,7 @@ class _FormConfirmPasswordState extends State<FormConfirmPassword> {
                         ? Icons.visibility_off
                         : Icons.visibility,
                     size: 20.0,
-                    color: AppColors.darkColor,
+                    color: Theme.of(context).iconTheme.color,
                   ),
                 ),
               ),

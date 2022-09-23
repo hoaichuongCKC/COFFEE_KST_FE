@@ -102,6 +102,7 @@ class TextFormFielddWidget extends TextFormFieldWidget {
     String? hintText,
     Color? filledColor,
     Color? outlineColor,
+    int maxLine = 1,
   }) : super(
           key: key,
           onChanged: onChanged,
@@ -115,6 +116,7 @@ class TextFormFielddWidget extends TextFormFieldWidget {
           focusNode: focusNode,
           obscureText: obscureText,
           suffixIcon: suffixIcon,
+          line: maxLine,
           hintText: hintText,
           filledColor: filledColor,
           decoration: InputDecoration(

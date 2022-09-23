@@ -1,3 +1,7 @@
+import 'package:coffee_kst/app/common/dialog/dialog_controller.dart';
+import 'package:coffee_kst/app/common/widgets/appbar_widget.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/bloc/address_country/address_country_bloc.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
 import 'package:coffee_kst/main_export.dart';
 import 'components/body_create_address.dart';
 
@@ -6,27 +10,67 @@ class CreateAddressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      body: const BodyCreateAddress(),
-    );
-  }
-
-  AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
-      elevation: 0.0,
-      leading: InkWell(
-        onTap: () => context.pop(),
-        child: const Icon(
-          Icons.arrow_back_ios,
-          size: 20.0,
-          color: AppColors.lightColor,
+    final bloc = context.watch<AddressCountryBloc>().state;
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        extendBody: true,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          leading: InkWell(
+            onTap: () {
+              if (bloc.provinceEntity.name.isEmpty &&
+                  bloc.districtEntity.name.isEmpty &&
+                  bloc.communeEntity.name.isEmpty) {
+                Navigator.of(context).pop();
+              } else {
+                DialogController.instance.warning(
+                  message:
+                      'Nếu bạn quay lại thì các lựa chọn địa chỉ của bạn sẽ mất',
+                  context: context,
+                  onCancle: () {
+                    Navigator.of(context).pop();
+                  },
+                  onConfirm: () {
+                    context.read<AddressCountryBloc>().add(LoadAddressInit());
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                );
+              }
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              size: 20.0,
+              color: Theme.of(context).iconTheme.color,
+            ),
+          ),
+          title: TextWidgets(
+            text: 'Chỉnh sửa địa chỉ',
+            fontSize: AppDimens.text20,
+            textColor: Theme.of(context).textTheme.titleSmall!.color!,
+            weight: FontWeight.w600,
+          ),
         ),
-      ),
-      title: TextWidgets(
-        text: "Tạo địa chỉ mới",
-        fontSize: AppDimens.text22,
-        weight: FontWeight.w600,
+        body: const BodyCreateAddress(),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15.0),
+          child: ButtonWidget(
+              label: 'Hoàn tất',
+              onClicked: bloc.provinceEntity.name.isEmpty ||
+                      bloc.districtEntity.name.isEmpty ||
+                      bloc.communeEntity.name.isEmpty
+                  ? null
+                  : () {
+                      context.read<EditInformationUserBloc>().add(
+                            ChangedAddressNewEvent(
+                                address:
+                                    '${bloc.specificAddress}, ${bloc.communeEntity.name}, ${bloc.districtEntity.name}, ${bloc.provinceEntity.name}'),
+                          );
+                      context.read<AddressCountryBloc>().add(LoadAddressInit());
+                      Navigator.of(context).pop();
+                    }),
+        ),
       ),
     );
   }

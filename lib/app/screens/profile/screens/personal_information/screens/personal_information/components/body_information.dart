@@ -1,55 +1,76 @@
 import 'package:coffee_kst/app/common/animations/do_fade/fade_in.dart';
 import 'package:coffee_kst/app/common/animations/do_fade/fade_in_right.dart';
-import 'package:coffee_kst/app/screens/profile/domain/entities/user.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
+import 'package:coffee_kst/core/utils/constants_profile.dart';
+import 'package:coffee_kst/database/box/information_user.dart';
+import 'package:coffee_kst/database/hive/infor_user/infor_user.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BodyPersonalInformation extends StatelessWidget {
-  const BodyPersonalInformation({Key? key, required this.userEntity})
-      : super(key: key);
-  final UserEntity userEntity;
+  const BodyPersonalInformation({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        _buildItemWidget(
-          size,
-          'Họ tên',
-          userEntity.fullname,
-          const Duration(milliseconds: 300),
-          false,
-        ),
-        const SizedBox(height: 15.0),
-        _buildItemWidget(
-          size,
-          'Số điện thoại',
-          userEntity.phone,
-          const Duration(milliseconds: 400),
-          true,
-        ),
-        const SizedBox(height: 15.0),
-        _buildItemWidget(
-          size,
-          'Địa chỉ',
-          userEntity.fullAddress,
-          const Duration(milliseconds: 600),
-          false,
-        ),
-        const SizedBox(height: 15.0),
-        _buildItemWidget(
-          size,
-          'Giới tính',
-          userEntity.gender,
-          const Duration(milliseconds: 800),
-          true,
-        ),
-      ],
+    return ValueListenableBuilder<Box<InformationUserHive>>(
+      valueListenable:
+          Hive.box<InformationUserHive>(NAME_BOX_INFORMATION).listenable(),
+      builder: (context, Box<InformationUserHive> box, child) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            BuildItemWidget(
+              lable: LocaleKeys.fullname.tr(),
+              value: box.get(KEY_BOX_INFORMATION)!.fullname,
+              delay: const Duration(milliseconds: 300),
+              isRight: false,
+            ),
+            const SizedBox(height: 15.0),
+            BuildItemWidget(
+              lable: LocaleKeys.phone.tr(),
+              value: box.get(KEY_BOX_INFORMATION)!.phone,
+              delay: const Duration(milliseconds: 400),
+              isRight: true,
+            ),
+            const SizedBox(height: 15.0),
+            BuildItemWidget(
+              lable: LocaleKeys.address.tr(),
+              value: box.get(KEY_BOX_INFORMATION)!.full_address,
+              delay: const Duration(milliseconds: 600),
+              isRight: false,
+            ),
+            const SizedBox(height: 15.0),
+            BuildItemWidget(
+              lable: LocaleKeys.gender.tr(),
+              value: box.get(KEY_BOX_INFORMATION)!.gender == DATA_GENDER_MALE
+                  ? MALE_NAME.tr()
+                  : box.get(KEY_BOX_INFORMATION)!.gender == DATA_GENDER_FEMALE
+                      ? FEMALE_NAME.tr()
+                      : ANOTHER_NAME.tr(),
+              delay: const Duration(milliseconds: 800),
+              isRight: true,
+            ),
+          ],
+        );
+      },
     );
   }
+}
 
-  Widget _buildItemWidget(
-      Size size, String label, String valueItem, Duration delay, bool isRight) {
+class BuildItemWidget extends StatelessWidget {
+  const BuildItemWidget({
+    Key? key,
+    required this.isRight,
+    required this.delay,
+    required this.lable,
+    required this.value,
+  }) : super(key: key);
+  final bool isRight;
+  final Duration delay;
+  final String lable;
+  final String value;
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment:
           isRight ? MainAxisAlignment.end : MainAxisAlignment.start,
@@ -64,7 +85,7 @@ class BodyPersonalInformation extends StatelessWidget {
                 child: FadeIn(
                   delay: delay,
                   child: TextWidgets(
-                    text: label,
+                    text: lable,
                     fontSize: AppDimens.text18,
                     textColor: AppColors.disableTextColor,
                   ),
@@ -76,14 +97,32 @@ class BodyPersonalInformation extends StatelessWidget {
                       delay: delay,
                       child: ClipPath(
                         clipper: DrawItemPI(isRight),
-                        child: _buildItemContainerValue(size, valueItem),
+                        child: Container(
+                          padding: const EdgeInsets.all(15.0),
+                          alignment: Alignment.center,
+                          color: AppColors.primaryColor,
+                          child: TextWidgets(
+                            text: value,
+                            fontSize: AppDimens.text14,
+                            maxline: 3,
+                          ),
+                        ),
                       ),
                     )
                   : FadeInLeft(
                       delay: delay,
                       child: ClipPath(
                         clipper: DrawItemPI(isRight),
-                        child: _buildItemContainerValue(size, valueItem),
+                        child: Container(
+                          padding: const EdgeInsets.all(15.0),
+                          alignment: Alignment.center,
+                          color: AppColors.primaryColor,
+                          child: TextWidgets(
+                            text: value,
+                            fontSize: AppDimens.text14,
+                            maxline: 3,
+                          ),
+                        ),
                       ),
                     ),
             ],
@@ -91,19 +130,6 @@ class BodyPersonalInformation extends StatelessWidget {
         ),
         isRight ? const SizedBox() : const Spacer(),
       ],
-    );
-  }
-
-  Container _buildItemContainerValue(Size size, String valueItem) {
-    return Container(
-      padding: const EdgeInsets.all(15.0),
-      alignment: Alignment.center,
-      color: AppColors.primaryColor,
-      child: TextWidgets(
-        text: valueItem,
-        fontSize: AppDimens.text14,
-        maxline: 3,
-      ),
     );
   }
 }

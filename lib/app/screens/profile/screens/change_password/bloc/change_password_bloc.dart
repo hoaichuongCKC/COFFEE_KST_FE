@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:coffee_kst/app/screens/profile/domain/usecases/change_password_user.dart';
 import 'package:coffee_kst/core/error/failures.dart';
 import 'package:coffee_kst/core/models/app_model.dart';
-import 'package:coffee_kst/core/usecases/usecase.dart';
 import 'package:coffee_kst/core/utils/const_form_state.dart';
 import 'package:coffee_kst/core/utils/constants.dart';
 import 'package:coffee_kst/core/utils/constants_login.dart';
@@ -18,6 +17,14 @@ class ChangePasswordBloc
   final ChangePasswordUserUsecases changePasswordUserUsecases;
   ChangePasswordBloc({required this.changePasswordUserUsecases})
       : super(const ChangePasswordState()) {
+    on<InitChangedPasswordEvent>((event, emit) => emit(
+          state.copyWith(
+            oldPassword: '',
+            formAppState: const FormInitState(),
+            newPassword: '',
+            confirmPassword: '',
+          ),
+        ));
     on<ChangedOldPasswordEvent>((event, emit) => emit(state.copyWith(
         oldPassword: event.oldPassword, formAppState: const FormInitState())));
     on<ChangedNewPasswordEvent>((event, emit) => emit(state.copyWith(

@@ -1,11 +1,27 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 //const message app
 //-- message error validate when value null
-const String MESSAGE_ERROR_VALIDATE_ISEMPTY = "Vui lòng điền trường này!";
-const String MESSAGE_LOADING = "Đang xử lý";
+import 'package:coffee_kst/core/locale_keys.g.dart';
+import 'package:coffee_kst/main_export.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+String MESSAGE_ERROR_VALIDATE_ISEMPTY =
+    LocaleKeys.please_fill_in_this_field.tr();
+String MESSAGE_LOADING = LocaleKeys.processing.tr();
 
 //code api
 const int SUCCESS_CODE = 200;
 //LOGIN FAFILED
 const int FAILED_CODE = 201;
 const int NULL_PARAMS_CODE = 404;
+final loading = SpinKitFadingCircle(
+  itemBuilder: (BuildContext context, int index) {
+    return DecoratedBox(
+      decoration: ShapeDecoration(
+        color: index.isEven ? AppColors.lightColor : AppColors.primaryColor,
+        shape: const CircleBorder(),
+      ),
+    );
+  },
+);
