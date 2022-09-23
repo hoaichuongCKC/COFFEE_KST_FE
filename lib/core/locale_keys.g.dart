@@ -30,4 +30,12 @@ abstract class LocaleKeys {
   static const male_gender = 'male_gender';
   static const female_gender = 'female_gender';
   static const another_gender = 'another_gender';
+  static const edit = 'edit';
+  static const update = 'update';
+  static const edit_information = 'edit_information';
+  static const province = 'province';
+  static const district = 'district';
+  static const commune = 'commune';
+  static const specific_address = 'specific_address';
+  static const edit_successfully = 'edit_successfully';
 }

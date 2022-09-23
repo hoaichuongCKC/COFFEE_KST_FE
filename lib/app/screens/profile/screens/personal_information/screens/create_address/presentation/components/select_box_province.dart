@@ -1,6 +1,8 @@
 import 'package:coffee_kst/app/common/widgets/selectbox_widget.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/components/overlay_select_box.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../bloc/address_country/address_country_bloc.dart';
 
@@ -18,7 +20,7 @@ class SelectBoxProvinceCA extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextWidgets(
-              text: 'Tỉnh thành phố',
+              text: LocaleKeys.province.tr(),
               fontSize: AppDimens.text18,
               weight: FontWeight.w400,
               textColor: Theme.of(context).textTheme.bodyMedium!.color!,

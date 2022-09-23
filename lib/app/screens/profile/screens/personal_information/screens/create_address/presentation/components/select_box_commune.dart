@@ -1,7 +1,9 @@
 import 'package:coffee_kst/app/common/widgets/selectbox_widget.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/bloc/address_country/address_country_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/components/overlay_select_box.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SelectBoxCommuneCA extends StatelessWidget {
   SelectBoxCommuneCA({super.key});
@@ -17,7 +19,7 @@ class SelectBoxCommuneCA extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextWidgets(
-              text: 'Phường xã',
+              text: LocaleKeys.commune.tr(),
               fontSize: AppDimens.text18,
               weight: FontWeight.w400,
               textColor: Theme.of(context).textTheme.bodyMedium!.color!,

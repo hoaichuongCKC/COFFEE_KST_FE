@@ -8,6 +8,7 @@ class AppColors {
   static const Color darkColor = Color(0xFF2D3436);
   static const Color lightColor = Color(0xFFFFFFFF);
   static const Color blackColor = Color(0xFF2D3436);
+  static const Color indicatorColor = Color(0xFF144E5A);
 
   //text and button
   static const Color primaryColor = Color.fromARGB(255, 133, 42, 252);

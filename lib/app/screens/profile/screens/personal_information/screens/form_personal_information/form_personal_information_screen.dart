@@ -1,12 +1,13 @@
 import 'package:coffee_kst/app/common/dialog/dialog_controller.dart';
 import 'package:coffee_kst/app/common/overlay/loading.dart';
-import 'package:coffee_kst/app/common/widgets/appbar_widget.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/core/utils/const_form_state.dart';
 import 'package:coffee_kst/core/utils/constants_profile.dart';
 import 'package:coffee_kst/database/box/information_user.dart';
 import 'package:coffee_kst/database/hive/infor_user/infor_user.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'components/form_fullname.dart';
 import 'components/form_phone.dart';
 import 'components/personal_gender.dart';
@@ -135,7 +136,7 @@ class FormPersonalInformationScreen extends StatelessWidget {
       listener: (context, state) {
         if (state.state is FormSubmitSuccessState) {
           DialogController.instance.success(
-              message: 'Chỉnh sửa thành công',
+              message: LocaleKeys.edit_successfully.tr(),
               context: context,
               onClicked: () {
                 Navigator.pop(context);
@@ -149,10 +150,10 @@ class FormPersonalInformationScreen extends StatelessWidget {
       },
       builder: (context, state) {
         if (state.state is FormSubmittingState) {
-          return const Align(
+          return Align(
             alignment: Alignment.center,
             child: LoadingOverlay(
-              message: 'Đang xử lý',
+              message: LocaleKeys.processing.tr(),
             ),
           );
         }

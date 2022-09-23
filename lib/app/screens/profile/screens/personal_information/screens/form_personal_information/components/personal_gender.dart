@@ -1,4 +1,5 @@
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/core/utils/constants_profile.dart';
 import 'package:coffee_kst/main_export.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -54,7 +55,7 @@ class _GenderPersonalPIState extends State<GenderPersonalPI> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextWidgets(
-              text: 'Giới tính',
+              text: LocaleKeys.gender.tr(),
               fontSize: AppDimens.text18,
               textColor: AppColors.disableTextColor,
             ),

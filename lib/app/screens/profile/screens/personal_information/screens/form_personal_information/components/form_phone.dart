@@ -1,4 +1,5 @@
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/main_export.dart';
 
 class FormPhonePI extends StatefulWidget {
@@ -42,7 +43,7 @@ class _FormPhonePIState extends State<FormPhonePI> {
           ? ''
           : '(Đã chỉnh sửa)',
       hintText: 'Nhập số điện thoại của bạn',
-      label: 'Số điện thoại',
+      label: LocaleKeys.phone,
       inputFormaters: [
         LengthLimitingTextInputFormatter(10),
         FilteringTextInputFormatter.digitsOnly,
@@ -73,7 +74,6 @@ class _FormPhonePIState extends State<FormPhonePI> {
             );
           }),
       onChanged: (value) {
-        print(1);
         context
             .read<EditInformationUserBloc>()
             .add(ChangedPhoneEvent(phone: value));

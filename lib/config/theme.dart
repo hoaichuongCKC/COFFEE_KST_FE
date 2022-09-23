@@ -24,6 +24,10 @@ class MyThemes {
     backgroundColor: AppColors.darkColor,
     primaryColor: AppColors.darkColor,
     scaffoldBackgroundColor: AppColors.darkColor,
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: AppColors.lightColor,
+      elevation: 0.5,
+    ),
     colorScheme: const ColorScheme.dark(),
     iconTheme: const IconThemeData(
       color: AppColors.lightColor,
@@ -41,7 +45,11 @@ class MyThemes {
       titleLarge: GoogleFonts.poppins(
         color: AppColors.lightColor,
       ),
+      bodySmall: GoogleFonts.poppins(
+        color: AppColors.darkColor,
+      ),
     ),
+    indicatorColor: AppColors.darkColor,
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.darkColor,
       centerTitle: true,
@@ -66,10 +74,15 @@ class MyThemes {
 
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: AppColors.darkColor,
+      elevation: 0.5,
+    ),
     primaryColor: Colors.white,
     colorScheme: const ColorScheme.light(),
     cardColor: AppColors.disableTextColor.withAlpha(150),
     iconTheme: const IconThemeData(color: AppColors.darkColor, opacity: 0.8),
+    indicatorColor: AppColors.lightColor,
     androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
     textTheme: TextTheme(
       titleMedium: GoogleFonts.poppins(
@@ -80,6 +93,9 @@ class MyThemes {
       ),
       bodyMedium: GoogleFonts.poppins(
         color: AppColors.darkColor,
+      ),
+      bodySmall: GoogleFonts.poppins(
+        color: AppColors.lightColor,
       ),
     ),
     appBarTheme: AppBarTheme(

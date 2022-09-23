@@ -26,6 +26,7 @@ class AppIcons {
       "assets/icons/has_notification.svg";
   static const String FILTER_ASSET = "assets/icons/filter.svg";
   static const String CALENDAR_ASSET = "assets/icons/calendar.svg";
+  static const String DASBOARD_ASSET = "assets/icons/dashboard.svg";
 
   //profile screen
   static const String CAMERA_ASSET = "assets/icons/camera.svg";

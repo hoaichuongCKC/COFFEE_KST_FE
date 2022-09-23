@@ -1,5 +1,7 @@
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SelectBoxAddressPI extends StatelessWidget {
   const SelectBoxAddressPI({super.key, required this.address});
@@ -13,7 +15,7 @@ class SelectBoxAddressPI extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextWidgets(
-              text: 'Địa chỉ',
+              text: LocaleKeys.address.tr(),
               fontSize: AppDimens.text18,
               textColor: AppColors.disableTextColor,
             ),

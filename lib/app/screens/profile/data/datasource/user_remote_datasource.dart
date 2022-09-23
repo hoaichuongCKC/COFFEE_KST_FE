@@ -66,7 +66,6 @@ class UserRemoteDataSourceImpl with Api implements UserRemoteDataSource {
     if (gender == LocaleKeys.male_gender) {
       typeGender = 1;
     }
-    print(typeGender);
     final data = jsonEncode(
       {
         "params": {

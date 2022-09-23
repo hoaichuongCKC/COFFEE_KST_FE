@@ -1,5 +1,4 @@
 import 'package:coffee_kst/app/common/animations/do_fade/fade_in_right.dart';
-import 'package:coffee_kst/app/screens/profile/domain/entities/user.dart';
 import 'package:coffee_kst/core/utils/constants_profile.dart';
 import 'package:coffee_kst/main_export.dart';
 import 'package:easy_localization/easy_localization.dart';

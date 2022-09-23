@@ -1,4 +1,5 @@
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/main_export.dart';
 
 class FormFullNamePI extends StatefulWidget {
@@ -44,7 +45,7 @@ class _FormFullNamePIState extends State<FormFullNamePI> {
               ? ''
               : '(Đã chỉnh sửa)',
       hintText: 'Nhập họ tên của bạn',
-      label: 'Họ và tên',
+      label: LocaleKeys.fullname,
       suffixIcon: ValueListenableBuilder(
           valueListenable: isClear,
           builder: (context, bool currentClear, child) {

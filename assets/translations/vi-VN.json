@@ -26,5 +26,13 @@
     "gender": "Giới tính",
     "male_gender" : "Nam",
     "female_gender": "Nữ",
-    "another_gender": "Khác"
+    "another_gender": "Khác",
+    "edit": "Sửa",
+    "update": "Cập nhật",
+    "edit_information": "Chỉnh sửa thông tin",
+    "province": "Tỉnh thành phố",
+    "district" : "Quận huyện",
+    "commune": "Phường xã",
+    "specific_address": "Địa chỉ cụ thể",
+    "edit_successfully" : "Chỉnh sửa thành công" 
 }

@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-// ignore_for_file: prefer_single_quotes, constant_identifier_names
+// ignore_for_file: prefer_single_quotes, constant_identifier_names, avoid_renaming_method_parameters
 
 import 'dart:ui';
 
@@ -41,7 +41,15 @@ class CodegenLoader extends AssetLoader {
     "gender": "Gender",
     "male_gender": "Male",
     "female_gender": "Female",
-    "another_gender": "Another"
+    "another_gender": "Another",
+    "edit": "Edit",
+    "update": "Update",
+    "edit_information": "Edit Information",
+    "province": "Provinces",
+    "district": "Districts",
+    "commune": "Communes",
+    "specific_address": "Specific address",
+    "edit_successfully": "Edit successfully"
   };
   static const Map<String, dynamic> vi_VN = {
     "english": "Tiếng Anh",
@@ -70,7 +78,15 @@ class CodegenLoader extends AssetLoader {
     "gender": "Giới tính",
     "male_gender": "Nam",
     "female_gender": "Nữ",
-    "another_gender": "Khác"
+    "another_gender": "Khác",
+    "edit": "Sửa",
+    "update": "Cập nhật",
+    "edit_information": "Chỉnh sửa thông tin",
+    "province": "Tỉnh thành phố",
+    "district": "Quận huyện",
+    "commune": "Phường xã",
+    "specific_address": "Địa chỉ cụ thể",
+    "edit_successfully": "Chỉnh sửa thành công"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "en_US": en_US,

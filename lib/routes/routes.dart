@@ -1,3 +1,4 @@
+import 'package:coffee_kst/app/screens/home/presentation/home_screen.dart';
 import 'package:coffee_kst/app/screens/login/presentations/login_screen.dart';
 import 'package:coffee_kst/app/screens/login/screens/otp/otp_screen.dart';
 import 'package:coffee_kst/app/screens/profile/presentation/profile_screen.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 class AppRoutes {
   static String initRoute = '/';
   String get getInitRoute => initRoute;
+
   static final GoRouter router = GoRouter(
     initialLocation: initRoute,
     routes: <GoRoute>[
@@ -41,6 +43,13 @@ class AppRoutes {
           return const ProfileScreen();
         },
         routes: routerProfile,
+      ),
+      GoRoute(
+        path: '/home',
+        name: 'home',
+        builder: (BuildContext context, GoRouterState state) {
+          return HomeScreen();
+        },
       ),
     ],
   );

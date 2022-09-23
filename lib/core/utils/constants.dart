@@ -25,3 +25,9 @@ final loading = SpinKitFadingCircle(
     );
   },
 );
+
+//name page home - dashboard - cart - user
+const String HOME_PAGE = 'Trang chủ';
+const String DASHBOARD_PAGE = 'Danh mục';
+const String CART_PAGE = 'Giỏ hàng';
+const String USER_PAGE = 'Cá nhân';

@@ -19,7 +19,7 @@ Future initUser() async {
   //check token
   final box = await Hive.openBox<UserHive>(NAME_BOX_USER);
   if (box.get(KEY_BOX)!.token.isNotEmpty) {
-    AppRoutes.initRoute = '/profile';
+    AppRoutes.initRoute = '/home';
   }
 }
 

@@ -2,6 +2,7 @@
 
 import 'package:coffee_kst/app/common/widgets/text_form_widget.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class TextFormFieldLabel extends StatelessWidget {
   TextFormFieldLabel({
@@ -46,7 +47,7 @@ class TextFormFieldLabel extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextWidgets(
-              text: label,
+              text: label.tr(),
               fontSize: AppDimens.text18,
               textColor: AppColors.disableTextColor,
             ),

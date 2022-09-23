@@ -25,5 +25,13 @@
     "gender": "Gender",
     "male_gender" : "Male",
     "female_gender": "Female",
-    "another_gender": "Another"
+    "another_gender": "Another",
+    "edit": "Edit",
+    "update": "Update",
+    "edit_information": "Edit Information",
+    "province": "Provinces",
+    "district" : "Districts",
+    "commune": "Communes",
+    "specific_address": "Specific address",
+    "edit_successfully" : "Edit successfully" 
 }

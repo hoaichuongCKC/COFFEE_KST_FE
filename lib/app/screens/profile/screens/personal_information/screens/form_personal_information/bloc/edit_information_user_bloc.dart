@@ -76,7 +76,6 @@ class EditInformationUserBloc
         },
       );
     } catch (e) {
-      print(e.toString());
       emit(state.copyWith(
           message: e.toString(), state: FormSubmitFailedState()));
     }
