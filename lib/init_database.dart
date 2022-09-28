@@ -17,8 +17,8 @@ Future mainDatabase() async {
 Future initUser() async {
   Hive.registerAdapter(UserHiveAdapter());
   //check token
-  final box = await Hive.openBox<UserHive>(NAME_BOX_USER);
-  if (box.get(KEY_BOX)!.token.isNotEmpty) {
+  final token = await BoxesUser.instance.getDataTokenUser();
+  if (token.isNotEmpty) {
     AppRoutes.initRoute = '/home';
   }
 }

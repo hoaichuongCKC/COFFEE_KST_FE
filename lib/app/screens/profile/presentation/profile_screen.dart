@@ -43,12 +43,20 @@ class ProfileScreen extends StatelessWidget {
                             Theme.of(context).textTheme.bodyMedium!.color!,
                       ),
                       const SizedBox(height: 10.0),
-                      ButtonWidget(
-                        width: 150,
-                        label: 'Kết nối lại',
-                        onClicked: () => context
+                      InkWell(
+                        onTap: () => context
                             .read<PersonalInformationBloc>()
                             .add(LoadPIEvent()),
+                        child: SizedBox(
+                          height: 50,
+                          child: Center(
+                            child: TextWidgets(
+                              text: 'Kết nối lại',
+                              fontSize: AppDimens.text16,
+                              textColor: AppColors.primaryColor,
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   ),

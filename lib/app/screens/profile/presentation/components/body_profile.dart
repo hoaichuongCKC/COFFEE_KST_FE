@@ -1,6 +1,9 @@
 import 'package:coffee_kst/app/common/animations/do_fade/fade_in_right.dart';
+import 'package:coffee_kst/app/common/dialog/dialog_controller.dart';
 import 'package:coffee_kst/core/utils/constants_profile.dart';
+import 'package:coffee_kst/database/box/box_user.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:coffee_kst/routes/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 List<Map<String, dynamic>> listProfile = [
@@ -23,6 +26,10 @@ List<Map<String, dynamic>> listProfile = [
   {
     'icon': SvgPicture.asset(AppIcons.SETTING_ASSET),
     'label': ITEM_SETTINGS,
+  },
+  {
+    'icon': SvgPicture.asset(AppIcons.LOGOUT_ASSET),
+    'label': ITEM_LOGOUT,
   }
 ];
 
@@ -62,13 +69,27 @@ class BodyProfile extends StatelessWidget {
   _handleScreenSwitching(String label, BuildContext context) {
     switch (label) {
       case ITEM_INFORMATION:
-        context.goNamed('personal_information');
+        AppRoutes.pushNamed(INFORMATION_PATH_PROFILE);
         break;
       case ITEM_CHANGE_PASSWORD:
-        context.goNamed('change_password');
+        AppRoutes.pushNamed(CHANGE_PASSWORD_PATH_PROFILE);
         break;
       case ITEM_SETTINGS:
-        context.goNamed('settings');
+        AppRoutes.pushNamed(SETTING_PATH_PROFILE);
+        break;
+      case ITEM_LOGOUT:
+        DialogController.instance.warning(
+          message: 'Bạn có chắc đăng xuất chứ?',
+          context: context,
+          nameCancle: 'Huỷ',
+          nameConfirm: 'Thoát',
+          onConfirm: () {
+            BoxesUser.instance.deleteTokenUser();
+            AppRoutes.pushNameAndRemoveUntil(LOGIN_PATH);
+          },
+          onCancle: () => Navigator.pop(context),
+        );
+
         break;
       default:
     }

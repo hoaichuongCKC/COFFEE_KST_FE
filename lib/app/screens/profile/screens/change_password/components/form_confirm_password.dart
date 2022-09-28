@@ -49,8 +49,8 @@ class _FormConfirmPasswordState extends State<FormConfirmPassword> {
                     currentIsVisibility
                         ? Icons.visibility_off
                         : Icons.visibility,
-                    size: 20.0,
-                    color: Theme.of(context).iconTheme.color,
+                    size: 15.0,
+                    color: AppColors.darkColor,
                   ),
                 ),
               ),

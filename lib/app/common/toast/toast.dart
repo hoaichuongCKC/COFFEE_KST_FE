@@ -4,9 +4,19 @@ class Toast {
   static OverlayEntry? _overlayEntry;
   static bool isVisible = false;
   static void show(String msg, BuildContext context, int duration) async {
-    Color backgroundColor = AppColors.lightColor;
+    Color backgroundColor = Theme.of(context).brightness == Brightness.dark
+        ? AppColors.lightColor
+        : AppColors.darkColor;
     if (isVisible) return;
     Toast._createView(msg, context, backgroundColor, duration);
+  }
+
+  static void dismiss() {
+    if (isVisible) {
+      _overlayEntry!.remove();
+      _overlayEntry = null;
+      isVisible = false;
+    }
   }
 
   static void _createView(
@@ -55,7 +65,7 @@ class _ToastWidgetState extends State<_ToastAnimatedWidget>
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 400),
     );
 
     _animationController.addStatusListener((status) async {
@@ -86,7 +96,7 @@ class _ToastWidgetState extends State<_ToastAnimatedWidget>
         right: 20.0,
         child: SlideTransition(
           position: Tween<Offset>(
-            begin: const Offset(1.0, 0.0),
+            begin: const Offset(0.0, 1.0),
             end: const Offset(0, 0.0),
           ).animate(
             CurvedAnimation(
@@ -99,7 +109,7 @@ class _ToastWidgetState extends State<_ToastAnimatedWidget>
               borderRadius: BorderRadius.circular(10.0),
             ),
             padding:
-                const EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -113,13 +123,9 @@ class _ToastWidgetState extends State<_ToastAnimatedWidget>
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    widget.overlayEntry.remove();
-                    Toast.isVisible = false;
-                  },
+                  onTap: () => Toast.dismiss(),
                   child: SvgPicture.asset(AppIcons.CLEAR_ASSET),
                 ),
-                const SizedBox(width: 5.0),
               ],
             ),
           ),

@@ -33,5 +33,9 @@
     "district" : "Districts",
     "commune": "Communes",
     "specific_address": "Specific address",
-    "edit_successfully" : "Edit successfully" 
+    "edit_successfully" : "Edit successfully",
+    "password": "Password",
+    "enter_your_phone": "Enter your phone",
+    "login_with_phone": "Login with phone",
+    "login_with_password": "Login with password"
 }

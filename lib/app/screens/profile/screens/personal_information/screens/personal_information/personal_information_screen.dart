@@ -1,7 +1,8 @@
-import 'package:coffee_kst/app/common/components/avatar.dart';
+import 'package:coffee_kst/app/common/components/avatar_big.dart';
 import 'package:coffee_kst/app/common/widgets/appbar_widget.dart';
 import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:coffee_kst/routes/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import 'components/body_information.dart';
@@ -18,7 +19,7 @@ class PersonalInformationScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: InkWell(
-              onTap: () => context.goNamed('edit_personal_information'),
+              onTap: () => AppRoutes.pushNamed(EDIT_PATH_PROFILE_INFORMATION),
               child: Icon(
                 Icons.edit,
                 size: 20.0,
@@ -33,7 +34,7 @@ class PersonalInformationScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const <Widget>[
           Center(
-            child: AvatarUser(
+            child: AvatarUserBig(
               isIconCamera: true,
             ),
           ),

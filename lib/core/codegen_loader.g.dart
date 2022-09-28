@@ -49,7 +49,11 @@ class CodegenLoader extends AssetLoader {
     "district": "Districts",
     "commune": "Communes",
     "specific_address": "Specific address",
-    "edit_successfully": "Edit successfully"
+    "edit_successfully": "Edit successfully",
+    "password": "Password",
+    "enter_your_phone": "Enter your phone",
+    "login_with_phone": "Login with phone",
+    "login_with_password": "Login with password"
   };
   static const Map<String, dynamic> vi_VN = {
     "english": "Tiếng Anh",
@@ -86,7 +90,11 @@ class CodegenLoader extends AssetLoader {
     "district": "Quận huyện",
     "commune": "Phường xã",
     "specific_address": "Địa chỉ cụ thể",
-    "edit_successfully": "Chỉnh sửa thành công"
+    "edit_successfully": "Chỉnh sửa thành công",
+    "password": "Mật khẩu",
+    "enter_your_phone": "Nhập số điện thoại của bạn",
+    "login_with_phone": "Đăng nhập với số điện thoại",
+    "login_with_password": "Đăng nhập với mật khẩu"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "en_US": en_US,

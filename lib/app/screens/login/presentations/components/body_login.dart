@@ -2,8 +2,11 @@
 
 import 'package:coffee_kst/app/common/animations/do_fade/fade_in.dart';
 import 'package:coffee_kst/app/screens/login/presentations/bloc/auth/authentication_bloc.dart';
+import 'package:coffee_kst/core/locale_keys.g.dart';
 
 import 'package:coffee_kst/main_export.dart';
+import 'package:coffee_kst/routes/routes.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BodyLogin extends StatefulWidget {
   const BodyLogin({Key? key}) : super(key: key);
@@ -84,22 +87,22 @@ class _BodyLoginState extends State<BodyLogin> {
               loginMethod.value = LoginMethod.OTP_LOGIN;
               context
                   .read<AuthenticationBloc>()
-                  .add(ChangedPasswordEvent(password: ''));
+                  .add(const ChangedPasswordEvent(password: ''));
               passwordController.text = "";
             } else {
               loginMethod.value = LoginMethod.PASSWORD_LOGIN;
             }
           },
           child: FadeInUp(
-            delay: const Duration(milliseconds: 1900),
+            delay: const Duration(milliseconds: 1800),
             child: LimitedBox(
-              maxHeight: 30.0,
+              maxHeight: 50.0,
               child: SizedBox(
                 width: size.width * 0.5,
                 child: TextWidgets(
                   text: currentMethod.name == LoginMethod.PASSWORD_LOGIN.name
-                      ? LOGIN_WITH_PHONE
-                      : LOGIN_WITH_PASSWORD,
+                      ? LOGIN_WITH_PHONE.tr()
+                      : LOGIN_WITH_PASSWORD.tr(),
                   weight: FontWeight.w500,
                   textColor: AppColors.disableTextColor,
                   fontStyle: FontStyle.italic,
@@ -124,7 +127,7 @@ class _BodyLoginState extends State<BodyLogin> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextWidgets(
-              text: 'Đăng nhập',
+              text: LocaleKeys.login.tr(),
               fontSize: AppDimens.text24,
               weight: FontWeight.w600,
               textColor: Theme.of(context).textTheme.titleLarge!.color!,
@@ -139,10 +142,12 @@ class _BodyLoginState extends State<BodyLogin> {
                 LengthLimitingTextInputFormatter(10),
                 FilteringTextInputFormatter.digitsOnly,
               ],
-              label: 'Số điện thoại',
-              textInputAction: TextInputAction.next,
+              label: LocaleKeys.phone.tr(),
+              textInputAction: loginMethod.value == LoginMethod.PASSWORD_LOGIN
+                  ? TextInputAction.next
+                  : TextInputAction.done,
               keyboardType: TextInputType.number,
-              hintText: 'Nhập số điện thoại của bạn',
+              hintText: LocaleKeys.enter_your_phone.tr(),
               isRequired: true,
               suffixIcon: ValueListenableBuilder<bool>(
                   valueListenable: isVisibilityClear,
@@ -155,7 +160,7 @@ class _BodyLoginState extends State<BodyLogin> {
                           isVisibilityClear.value = false;
                           context
                               .read<AuthenticationBloc>()
-                              .add(ChangedPhoneEvent(phone: ''));
+                              .add(const ChangedPhoneEvent(phone: ''));
                         },
                         child: const SizedBox(
                           width: 40,
@@ -172,6 +177,9 @@ class _BodyLoginState extends State<BodyLogin> {
               validator: (value) {
                 if (value!.isEmpty) {
                   return MESSAGE_ERROR_VALIDATE_ISEMPTY;
+                }
+                if (value.length != 10) {
+                  return MESSAGE_ERROR_VALIDATE_LENGTH;
                 }
                 return null;
               },
@@ -211,7 +219,7 @@ class _BodyLoginState extends State<BodyLogin> {
                                   }
                                 },
                                 controller: passwordController,
-                                label: 'Mật khẩu',
+                                label: LocaleKeys.password.tr(),
                                 hintText: 'Nhập mật khẩu của bạn',
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.name,
@@ -259,7 +267,7 @@ class _BodyLoginState extends State<BodyLogin> {
     final bloc = context.watch<AuthenticationBloc>().state;
     if (bloc.phone.isEmpty && bloc.password.isEmpty) {
       return ButtonWidget(
-        label: 'Đăng nhập',
+        label: LocaleKeys.login.tr(),
         onClicked: null,
       );
     }
@@ -271,7 +279,10 @@ class _BodyLoginState extends State<BodyLogin> {
           if (loginMethod.value == LoginMethod.PASSWORD_LOGIN) {
             context.read<AuthenticationBloc>().add(SubmitFormEvent());
           } else {
-            context.read<AuthenticationBloc>().add(SubmitFormOTPEvent());
+            // context
+            //     .read<AuthPhoneBloc>()
+            //     .add(SendOtpToPhoneEvent(phoneNumber: phoneController.text));
+            AppRoutes.pushNamed(OTP_PATH);
           }
         }
       },

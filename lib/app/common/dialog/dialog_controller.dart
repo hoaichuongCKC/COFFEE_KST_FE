@@ -82,6 +82,8 @@ class DialogController {
     required BuildContext context,
     required Function() onConfirm,
     required Function() onCancle,
+    String? nameConfirm,
+    String? nameCancle,
   }) async {
     await showGeneralDialog(
       barrierColor: Colors.black.withOpacity(0.5),
@@ -109,6 +111,8 @@ class DialogController {
           message: message,
           onConfirm: onConfirm,
           onCancel: onCancle,
+          nameConfirm: nameConfirm,
+          nameCancle: nameCancle,
         );
       },
     );

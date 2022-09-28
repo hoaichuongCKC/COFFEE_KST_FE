@@ -10,6 +10,10 @@ class AppColors {
   static const Color blackColor = Color(0xFF2D3436);
   static const Color indicatorColor = Color(0xFF144E5A);
 
+  //color cate#81ecec
+  static const Color drinkColor = Color(0xFF55efc4);
+  static const Color cakeColor = Color(0xFFf3a683);
+
   //text and button
   static const Color primaryColor = Color.fromARGB(255, 133, 42, 252);
   static const Color textErrorColor = Color(0xFFFF876D);

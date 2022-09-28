@@ -36,7 +36,7 @@ class BoxesUser {
   }
 
   //delete data
-  Future deleteDataUser() async {
+  Future deleteTokenUser() async {
     var box = await BoxesUser.openBoxUser();
     await box.delete(KEY_BOX);
   }

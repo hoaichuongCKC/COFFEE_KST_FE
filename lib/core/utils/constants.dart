@@ -9,7 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 String MESSAGE_ERROR_VALIDATE_ISEMPTY =
     LocaleKeys.please_fill_in_this_field.tr();
 String MESSAGE_LOADING = LocaleKeys.processing.tr();
-
+String MESSAGE_ERROR_VALIDATE_LENGTH = "Số điện thoại không hợp lệ";
 //code api
 const int SUCCESS_CODE = 200;
 //LOGIN FAFILED

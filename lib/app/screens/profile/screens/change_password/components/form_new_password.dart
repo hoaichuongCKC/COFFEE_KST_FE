@@ -49,7 +49,7 @@ class _FormNewPasswordState extends State<FormNewPassword> {
                     currentIsVisibility
                         ? Icons.visibility_off
                         : Icons.visibility,
-                    size: 20.0,
+                    size: 15.0,
                     color: AppColors.darkColor,
                   ),
                 ),

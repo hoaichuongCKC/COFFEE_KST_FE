@@ -1,3 +1,4 @@
+import 'package:coffee_kst/config/colors.dart';
 import 'package:flutter/cupertino.dart';
 
 class AppStyles {
@@ -36,4 +37,16 @@ class AppStyles {
   //border - container
   // static const BorderRadius borderPurple = BorderRadius.only(
   //     topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0));
+  static BoxDecoration pinputUnderline = BoxDecoration(
+    color: AppColors.lightColor,
+    border: Border(
+      bottom: BorderSide(
+        color: AppColors.primaryColor.withAlpha(100),
+      ),
+    ),
+  );
+  static BoxDecoration pinputOutline = const BoxDecoration(
+    borderRadius: borderRadius12,
+    color: AppColors.lightColor,
+  );
 }

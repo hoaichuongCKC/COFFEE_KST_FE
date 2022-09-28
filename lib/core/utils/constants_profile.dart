@@ -9,6 +9,7 @@ const String ITEM_CHANGE_PASSWORD = LocaleKeys.change_password;
 const String ITEM_FAVORITE_PRODUCT = LocaleKeys.my_favorite;
 const String ITEM_MY_INVOICE = LocaleKeys.my_receipt;
 const String ITEM_SETTINGS = LocaleKeys.settings;
+const String ITEM_LOGOUT = LocaleKeys.logout;
 
 /////---> const personal-information
 const String MALE_NAME = LocaleKeys.male_gender;

@@ -139,6 +139,9 @@ class FormPersonalInformationScreen extends StatelessWidget {
               message: LocaleKeys.edit_successfully.tr(),
               context: context,
               onClicked: () {
+                context
+                    .read<EditInformationUserBloc>()
+                    .add(ChangedEditInitial());
                 Navigator.pop(context);
                 Navigator.pop(context);
               });

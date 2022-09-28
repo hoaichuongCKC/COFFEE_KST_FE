@@ -2,9 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:coffee_kst/app/screens/login/domain/entities/login.dart';
-import 'package:coffee_kst/app/screens/login/domain/entities/login_otp.dart';
 import 'package:coffee_kst/app/screens/login/domain/usecases/auth_login.dart';
-import 'package:coffee_kst/app/screens/login/domain/usecases/auth_otp.dart';
 import 'package:coffee_kst/core/error/failures.dart';
 import 'package:coffee_kst/core/utils/const_form_state.dart';
 import 'package:coffee_kst/database/box/box_user.dart';
@@ -19,20 +17,14 @@ class AuthenticationBloc
   //use case login
   final AuthLoginUsecases authLoginUsecases;
 
-  //use case login
-  final AuthOTPUsecases authLoginOTPUsecases;
-
   //init bloc and event
-  AuthenticationBloc(
-      {required this.authLoginUsecases, required this.authLoginOTPUsecases})
+  AuthenticationBloc({required this.authLoginUsecases})
       : super(const AuthenticationState()) {
     on<ChangedPhoneEvent>(
         (event, emit) async => emit(state.copyWith(phone: event.phone)));
     on<ChangedPasswordEvent>(
         (event, emit) async => emit(state.copyWith(password: event.password)));
     on<SubmitFormEvent>((event, emit) async => _handleLogin(event, emit));
-
-    on<SubmitFormOTPEvent>((event, emit) async => _handleLoginOTP(event, emit));
   }
 
   //login phone with password
@@ -73,27 +65,38 @@ class AuthenticationBloc
     }
   }
 
-  //login phone otp
-  _handleLoginOTP(
-      SubmitFormOTPEvent event, Emitter<AuthenticationState> emit) async {
-    emit(state.copyWith(formState: FormSubmittingState()));
-    try {
-      final result = await authLoginOTPUsecases.call(ParamsOTP(
-        phone: state.phone,
-      ));
-      result.fold(
-        (Failure resutl) {
-          if (resutl is InternetFailure) {
-            emit(state.copyWith(message: MESSAGE_NOT_INTERNET));
-          } else if (result is ServerFailure) {
-            emit(state.copyWith(message: MESSAGE_SERVER_FAILURE));
-          }
-        },
-        (LoginOTPEntity result) {},
-      );
-    } catch (message) {
-      emit(state.copyWith(message: message.toString()));
-      emit(state.copyWith(formState: FormSubmitFailedState()));
-    }
-  }
+  // //login phone otp
+  // _handleLoginOTP(
+  //     SubmitFormOTPEvent event, Emitter<AuthenticationState> emit) async {
+  //   FirebaseAuth auth = FirebaseAuth.instance;
+  //   emit(state.copyWith(
+  //     formState: FormSubmittingState(),
+  //     event: SubmitFormOTPEvent(),
+  //   ));
+  //   try {
+  //     await FirebaseAuth.instance.verifyPhoneNumber(
+  //       phoneNumber: '+84 ${state.phone}',
+  //       verificationCompleted: (PhoneAuthCredential credential) async {
+  //         // await auth.signInWithCredential(credential).then((value) {
+  //         //   print('verificationCompleted');
+  //         //   emit(state.copyWith(smsCode: credential.smsCode));
+  //         // });
+  //       },
+  //       verificationFailed: (FirebaseAuthException e) {
+  //         print('verificationFailed');
+  //       },
+  //       codeSent: (String verificationId, int? resendToken) async {
+  //         print('code sent');
+  //         emit(state.copyWith(
+  //             verificationId: verificationId, resendToken: resendToken));
+  //       },
+  //       codeAutoRetrievalTimeout: (String verificationId) {
+  //         print('codeAutoRetrievalTimeout');
+  //       },
+  //     );
+  //   } catch (message) {
+  //     emit(state.copyWith(message: message.toString()));
+  //     emit(state.copyWith(formState: FormSubmitFailedState()));
+  //   }
+  // }
 }

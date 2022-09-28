@@ -27,6 +27,10 @@ class AppIcons {
   static const String FILTER_ASSET = "assets/icons/filter.svg";
   static const String CALENDAR_ASSET = "assets/icons/calendar.svg";
   static const String DASBOARD_ASSET = "assets/icons/dashboard.svg";
+  static const String LOGOUT_ASSET = "assets/icons/logout.svg";
+  static const String CATEG_COFFEE_ASSET = "assets/icons/cag_coffee.svg";
+  static const String CATEG_CAKE_ASSET = "assets/icons/cag_cake.svg";
+  static const String CATEG_TEA_ASSET = "assets/icons/cag_tea.svg";
 
   //profile screen
   static const String CAMERA_ASSET = "assets/icons/camera.svg";

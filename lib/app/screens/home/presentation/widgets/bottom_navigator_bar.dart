@@ -33,8 +33,8 @@ class _BottomNavigatorState extends State<BottomNavigator> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.1,
       constraints: const BoxConstraints(
-        minHeight: 70.0,
-        maxHeight: 80.0,
+        minHeight: 60.0,
+        maxHeight: 70.0,
       ),
       decoration: BoxDecoration(
         borderRadius: AppStyles.borderRadiusTopLeftRight12,
@@ -124,7 +124,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         const SizedBox(height: 7.0),
         TextWidgets(
           text: label,
-          fontSize: AppDimens.text14,
+          fontSize: AppDimens.text10,
           textColor: isSelectPage
               ? AppColors.primaryColor
               : AppColors.disableTextColor,

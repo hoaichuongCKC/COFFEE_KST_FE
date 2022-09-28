@@ -1,4 +1,4 @@
-import 'package:coffee_kst/app/common/components/avatar.dart';
+import 'package:coffee_kst/app/common/components/avatar_big.dart';
 import 'package:coffee_kst/database/box/information_user.dart';
 import 'package:coffee_kst/database/hive/infor_user/infor_user.dart';
 import 'package:coffee_kst/main_export.dart';
@@ -37,7 +37,7 @@ class HeaderProfileWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const AvatarUser(),
+                      const AvatarUserBig(),
                       const SizedBox(height: 8.0),
                       TextWidgets(
                         text: box.get(KEY_BOX_INFORMATION)!.fullname,

@@ -2,22 +2,26 @@
 part of 'authentication_bloc.dart';
 
 @immutable
-abstract class AuthenticationEvent {}
+abstract class AuthenticationEvent {
+  const AuthenticationEvent();
+}
+
+class AuthInitEvent extends AuthenticationEvent {
+  const AuthInitEvent();
+}
 
 class ChangedPhoneEvent extends AuthenticationEvent {
   final String phone;
-  ChangedPhoneEvent({
+  const ChangedPhoneEvent({
     required this.phone,
   });
 }
 
 class ChangedPasswordEvent extends AuthenticationEvent {
   final String password;
-  ChangedPasswordEvent({
+  const ChangedPasswordEvent({
     required this.password,
   });
 }
 
 class SubmitFormEvent extends AuthenticationEvent {}
-
-class SubmitFormOTPEvent extends AuthenticationEvent {}

@@ -15,14 +15,14 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder<Box<ThemeHive>>(
       valueListenable: Hive.box<ThemeHive>(NAME_BOX_THEME).listenable(),
       builder: (context, Box<ThemeHive> box, child) {
-        return MaterialApp.router(
+        return MaterialApp(
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
-          routeInformationProvider: AppRoutes.router.routeInformationProvider,
-          routeInformationParser: AppRoutes.router.routeInformationParser,
-          routerDelegate: AppRoutes.router.routerDelegate,
+          initialRoute: AppRoutes.initRoute,
+          onGenerateRoute: AppRoutes.generateRoute,
           title: 'COFFEE KST',
+          navigatorKey: AppRoutes.navigatorKey,
           theme: box.get(KEY_BOX_THEME)!.isDarkTheme
               ? MyThemes.darkTheme
               : MyThemes.lightTheme,

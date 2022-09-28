@@ -1,6 +1,7 @@
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
 import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:coffee_kst/routes/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class SelectBoxAddressPI extends StatelessWidget {
@@ -31,7 +32,8 @@ class SelectBoxAddressPI extends StatelessWidget {
         ),
         const SizedBox(height: 8.0),
         GestureDetector(
-          onTap: () => context.goNamed('create_address'),
+          onTap: () =>
+              AppRoutes.pushNamed(CREATE_ADDRESS_PATH_PROFILE_INFORMATION),
           child: Container(
             width: double.infinity,
             padding: const EdgeInsets.all(15.0),

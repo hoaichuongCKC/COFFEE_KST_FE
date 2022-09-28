@@ -1,7 +1,7 @@
 import 'package:coffee_kst/main_export.dart';
 
-class AvatarUser extends StatelessWidget {
-  const AvatarUser({Key? key, this.isIconCamera = false}) : super(key: key);
+class AvatarUserBig extends StatelessWidget {
+  const AvatarUserBig({Key? key, this.isIconCamera = false}) : super(key: key);
   final bool isIconCamera;
   @override
   Widget build(BuildContext context) {

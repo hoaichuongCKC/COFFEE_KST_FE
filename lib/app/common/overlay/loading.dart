@@ -9,13 +9,13 @@ class LoadingOverlay extends StatelessWidget {
 
     return Container(
       width: size.width * 0.65,
-      height: size.height * 0.15,
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: AppColors.blackColor.withAlpha(100),
         borderRadius: AppStyles.borderRadius12,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           loading,

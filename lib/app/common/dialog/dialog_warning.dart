@@ -1,15 +1,21 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:coffee_kst/main_export.dart';
 
 class DialogWarning extends StatelessWidget {
-  const DialogWarning({
+  DialogWarning({
     Key? key,
     required this.onConfirm,
     required this.message,
     required this.onCancel,
+    this.nameCancle,
+    this.nameConfirm,
   }) : super(key: key);
   final String message;
   final Function() onConfirm;
   final Function() onCancel;
+  String? nameConfirm;
+  String? nameCancle;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -42,7 +48,7 @@ class DialogWarning extends StatelessWidget {
                 GestureDetector(
                   onTap: onConfirm,
                   child: TextWidgets(
-                    text: 'Đồng ý',
+                    text: nameConfirm ?? 'Đồng ý',
                     fontSize: AppDimens.text14,
                     textColor: AppColors.primaryColor,
                   ),
@@ -51,7 +57,7 @@ class DialogWarning extends StatelessWidget {
                 GestureDetector(
                   onTap: onCancel,
                   child: TextWidgets(
-                    text: 'Quay lại',
+                    text: nameCancle ?? 'Quay lại',
                     fontSize: AppDimens.text14,
                     textColor: AppColors.disableTextColor,
                   ),

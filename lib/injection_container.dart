@@ -1,9 +1,14 @@
+import 'package:coffee_kst/app/screens/home/data/datasource/home_remote_datasource.dart';
+import 'package:coffee_kst/app/screens/home/data/repositories/home_repositories_impl.dart';
+import 'package:coffee_kst/app/screens/home/domain/repositories/home_repository.dart';
+import 'package:coffee_kst/app/screens/home/domain/usecase/get_product_type.dart';
+import 'package:coffee_kst/app/screens/home/presentation/bloc/product_type/product_type_bloc.dart';
 import 'package:coffee_kst/app/screens/login/data/datasource/auth_login_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/login/data/repositories/auth_login_repository_impl.dart';
 import 'package:coffee_kst/app/screens/login/domain/repositories/auth_login_repository.dart';
 import 'package:coffee_kst/app/screens/login/domain/usecases/auth_login.dart';
-import 'package:coffee_kst/app/screens/login/domain/usecases/auth_otp.dart';
 import 'package:coffee_kst/app/screens/login/presentations/bloc/auth/authentication_bloc.dart';
+import 'package:coffee_kst/app/screens/login/presentations/bloc/auth_phone/auth_phone_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/data/datasource/user_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/profile/data/repositories/user_repository_impl.dart';
 import 'package:coffee_kst/app/screens/profile/domain/repositories/profile_repository.dart';
@@ -30,16 +35,32 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //! Features - AuthenticationBloc
   // Bloc
+  _diAuth();
+  //---------------------------------------------------
+  //Feature UserController
+  _diUserController();
+  //---------------------------------------------------------
+
+  _diHome();
+  //----------------------------------
+  // //! Core
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+
+  // //! External
+  sl.registerLazySingleton(() => Connectivity());
+}
+
+_diAuth() {
   sl.registerFactory(
     () => AuthenticationBloc(
       authLoginUsecases: sl(),
-      authLoginOTPUsecases: sl(),
     ),
   );
-
+  sl.registerFactory(
+    () => AuthPhoneBloc(),
+  );
   // Use cases - Authentication
   sl.registerLazySingleton(() => AuthLoginUsecases(sl()));
-  sl.registerLazySingleton(() => AuthOTPUsecases(sl()));
 
   // Repository - Authentication
   sl.registerLazySingleton(
@@ -56,8 +77,9 @@ Future<void> init() async {
   sl.registerLazySingleton<AuthLoginRemoteDataSource>(
     () => AuthLoginRemoteDataSourceImpl(),
   );
+}
 
-  //---------------------------------------------------
+_diUserController() {
   //Feature UserController
   sl.registerFactory(
     () => PersonalInformationBloc(
@@ -110,10 +132,28 @@ Future<void> init() async {
   sl.registerLazySingleton<AddressRemoteDataSource>(
     () => AddressRemoteDataSourceImpl(),
   );
-  //---------------------------------------------------------
-  // //! Core
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+}
 
-  // //! External
-  sl.registerLazySingleton(() => Connectivity());
+_diHome() {
+  //Feature load product type
+  sl.registerFactory(
+    () => ProductTypeBloc(
+      sl(),
+    ),
+  ); // Use cases - PRoductControoller
+  sl.registerLazySingleton(() => GetProducTypeUseCase(repository: sl()));
+  // Repository - PRoductControoller
+  sl.registerLazySingleton(
+    () => HomeRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),
+  );
+  sl.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImpl(
+      networkInfo: sl(),
+      remoteDataSource: sl(),
+    ),
+  );
+  // Data sources - PRoductControoller
+  sl.registerLazySingleton<HomeRemoteDataSource>(
+    () => HomeRemoteDataSourceImpl(),
+  );
 }

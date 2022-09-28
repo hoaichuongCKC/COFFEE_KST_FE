@@ -34,5 +34,9 @@
     "district" : "Quận huyện",
     "commune": "Phường xã",
     "specific_address": "Địa chỉ cụ thể",
-    "edit_successfully" : "Chỉnh sửa thành công" 
+    "edit_successfully" : "Chỉnh sửa thành công",
+    "password": "Mật khẩu",
+    "enter_your_phone": "Nhập số điện thoại của bạn",
+    "login_with_phone": "Đăng nhập với số điện thoại",
+    "login_with_password": "Đăng nhập với mật khẩu"
 }
