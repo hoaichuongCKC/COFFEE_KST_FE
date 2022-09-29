@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 abstract class Api {
   Dio get _dio => _initDio();
   static String BASE_URL =
-      "https://1264-2405-4802-a23a-a140-f528-5a34-cc3c-b38b.ap.ngrok.io/api/v2.0";
+      "https://6e2c-2405-4802-a23a-a140-84ef-3295-78d6-d568.ap.ngrok.io/api/v2.0";
   Dio _initDio() {
     final Dio dio = Dio();
 
@@ -28,7 +28,6 @@ abstract class Api {
     ProgressCallback? onReceiveProgres,
   }) async {
     try {
-      print(BASE_URL + endpoint);
       final response = await _dio.post(
         BASE_URL + endpoint,
         data: data,

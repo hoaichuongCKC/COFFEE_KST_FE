@@ -20,16 +20,15 @@ class ProductTypeBloc extends Bloc<ProductTypeEvent, ProductTypeState> {
   }
   _handleLoad(
       LoadTypeProductEvent event, Emitter<ProductTypeState> emit) async {
-    print(1);
     emit(LoadingState());
     try {
       final result = await getProducTypeUseCase.call(NoParams());
 
       result.fold(
-        (Failure l) {
-          if (result is InternetFailure) {
+        (Failure left) {
+          if (left is InternetFailure) {
             emit(const LoadFailedState(messageError: MESSAGE_NOT_INTERNET));
-          } else if (result is ServerFailure) {
+          } else if (left is ServerFailure) {
             emit(const LoadFailedState(messageError: MESSAGE_SERVER_FAILURE));
           }
         },

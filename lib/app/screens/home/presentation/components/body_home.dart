@@ -1,6 +1,8 @@
 import 'package:coffee_kst/app/screens/home/presentation/components/best_seller_home.dart';
 import 'package:coffee_kst/app/screens/home/presentation/components/categories_home.dart';
 import 'package:coffee_kst/app/screens/home/presentation/components/header_home_page.dart';
+import 'package:coffee_kst/app/screens/home/presentation/components/recommend_product.dart';
+import 'package:coffee_kst/app/screens/home/presentation/components/voucher_home.dart';
 import 'package:coffee_kst/main_export.dart';
 
 class BodyHome extends StatelessWidget {
@@ -8,17 +10,15 @@ class BodyHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            HeaderHomePage(),
-            CategoriesHome(),
-            BestSellerHome(),
-          ],
-        ),
+    return const SafeArea(
+      child: CustomScrollView(
+        slivers: <Widget>[
+          HeaderHomePage(),
+          CategoriesHome(),
+          BestSellerHome(),
+          VoucherHome(),
+          RecommendTitleHome(),
+        ],
       ),
     );
   }

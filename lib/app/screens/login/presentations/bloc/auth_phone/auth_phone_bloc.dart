@@ -22,13 +22,11 @@ class AuthPhoneBloc extends Bloc<AuthPhoneEvent, AuthPhoneState> {
       (event, emit) {
         emit(state.copyWith(
             otpCode: event.otpCode, state: const AuthPhoneCodeSentSuccess()));
-        print(state.otpCode);
       },
     );
     on<OnPhoneOtpSent>(
       (event, emit) {
         emit(state.copyWith(verificationId: event.verificationId));
-        print(state.verificationId);
       },
     );
     // When any error occurs while sending otp to the user's phone, this event will be fired

@@ -1,15 +1,21 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:coffee_kst/app/common/animations/push_screen/scale.dart';
+import 'package:coffee_kst/app/common/animations/push_screen/slide_top_left.dart';
+import 'package:coffee_kst/app/screens/detail/detail_screen.dart';
 import 'package:coffee_kst/app/screens/home/presentation/home_screen.dart';
+import 'package:coffee_kst/app/screens/home/screens/notification/notification_screen.dart';
 import 'package:coffee_kst/app/screens/login/presentations/login_screen.dart';
 import 'package:coffee_kst/app/screens/login/screens/otp/otp_screen.dart';
-import 'package:coffee_kst/app/screens/notification/notification_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/change_password/change_password_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/create_address_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/form_personal_information_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/personal_information/personal_information_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
+
+//router -- alone
+const String DETAIL_PATH = '/detail';
 
 //router login
 const String LOGIN_PATH = '/';
@@ -18,7 +24,7 @@ const String CREATE_ACCOUNT_PATH = '/create_account';
 
 //router home
 const String HOME_PATH = '/home';
-const String NOTIFICATION_PATH = '/notification';
+const String NOTIFICATION_PATH = 'home/notification';
 
 //router profile
 const String PROFILE_PATH = '/profile';
@@ -40,6 +46,10 @@ class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       //router login
+      case DETAIL_PATH:
+        return PushScale(child: const DetailScreen());
+
+      //router login
       case LOGIN_PATH:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
@@ -60,27 +70,20 @@ class AppRoutes {
 
       //router profile
       case INFORMATION_PATH_PROFILE:
-        return MaterialPageRoute(
-          builder: (_) => const PersonalInformationScreen(),
-        );
+        return PushSlideToLeft(child: const PersonalInformationScreen());
 
       case EDIT_PATH_PROFILE_INFORMATION:
-        return MaterialPageRoute(
-          builder: (_) => const FormPersonalInformationScreen(),
-        );
+        return PushSlideToLeft(child: const FormPersonalInformationScreen());
+
       case CREATE_ADDRESS_PATH_PROFILE_INFORMATION:
-        return MaterialPageRoute(
-          builder: (_) => const CreateAddressScreen(),
-        );
+        return PushSlideToLeft(child: const CreateAddressScreen());
+
       case CHANGE_PASSWORD_PATH_PROFILE:
-        return MaterialPageRoute(
-          builder: (_) => ChangePasswordScreen(),
-        );
+        return PushSlideToLeft(child: ChangePasswordScreen());
 
       case SETTING_PATH_PROFILE:
-        return MaterialPageRoute(
-          builder: (_) => const SettingsScreen(),
-        );
+        return PushSlideToLeft(child: const SettingsScreen());
+
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

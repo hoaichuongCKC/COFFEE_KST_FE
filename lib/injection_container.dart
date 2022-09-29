@@ -1,8 +1,12 @@
 import 'package:coffee_kst/app/screens/home/data/datasource/home_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/home/data/repositories/home_repositories_impl.dart';
 import 'package:coffee_kst/app/screens/home/domain/repositories/home_repository.dart';
+import 'package:coffee_kst/app/screens/home/domain/usecase/get_list_product.dart';
 import 'package:coffee_kst/app/screens/home/domain/usecase/get_product_type.dart';
+import 'package:coffee_kst/app/screens/home/domain/usecase/get_voucher.dart';
+import 'package:coffee_kst/app/screens/home/presentation/bloc/product/product_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/product_type/product_type_bloc.dart';
+import 'package:coffee_kst/app/screens/home/presentation/bloc/voucher/voucher_bloc.dart';
 import 'package:coffee_kst/app/screens/login/data/datasource/auth_login_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/login/data/repositories/auth_login_repository_impl.dart';
 import 'package:coffee_kst/app/screens/login/domain/repositories/auth_login_repository.dart';
@@ -137,11 +141,18 @@ _diUserController() {
 _diHome() {
   //Feature load product type
   sl.registerFactory(
-    () => ProductTypeBloc(
-      sl(),
-    ),
-  ); // Use cases - PRoductControoller
+    () => ProductTypeBloc(sl()),
+  );
+  sl.registerFactory(
+    () => VoucherHomeBloc(sl()),
+  );
+  sl.registerFactory(
+    () => ProductBloc(sl()),
+  );
+  // Use cases - PRoductControoller - voucher controller
   sl.registerLazySingleton(() => GetProducTypeUseCase(repository: sl()));
+  sl.registerLazySingleton(() => GetListProductUseCase(repository: sl()));
+  sl.registerLazySingleton(() => GetListVoucherUseCase(repository: sl()));
   // Repository - PRoductControoller
   sl.registerLazySingleton(
     () => HomeRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),

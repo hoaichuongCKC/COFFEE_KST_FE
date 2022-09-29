@@ -1,7 +1,5 @@
-import 'package:coffee_kst/app/common/toast/toast.dart';
 import 'package:coffee_kst/app/screens/login/presentations/bloc/auth_phone/auth_phone_bloc.dart';
 import 'package:coffee_kst/main_export.dart';
-import 'package:coffee_kst/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';

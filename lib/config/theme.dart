@@ -73,7 +73,7 @@ class MyThemes {
   );
 
   static final lightTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: const Color.fromARGB(255, 252, 252, 252),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.darkColor,
       elevation: 0.5,
