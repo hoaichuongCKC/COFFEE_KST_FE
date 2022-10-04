@@ -1,6 +1,8 @@
 // ignore_for_file: invalid_use_of_protected_member
 
 import 'package:coffee_kst/app/common/animations/do_fade/fade_in.dart';
+import 'package:coffee_kst/app/common/overlay/controller.dart';
+import 'package:coffee_kst/app/common/overlay/loading.dart';
 import 'package:coffee_kst/app/screens/login/presentations/bloc/auth/authentication_bloc.dart';
 import 'package:coffee_kst/core/locale_keys.g.dart';
 
@@ -227,6 +229,8 @@ class _BodyLoginState extends State<BodyLogin> {
                                 suffixIcon: GestureDetector(
                                   onTap: () {
                                     if (!currentObscureText) {
+                                      OverlayController.showLoading(
+                                          context, const LoadingOverlay());
                                       isObscureText.value = true;
                                     } else {
                                       isObscureText.value = false;

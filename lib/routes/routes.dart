@@ -2,7 +2,7 @@
 
 import 'package:coffee_kst/app/common/animations/push_screen/scale.dart';
 import 'package:coffee_kst/app/common/animations/push_screen/slide_top_left.dart';
-import 'package:coffee_kst/app/screens/detail/detail_screen.dart';
+import 'package:coffee_kst/app/screens/detail/presentation/detail_screen.dart';
 import 'package:coffee_kst/app/screens/home/presentation/home_screen.dart';
 import 'package:coffee_kst/app/screens/home/screens/notification/notification_screen.dart';
 import 'package:coffee_kst/app/screens/login/presentations/login_screen.dart';

@@ -46,7 +46,7 @@ class ItemProductHorizontal extends StatelessWidget {
                       ),
                       const SizedBox(height: 5.0),
                       TextWidgets(
-                        text: 'Loại: ${entity.categName}',
+                        text: 'Loại: ${entity.categName} / 1 ${entity.unit}',
                         fontSize: AppDimens.text12,
                         textColor: AppColors.disableTextColor,
                       ),

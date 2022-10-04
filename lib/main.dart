@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:coffee_kst/app/app.dart';
+import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail/product_detail_bloc.dart';
 import 'package:coffee_kst/app/screens/login/presentations/bloc/auth_phone/auth_phone_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/bloc/address_country/address_country_bloc.dart';
 import 'package:coffee_kst/core/codegen_loader.g.dart';
@@ -41,6 +41,9 @@ void main() async {
           ),
           BlocProvider(
             create: (context) => sl<AuthPhoneBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<ProductDetailBloc>(),
           )
         ],
         child: const MyApp(),

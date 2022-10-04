@@ -22,6 +22,8 @@ class PersonalInformationBloc
   }
   _handleLoadProfile(
       LoadPIEvent event, Emitter<PersonalInformationState> emit) async {
+    if (state is PILoadedState) return;
+
     emit(PILoadingState());
     try {
       final result = await getInformationUserUsecases.call(NoParams());

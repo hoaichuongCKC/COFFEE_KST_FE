@@ -1,7 +1,9 @@
 import 'package:coffee_kst/app/common/components/item_product_horizontal.dart';
+import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail/product_detail_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/product/product_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/widgets/title_home.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:coffee_kst/routes/routes.dart';
 
 class RecommendTitleHome extends StatelessWidget {
   const RecommendTitleHome({Key? key}) : super(key: key);
@@ -97,7 +99,14 @@ class _RecommendListProductHomeState extends State<RecommendListProductHome> {
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const SizedBox(),
             itemBuilder: (context, index) {
-              return ItemProductHorizontal(entity: state.list[index]);
+              return InkWell(
+                  onTap: () {
+                    AppRoutes.pushNamed(DETAIL_PATH);
+                    context.read<ProductDetailBloc>().add(
+                        LoadProductDetailEvent(
+                            productID: state.list[index].id));
+                  },
+                  child: ItemProductHorizontal(entity: state.list[index]));
             },
           );
         }

@@ -1,5 +1,4 @@
 import 'package:coffee_kst/app/common/dialog/dialog_controller.dart';
-import 'package:coffee_kst/app/common/overlay/loading.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
 import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/core/utils/const_form_state.dart';
@@ -152,14 +151,6 @@ class FormPersonalInformationScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if (state.state is FormSubmittingState) {
-          return Align(
-            alignment: Alignment.center,
-            child: LoadingOverlay(
-              message: LocaleKeys.processing.tr(),
-            ),
-          );
-        }
         return const SizedBox();
       },
     );

@@ -1,3 +1,4 @@
+import 'package:coffee_kst/app/screens/cart/presentation/components/list_product.dart';
 import 'package:coffee_kst/main_export.dart';
 
 class CartScreen extends StatelessWidget {
@@ -5,16 +6,30 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Center(
-            child: TextWidgets(
-              text: 'Cart Page',
-              textColor: Theme.of(context).textTheme.bodyMedium!.color!,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: TextWidgets(
+            text: 'Giỏ hàng',
+            fontSize: AppDimens.text22,
+            textColor: AppColors.darkColor,
+          ),
+        ),
+        backgroundColor: AppColors.lightColor,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Expanded(
+              flex: 2,
+              child: ListProductCart(),
             ),
-          )
-        ],
+            Expanded(
+              child: Container(),
+            )
+          ],
+        ),
       ),
     );
   }

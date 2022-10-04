@@ -37,6 +37,7 @@ class CategoriesHome extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final list = state.list;
                           return Container(
+                            key: PageStorageKey(list[index].categ_name),
                             margin: EdgeInsets.only(
                                 left: 15.0, right: index == 2 ? 15.0 : 0.0),
                             padding: const EdgeInsets.all(10.0),

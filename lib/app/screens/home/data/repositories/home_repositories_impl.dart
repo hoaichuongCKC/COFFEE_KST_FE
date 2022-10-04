@@ -20,8 +20,8 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<Either<Failure, List<ProductTypeEntity>>> getProductType() async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteLogin = await remoteDataSource.getProductType();
-        return Right(remoteLogin);
+        final remoteData = await remoteDataSource.getProductType();
+        return Right(remoteData);
       } on ServerException {
         return Left(ServerFailure());
       }
@@ -34,8 +34,8 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<Either<Failure, List<VoucherEntity>>> getListVoucher() async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteLogin = await remoteDataSource.getListVoucher();
-        return Right(remoteLogin);
+        final remoteData = await remoteDataSource.getListVoucher();
+        return Right(remoteData);
       } on ServerException {
         return Left(ServerFailure());
       }
@@ -48,8 +48,8 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<Either<Failure, List<ProductEntity>>> getListProduct() async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteLogin = await remoteDataSource.getListProduct();
-        return Right(remoteLogin);
+        final remoteData = await remoteDataSource.getListProduct();
+        return Right(remoteData);
       } on ServerException {
         return Left(ServerFailure());
       }

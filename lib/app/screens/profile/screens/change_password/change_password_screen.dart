@@ -1,5 +1,4 @@
 import 'package:coffee_kst/app/common/dialog/dialog_controller.dart';
-import 'package:coffee_kst/app/common/overlay/loading.dart';
 import 'package:coffee_kst/app/common/widgets/appbar_widget.dart';
 import 'package:coffee_kst/app/screens/profile/screens/change_password/bloc/change_password_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/screens/change_password/components/form_confirm_password.dart';
@@ -70,13 +69,6 @@ class ChangePasswordScreen extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     _buildBody(context),
-                    changePassState.formAppState is FormSubmittingState
-                        ? Align(
-                            alignment: Alignment.center,
-                            child: LoadingOverlay(
-                                message: '${LocaleKeys.processing.tr()}...'),
-                          )
-                        : const SizedBox()
                   ],
                 );
               },

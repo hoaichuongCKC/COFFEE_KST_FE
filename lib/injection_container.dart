@@ -1,3 +1,8 @@
+import 'package:coffee_kst/app/screens/detail/data/datasource/detail_remote_datasource.dart';
+import 'package:coffee_kst/app/screens/detail/data/repositories/detail_repositories_impl.dart';
+import 'package:coffee_kst/app/screens/detail/domain/repositories/home_repository.dart';
+import 'package:coffee_kst/app/screens/detail/domain/usecase/get_detail.dart';
+import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail/product_detail_bloc.dart';
 import 'package:coffee_kst/app/screens/home/data/datasource/home_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/home/data/repositories/home_repositories_impl.dart';
 import 'package:coffee_kst/app/screens/home/domain/repositories/home_repository.dart';
@@ -47,6 +52,8 @@ Future<void> init() async {
 
   _diHome();
   //----------------------------------
+
+  _diDetail();
   // //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
@@ -166,5 +173,28 @@ _diHome() {
   // Data sources - PRoductControoller
   sl.registerLazySingleton<HomeRemoteDataSource>(
     () => HomeRemoteDataSourceImpl(),
+  );
+}
+
+_diDetail() {
+  //Feature load product type
+  sl.registerFactory(
+    () => ProductDetailBloc(sl()),
+  );
+  // Use cases - PRoductControoller - voucher controller
+  sl.registerLazySingleton(() => GetDetailUseCase(repository: sl()));
+  // Repository - PRoductControoller
+  sl.registerLazySingleton(
+    () => DetailRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),
+  );
+  sl.registerLazySingleton<DetailRepository>(
+    () => DetailRepositoryImpl(
+      networkInfo: sl(),
+      remoteDataSource: sl(),
+    ),
+  );
+  // Data sources - PRoductControoller
+  sl.registerLazySingleton<DetailRemoteDataSource>(
+    () => DetailRemoteDataSourceImpl(),
   );
 }

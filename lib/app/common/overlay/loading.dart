@@ -1,8 +1,7 @@
 import 'package:coffee_kst/main_export.dart';
 
 class LoadingOverlay extends StatelessWidget {
-  const LoadingOverlay({Key? key, required this.message}) : super(key: key);
-  final String message;
+  const LoadingOverlay({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -19,9 +18,9 @@ class LoadingOverlay extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           loading,
-          const SizedBox(height: 8.0),
+          const SizedBox(height: 5.0),
           TextWidgets(
-            text: message,
+            text: 'Đợi xử lý',
             fontSize: AppDimens.text14,
             textColor: AppColors.lightColor,
             textAlign: TextAlign.center,

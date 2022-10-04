@@ -94,7 +94,9 @@ class VoucherHome extends StatelessWidget {
                                 right: index == state.list.length - 1
                                     ? 15.0
                                     : 0.0),
-                            child: ItemVoucher(entity: list[index]),
+                            child: ItemVoucher(
+                                key: PageStorageKey(list[index].id),
+                                entity: list[index]),
                           );
                         },
                       ),

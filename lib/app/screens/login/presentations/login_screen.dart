@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
           builder: (context, authState) {
             return BgFlowLogin(
               overlay: authState.formState is FormSubmittingState
-                  ? const LoadingOverlay(message: 'Đang xử lý')
+                  ? const LoadingOverlay()
                   : null,
               child: const SafeArea(
                 child: BodyLogin(),

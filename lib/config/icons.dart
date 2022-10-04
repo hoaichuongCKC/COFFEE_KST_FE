@@ -33,6 +33,8 @@ class AppIcons {
   static const String CATEG_TEA_ASSET = "assets/icons/cag_tea.svg";
   static const String VOUCHER_ASSET = "assets/icons/voucher.svg";
   static const String STAR_ASSET = "assets/icons/star.svg";
+  static const String DECREMENT_ASSET = "assets/icons/decrement.svg";
+  static const String INCREMENT_ASSET = "assets/icons/increment.svg";
 
   //profile screen
   static const String CAMERA_ASSET = "assets/icons/camera.svg";

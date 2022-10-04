@@ -18,8 +18,11 @@ Future initUser() async {
   Hive.registerAdapter(UserHiveAdapter());
   //check token
   final token = await BoxesUser.instance.getDataTokenUser();
+
   if (token.isNotEmpty) {
     AppRoutes.initRoute = '/home';
+  } else {
+    AppRoutes.initRoute = '/';
   }
 }
 

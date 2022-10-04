@@ -100,7 +100,8 @@ class BodyProfile extends StatelessWidget {
     bool isLight = (Theme.of(context).brightness == Brightness.light);
 
     return FadeInRight(
-      delay: Duration(milliseconds: 300 * index),
+      delay: Duration(milliseconds: 100 * index),
+      duration: const Duration(milliseconds: 300),
       child: ClipPath(
         clipper: isLight ? null : DrawItemProfile(),
         child: Container(

@@ -32,7 +32,7 @@ class BestSellerHome extends StatelessWidget {
                       left: 15.0, right: index == 4 ? 15.0 : 0.0),
                   child: InkWell(
                     onTap: () => AppRoutes.pushNamed(DETAIL_PATH),
-                    child: ItemBestSeller(key: ValueKey(index)),
+                    child: ItemBestSeller(key: PageStorageKey(index)),
                   ),
                 );
               },
