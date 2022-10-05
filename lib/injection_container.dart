@@ -1,3 +1,8 @@
+import 'package:coffee_kst/app/screens/cart/data/datasource/invoice_remote_datasource.dart';
+import 'package:coffee_kst/app/screens/cart/data/repositories/invoice_repository_impl.dart';
+import 'package:coffee_kst/app/screens/cart/domain/repositories/invoice_repository.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/get_cart.dart';
+import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_bloc.dart';
 import 'package:coffee_kst/app/screens/detail/data/datasource/detail_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/detail/data/repositories/detail_repositories_impl.dart';
 import 'package:coffee_kst/app/screens/detail/domain/repositories/home_repository.dart';
@@ -35,9 +40,9 @@ import 'package:coffee_kst/app/screens/profile/screens/personal_information/scre
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/bloc/address_country/address_country_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
 import 'package:coffee_kst/core/network/network_info.dart';
-import 'package:coffee_kst/main_export.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:coffee_kst/main_export.dart';
 
 final sl = GetIt.instance;
 
@@ -54,6 +59,8 @@ Future<void> init() async {
   //----------------------------------
 
   _diDetail();
+
+  _diInvoice();
   // //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
@@ -196,5 +203,27 @@ _diDetail() {
   // Data sources - PRoductControoller
   sl.registerLazySingleton<DetailRemoteDataSource>(
     () => DetailRemoteDataSourceImpl(),
+  );
+}
+
+_diInvoice() {
+  sl.registerFactory(
+    () => CartServiceBloc(sl()),
+  );
+  // Use cases - PRoductControoller - voucher controller
+  sl.registerLazySingleton(() => GetCartUseCase(repository: sl()));
+  // Repository - PRoductControoller
+  sl.registerLazySingleton(
+    () => InvoiceRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),
+  );
+  sl.registerLazySingleton<InvoiceRepository>(
+    () => InvoiceRepositoryImpl(
+      networkInfo: sl(),
+      remoteDataSource: sl(),
+    ),
+  );
+  // Data sources - PRoductControoller
+  sl.registerLazySingleton<InvoiceRemoteDataSource>(
+    () => InvoiceRemoteDataSourceImpl(),
   );
 }

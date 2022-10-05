@@ -14,4 +14,5 @@ class AppDimens {
 
   //dimens icons
   static const double icon15 = 15.0;
+  static const double icon18 = 18.0;
 }

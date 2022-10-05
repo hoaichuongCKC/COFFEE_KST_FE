@@ -14,22 +14,43 @@ class CounterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         GestureDetector(
           onTap: decrement,
-          child: SvgPicture.asset(AppIcons.DECREMENT_ASSET),
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.disableTextColor.withAlpha(100),
+              borderRadius: AppStyles.borderRadius5,
+            ),
+            alignment: Alignment.center,
+            child: const Icon(
+              Icons.remove,
+              size: AppDimens.icon15,
+              color: AppColors.lightColor,
+            ),
+          ),
         ),
         const SizedBox(width: 10.0),
         TextWidgets(
           text: currentCounter,
           fontSize: AppDimens.text14,
-          textColor: AppColors.primaryColor,
+          textColor: AppColors.darkColor,
         ),
         const SizedBox(width: 10.0),
         GestureDetector(
           onTap: increment,
-          child: SvgPicture.asset(AppIcons.INCREMENT_ASSET),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: AppColors.primaryColor,
+              borderRadius: AppStyles.borderRadius5,
+            ),
+            alignment: Alignment.center,
+            child: const Icon(
+              Icons.add,
+              size: AppDimens.icon18,
+              color: AppColors.lightColor,
+            ),
+          ),
         ),
       ],
     );

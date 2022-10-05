@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 abstract class Api {
   Dio get _dio => _initDio();
   static String BASE_URL =
-      "https://1789-2405-4802-a23a-a140-e4e5-2b22-eaf5-b8ef.ap.ngrok.io/api/v2.0";
+      "https://2151-2405-4802-a23a-a140-ec8c-6cc5-741f-a8e0.ap.ngrok.io/api/v2.0";
   Dio _initDio() {
     final Dio dio = Dio();
 

@@ -1,4 +1,5 @@
 import 'package:coffee_kst/app/screens/cart/presentation/components/list_product.dart';
+import 'package:coffee_kst/app/screens/cart/presentation/widgets/bottom_nav_cart.dart';
 import 'package:coffee_kst/main_export.dart';
 
 class CartScreen extends StatelessWidget {
@@ -8,28 +9,19 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        bottomNavigationBar: const BottomNavCart(),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: TextWidgets(
-            text: 'Giỏ hàng',
+            text: 'Giỏ hàng của bạn',
             fontSize: AppDimens.text22,
             textColor: AppColors.darkColor,
+            weight: FontWeight.w600,
           ),
         ),
         backgroundColor: AppColors.lightColor,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Expanded(
-              flex: 2,
-              child: ListProductCart(),
-            ),
-            Expanded(
-              child: Container(),
-            )
-          ],
-        ),
+        body: ListProductCart(),
       ),
     );
   }

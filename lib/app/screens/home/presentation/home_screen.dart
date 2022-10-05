@@ -43,9 +43,9 @@ class HomeScreen extends StatelessWidget {
                 index: current,
                 key: PageStorageKey(page.value),
                 children: const [
+                  CartScreen(),
                   BodyHome(),
                   DashboardScreen(),
-                  CartScreen(),
                   ProfileScreen(),
                 ],
               );
