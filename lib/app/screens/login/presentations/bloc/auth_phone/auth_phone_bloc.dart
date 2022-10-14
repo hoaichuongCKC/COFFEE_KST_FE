@@ -39,7 +39,7 @@ class AuthPhoneBloc extends Bloc<AuthPhoneEvent, AuthPhoneState> {
       await auth.verifyPhoneNumber(
         phoneNumber: '+84 ${event.phoneNumber}',
         verificationCompleted: (PhoneAuthCredential credential) async {
-          // add(OnGetOTPEvent(otpCode: credential.smsCode!));
+          add(OnGetOTPEvent(otpCode: credential.smsCode!));
           // On [verificationComplete], we will get the credential from the firebase  and will send it to the [OnPhoneAuthVerificationCompleteEvent] event to be handled by the bloc and then will emit the [PhoneAuthVerified] state after successful login
         },
         verificationFailed: (FirebaseAuthException e) {

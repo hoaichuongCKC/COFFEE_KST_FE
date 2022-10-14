@@ -4,6 +4,7 @@ import 'package:coffee_kst/app/common/animations/do_fade/fade_in.dart';
 import 'package:coffee_kst/app/common/overlay/controller.dart';
 import 'package:coffee_kst/app/common/overlay/loading.dart';
 import 'package:coffee_kst/app/screens/login/presentations/bloc/auth/authentication_bloc.dart';
+import 'package:coffee_kst/app/screens/login/presentations/bloc/auth_phone/auth_phone_bloc.dart';
 import 'package:coffee_kst/core/locale_keys.g.dart';
 
 import 'package:coffee_kst/main_export.dart';
@@ -283,9 +284,9 @@ class _BodyLoginState extends State<BodyLogin> {
           if (loginMethod.value == LoginMethod.PASSWORD_LOGIN) {
             context.read<AuthenticationBloc>().add(SubmitFormEvent());
           } else {
-            // context
-            //     .read<AuthPhoneBloc>()
-            //     .add(SendOtpToPhoneEvent(phoneNumber: phoneController.text));
+            context
+                .read<AuthPhoneBloc>()
+                .add(SendOtpToPhoneEvent(phoneNumber: phoneController.text));
             AppRoutes.pushNamed(OTP_PATH);
           }
         }

@@ -1,4 +1,4 @@
-import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail/product_detail_bloc.dart';
+import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail_service/product_detail_bloc.dart';
 import 'package:coffee_kst/app/screens/detail/presentation/components/body_detail.dart';
 import 'package:coffee_kst/main_export.dart';
 
@@ -18,12 +18,12 @@ class _TabbarDetailState extends State<TabbarDetail> {
   bool isDescription = false;
   bool isTopping = false;
   bool isRating = false;
-  late ProductDetailBloc bloc;
+  late ProductDetaiServicelBloc bloc;
   @override
   void initState() {
-    bloc = BlocProvider.of<ProductDetailBloc>(context);
+    bloc = BlocProvider.of<ProductDetaiServicelBloc>(context);
     bloc.stream.listen((state) {
-      if (state is ProductDetailLoaded) {
+      if (state.state is ProductDetailLoaded) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) {
             _init(keyTopping, isTopping);
@@ -88,12 +88,13 @@ class _TabbarDetailState extends State<TabbarDetail> {
     );
   }
 
-  Widget get rowListTab => BlocBuilder<ProductDetailBloc, ProductDetailState>(
+  Widget get rowListTab =>
+      BlocBuilder<ProductDetaiServicelBloc, ProductDetailServiceState>(
         builder: (context, state) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              state is ProductDetailLoaded
+              state.state is ProductDetailLoaded
                   ? GestureDetector(
                       onTap: () {
                         // ngăn người dùng tap nhiều lần
@@ -109,11 +110,11 @@ class _TabbarDetailState extends State<TabbarDetail> {
                         textColor: AppColors.darkColor,
                       ),
                     )
-                  : state is ProductDetailLoading
+                  : state.state is ProductDetailLoading
                       ? const SkeletonWidget.rectangle(width: 60.0, height: 8.0)
                       : const SizedBox(),
               const SizedBox(width: 25.0),
-              state is ProductDetailLoaded
+              state.state is ProductDetailLoaded
                   ? GestureDetector(
                       onTap: () {
                         if (isTopping) return;
@@ -128,11 +129,11 @@ class _TabbarDetailState extends State<TabbarDetail> {
                         textColor: AppColors.darkColor,
                       ),
                     )
-                  : state is ProductDetailLoading
+                  : state.state is ProductDetailLoading
                       ? const SkeletonWidget.rectangle(width: 60.0, height: 8.0)
                       : const SizedBox(),
               const SizedBox(width: 25.0),
-              state is ProductDetailLoaded
+              state.state is ProductDetailLoaded
                   ? GestureDetector(
                       onTap: () {
                         if (isRating) return;
@@ -147,7 +148,7 @@ class _TabbarDetailState extends State<TabbarDetail> {
                         textColor: AppColors.darkColor,
                       ),
                     )
-                  : state is ProductDetailLoading
+                  : state.state is ProductDetailLoading
                       ? const SkeletonWidget.rectangle(width: 60.0, height: 8.0)
                       : const SizedBox(),
             ],

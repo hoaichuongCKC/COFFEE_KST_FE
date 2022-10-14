@@ -18,8 +18,13 @@ class ItemCart extends StatelessWidget {
       key: ValueKey(entity.id),
       position: Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero)
           .animate(CurvedAnimation(parent: animation, curve: Curves.easeIn)),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20.0),
+        decoration: const BoxDecoration(
+          color: AppColors.lightColor,
+          borderRadius: AppStyles.borderRadius10,
+        ),
+        padding: const EdgeInsets.only(right: 10.0, left: 10, bottom: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,7 +70,7 @@ class ItemCart extends StatelessWidget {
                         ),
                         const SizedBox(height: 5.0),
                         TextWidgets(
-                          text: '${entity.price}đ',
+                          text: Convert.instance.convertVND(entity.price),
                           fontSize: AppDimens.text14,
                           textColor: AppColors.textErrorColor,
                         ),
@@ -76,7 +81,11 @@ class ItemCart extends StatelessWidget {
                             CounterWidget(
                                 decrement: () {},
                                 increment: () {},
-                                currentCounter: entity.quantity.toString()),
+                                currentCounter: TextWidgets(
+                                  text: entity.quantity.toString(),
+                                  fontSize: AppDimens.text14,
+                                  textColor: AppColors.darkColor,
+                                )),
                             const Spacer(),
                             TextWidgets(
                               text: 'Loại: ${entity.productInfor.categName}',
@@ -97,7 +106,7 @@ class ItemCart extends StatelessWidget {
             entity.productInfor.listToppings.isEmpty
                 ? const SizedBox()
                 : TextWidgets(
-                    text: 'Danh sách topping của ${entity.productInfor.name}:',
+                    text: 'Danh sách topping:',
                     fontSize: AppDimens.text14,
                     textColor: AppColors.disableTextColor,
                   ),
@@ -106,77 +115,89 @@ class ItemCart extends StatelessWidget {
                 : const SizedBox(height: 5.0),
             entity.productInfor.listToppings.isEmpty
                 ? const SizedBox()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: entity.productInfor.listToppings.map((e) {
-                      final index = entity.productInfor.listToppings.indexOf(e);
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          LimitedBox(
-                            maxHeight: 40,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: AppStyles.borderRadius5,
-                                  child: AspectRatio(
-                                    aspectRatio: 16 / 13,
-                                    child: ImageWidget(
-                                      url: e.imageUrl,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 10.0),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          TextWidgets(
-                                            text: e.name,
-                                            fontSize: AppDimens.text12,
-                                            textColor:
-                                                AppColors.disableTextColor,
-                                          ),
-                                          CounterWidget(
-                                            decrement: () {},
-                                            increment: () {},
-                                            currentCounter:
-                                                e.quantity.toString(),
-                                          )
-                                        ],
-                                      ),
-                                      TextWidgets(
-                                        text: '${e.price}đ',
-                                        fontSize: AppDimens.text12,
-                                        textColor: AppColors.textErrorColor,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          index == entity.productInfor.listToppings.length - 1
-                              ? const SizedBox()
-                              : const SizedBox(height: 8.0),
-                        ],
-                      );
-                    }).toList(),
-                  )
+                : ListTopping(entity: entity)
           ],
         ),
       ),
+    );
+  }
+}
+
+class ListTopping extends StatelessWidget {
+  const ListTopping({
+    Key? key,
+    required this.entity,
+  }) : super(key: key);
+
+  final CartEntity entity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: entity.productInfor.listToppings.map((e) {
+        final index = entity.productInfor.listToppings.indexOf(e);
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            LimitedBox(
+              maxHeight: 40,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: AppStyles.borderRadius5,
+                    child: AspectRatio(
+                      aspectRatio: 16 / 13,
+                      child: ImageWidget(
+                        url: e.imageUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10.0),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextWidgets(
+                              text: e.name,
+                              fontSize: AppDimens.text12,
+                              textColor: AppColors.darkColor,
+                            ),
+                            CounterWidget(
+                              decrement: () {},
+                              increment: () {},
+                              currentCounter: TextWidgets(
+                                text: e.quantity.toString(),
+                                fontSize: AppDimens.text14,
+                                textColor: AppColors.darkColor,
+                              ),
+                            )
+                          ],
+                        ),
+                        TextWidgets(
+                          text: Convert.instance.convertVND(e.price),
+                          fontSize: AppDimens.text12,
+                          textColor: AppColors.textErrorColor,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            index == entity.productInfor.listToppings.length - 1
+                ? const SizedBox()
+                : const SizedBox(height: 8.0),
+          ],
+        );
+      }).toList(),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:coffee_kst/app/common/widgets/appbar_widget.dart';
-import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail/product_detail_bloc.dart';
+import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail_service/product_detail_bloc.dart';
 import 'package:coffee_kst/app/screens/detail/presentation/components/body_detail.dart';
 import 'package:coffee_kst/app/screens/detail/presentation/components/header_detail.dart';
 import 'package:coffee_kst/app/screens/detail/presentation/components/title_detail.dart';
@@ -18,7 +18,7 @@ class DetailScreen extends StatelessWidget {
         title: 'Chi tiết sản phẩm',
         context: context,
         onLeading: () {
-          context.read<ProductDetailBloc>().add(InitEvent());
+          context.read<ProductDetaiServicelBloc>().add(ResetEvent());
         },
         actions: [
           SvgPicture.asset(AppIcons.FAVORITE_ASSET),

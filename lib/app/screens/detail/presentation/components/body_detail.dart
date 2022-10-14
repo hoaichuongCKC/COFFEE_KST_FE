@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
-import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail/product_detail_bloc.dart';
+import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail_service/product_detail_bloc.dart';
 import 'package:coffee_kst/app/screens/detail/presentation/widgets/item_rating.dart';
 import 'package:coffee_kst/app/screens/detail/presentation/widgets/item_topping.dart';
 import 'package:coffee_kst/app/screens/detail/presentation/widgets/tab_bar_detail.dart';
@@ -42,9 +42,10 @@ class _BodyDetailState extends State<BodyDetail> {
               },
             ),
             const SizedBox(height: 20.0),
-            BlocBuilder<ProductDetailBloc, ProductDetailState>(
+            BlocBuilder<ProductDetaiServicelBloc, ProductDetailServiceState>(
+              buildWhen: (previous, current) => previous.state != current.state,
               builder: (context, state) {
-                if (state is ProductDetailLoaded) {
+                if (state.state is ProductDetailLoaded) {
                   return ValueListenableBuilder(
                     valueListenable: currentTab,
                     builder: (context, TabDetail tab, child) {
@@ -64,7 +65,8 @@ class _BodyDetailState extends State<BodyDetail> {
                             itemCount: state.data.toppings.length,
                             itemBuilder: (BuildContext context, int index) {
                               return ItemToppingDetail(
-                                  toppingEntity: state.data.toppings[index]);
+                                toppingEntity: state.data.toppings[index],
+                              );
                             },
                           ),
                         );
@@ -77,7 +79,7 @@ class _BodyDetailState extends State<BodyDetail> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   TextWidgets(
-                                    text: 'Hiện tại chưa có đánh giá nào!!!',
+                                    text: 'Hiện tại chưa có đánh giá nào',
                                     fontSize: AppDimens.text14,
                                     textColor: AppColors.disableTextColor,
                                   )
@@ -108,7 +110,7 @@ class _BodyDetailState extends State<BodyDetail> {
                     },
                   );
                 }
-                if (state is ProductDetailLoading) {
+                if (state.state is ProductDetailLoading) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [

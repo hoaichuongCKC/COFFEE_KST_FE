@@ -18,7 +18,7 @@ class CartEntity extends Equatable {
   final int productId;
   final int quantity;
   final String sizeName;
-  final String price;
+  final int price;
   final ProductInforEntity productInfor;
 
   @override
@@ -37,19 +37,20 @@ class ProductInforEntity extends Equatable {
   final String imageUrl;
   final String name;
   final String categName;
-  final List<ToppingEntity> listToppings;
+  final List<ToppingCartEntity> listToppings;
   @override
   List<Object?> get props => [id, name, imageUrl, categName, listToppings];
 }
 
-class ToppingEntity extends Equatable {
-  const ToppingEntity({
+class ToppingCartEntity extends Equatable {
+  const ToppingCartEntity({
     required this.imageUrl,
     required this.price,
     required this.name,
     required this.unit,
     required this.quantity,
   });
+
   final int price;
   final String imageUrl;
   final String name;

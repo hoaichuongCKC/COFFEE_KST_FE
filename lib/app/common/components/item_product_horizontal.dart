@@ -23,8 +23,11 @@ class ItemProductHorizontal extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: AppStyles.borderRadius12,
-                  child: ImageWidget(
-                    url: entity.imageUrl,
+                  child: Hero(
+                    tag: entity.id,
+                    child: ImageWidget(
+                      url: entity.imageUrl,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 15.0),
@@ -40,7 +43,7 @@ class ItemProductHorizontal extends StatelessWidget {
                       ),
                       const SizedBox(height: 5.0),
                       TextWidgets(
-                        text: '${entity.price1.toString()}đ',
+                        text: Convert.instance.convertVND(entity.price1),
                         fontSize: AppDimens.text14,
                         textColor: AppColors.textErrorColor,
                       ),

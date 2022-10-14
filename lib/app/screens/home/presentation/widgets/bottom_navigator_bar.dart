@@ -1,33 +1,8 @@
+import 'package:coffee_kst/app/screens/home/presentation/bloc/navigation_bottom/navigation_screen_cubit.dart';
 import 'package:coffee_kst/main_export.dart';
 
-class BottomNavigator extends StatefulWidget {
-  const BottomNavigator(
-      {Key? key, required this.onChanged, required this.currentPage})
-      : super(key: key);
-  final Function(int) onChanged;
-  final int currentPage;
-  @override
-  State<BottomNavigator> createState() => _BottomNavigatorState();
-}
-
-class _BottomNavigatorState extends State<BottomNavigator> {
-  int get currentPage => widget.currentPage;
-  final GlobalKey keyHome = GlobalKey();
-  final GlobalKey keyDashboard = GlobalKey();
-  final GlobalKey keyCart = GlobalKey();
-  final GlobalKey keyUser = GlobalKey();
-  Size size = const Size(0.0, 0.0);
-  Offset offset = const Offset(0.0, 0.0);
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      size = keyHome.currentContext!.size!;
-      // final box = keyHome.currentContext!.findRenderObject() as RenderBox;
-      // offset = box.localToGlobal(Offset.zero);
-    });
-    super.initState();
-  }
-
+class BottomNavigator extends StatelessWidget {
+  const BottomNavigator({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,84 +27,89 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            bottomNavigationBarHome,
-            bottomNavigationBarDashboard,
-            bottomNavigationBarCart,
-            bottomNavigationBarUser
+            ItemBottomNavigatorHomeWidget(
+              label: HOME_PAGE,
+              iconUrl: AppIcons.HOME_ASSET,
+              page: 0,
+              changeScreens: () => context
+                  .read<NavigationScreenCubit>()
+                  .changeNavigatorBottom(const HomeScreenState()),
+            ),
+            ItemBottomNavigatorHomeWidget(
+              label: DASHBOARD_PAGE,
+              iconUrl: AppIcons.DASBOARD_ASSET,
+              page: 1,
+              changeScreens: () => context
+                  .read<NavigationScreenCubit>()
+                  .changeNavigatorBottom(const DashboardScreenState()),
+            ),
+            ItemBottomNavigatorHomeWidget(
+              label: CART_PAGE,
+              iconUrl: AppIcons.CART_ASSET,
+              page: 2,
+              changeScreens: () => context
+                  .read<NavigationScreenCubit>()
+                  .changeNavigatorBottom(const CartScreenState()),
+            ),
+            ItemBottomNavigatorHomeWidget(
+              label: USER_PAGE,
+              iconUrl: AppIcons.USER_ASSET,
+              page: 3,
+              changeScreens: () => context
+                  .read<NavigationScreenCubit>()
+                  .changeNavigatorBottom(const ProfileScreenState()),
+            ),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget get bottomNavigationBarHome {
+class ItemBottomNavigatorHomeWidget extends StatelessWidget {
+  const ItemBottomNavigatorHomeWidget(
+      {Key? key,
+      required this.label,
+      required this.iconUrl,
+      required this.page,
+      required this.changeScreens})
+      : super(key: key);
+  final String label;
+  final String iconUrl;
+  final int page;
+  final Function() changeScreens;
+  @override
+  Widget build(BuildContext context) {
     return Expanded(
-      key: keyHome,
       child: InkWell(
-        onTap: () => widget.onChanged(0),
+        onTap: changeScreens,
         borderRadius: AppStyles.borderRadius15,
-        child:
-            _buildContentItem(AppIcons.HOME_ASSET, HOME_PAGE, currentPage == 0),
-      ),
-    );
-  }
-
-  Widget get bottomNavigationBarDashboard {
-    return Expanded(
-      key: keyDashboard,
-      child: InkWell(
-        onTap: () => widget.onChanged(1),
-        borderRadius: AppStyles.borderRadius15,
-        child: _buildContentItem(
-            AppIcons.DASBOARD_ASSET, DASHBOARD_PAGE, currentPage == 1),
-      ),
-    );
-  }
-
-  Widget get bottomNavigationBarCart {
-    return Expanded(
-      key: keyCart,
-      child: InkWell(
-        onTap: () => widget.onChanged(2),
-        borderRadius: AppStyles.borderRadius15,
-        child:
-            _buildContentItem(AppIcons.CART_ASSET, CART_PAGE, currentPage == 2),
-      ),
-    );
-  }
-
-  Widget get bottomNavigationBarUser {
-    return Expanded(
-      key: keyUser,
-      child: InkWell(
-        onTap: () => widget.onChanged(3),
-        borderRadius: AppStyles.borderRadius15,
-        child:
-            _buildContentItem(AppIcons.USER_ASSET, USER_PAGE, currentPage == 3),
-      ),
-    );
-  }
-
-  _buildContentItem(String iconUrl, String label, bool isSelectPage) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SvgPicture.asset(
-          iconUrl,
-          color: isSelectPage
-              ? AppColors.primaryColor
-              : AppColors.disableTextColor,
+        child: BlocBuilder<NavigationScreenCubit, int>(
+          buildWhen: (previous, current) => current != previous,
+          builder: (context, state) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  iconUrl,
+                  color: state == page
+                      ? AppColors.primaryColor
+                      : AppColors.disableTextColor,
+                ),
+                const SizedBox(height: 7.0),
+                TextWidgets(
+                  text: label,
+                  fontSize: AppDimens.text10,
+                  textColor: state == page
+                      ? AppColors.primaryColor
+                      : AppColors.disableTextColor,
+                )
+              ],
+            );
+          },
         ),
-        const SizedBox(height: 7.0),
-        TextWidgets(
-          text: label,
-          fontSize: AppDimens.text10,
-          textColor: isSelectPage
-              ? AppColors.primaryColor
-              : AppColors.disableTextColor,
-        )
-      ],
+      ),
     );
   }
 }

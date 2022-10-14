@@ -2,8 +2,8 @@ import 'package:coffee_kst/app/screens/detail/data/models/review.dart';
 import 'package:coffee_kst/app/screens/detail/data/models/topping.dart';
 import 'package:equatable/equatable.dart';
 
-class DetailEnity extends Equatable {
-  const DetailEnity({
+class DetailEntity extends Equatable {
+  const DetailEntity({
     required this.id,
     required this.name,
     required this.description,

@@ -1,6 +1,4 @@
 // ignore_for_file: constant_identifier_names
-
-import 'package:coffee_kst/app/common/animations/push_screen/scale.dart';
 import 'package:coffee_kst/app/common/animations/push_screen/slide_top_left.dart';
 import 'package:coffee_kst/app/screens/detail/presentation/detail_screen.dart';
 import 'package:coffee_kst/app/screens/home/presentation/home_screen.dart';
@@ -47,8 +45,7 @@ class AppRoutes {
     switch (settings.name) {
       //router login
       case DETAIL_PATH:
-        return PushScale(child: const DetailScreen());
-
+        return MaterialPageRoute(builder: (_) => const DetailScreen());
       //router login
       case LOGIN_PATH:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
@@ -105,6 +102,10 @@ class AppRoutes {
 
   static pushNamed(String route) {
     navigatorKey.currentState!.pushNamed(route);
+  }
+
+  static pop() {
+    navigatorKey.currentState!.pop();
   }
 
   static pushNameAndRemoveUntil(String route) {

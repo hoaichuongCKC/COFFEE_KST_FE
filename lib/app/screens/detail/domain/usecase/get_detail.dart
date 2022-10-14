@@ -6,13 +6,13 @@ import 'package:equatable/equatable.dart';
 import 'package:coffee_kst/core/error/failures.dart';
 import 'package:coffee_kst/core/usecases/usecase.dart';
 
-class GetDetailUseCase extends UseCase<DetailEnity, ParamDetail> {
+class GetDetailUseCase extends UseCase<DetailEntity, ParamDetail> {
   DetailRepository repository;
   GetDetailUseCase({
     required this.repository,
   });
   @override
-  Future<Either<Failure, DetailEnity>> call(ParamDetail params) async {
+  Future<Either<Failure, DetailEntity>> call(ParamDetail params) async {
     return await repository.getDetail(params.productID);
   }
 }

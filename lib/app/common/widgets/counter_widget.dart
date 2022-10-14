@@ -5,11 +5,11 @@ class CounterWidget extends StatelessWidget {
       {Key? key,
       required this.decrement,
       required this.increment,
-      this.currentCounter = '0'})
+      required this.currentCounter})
       : super(key: key);
   final Function() decrement;
   final Function() increment;
-  final String currentCounter;
+  final Widget currentCounter;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -22,6 +22,12 @@ class CounterWidget extends StatelessWidget {
               color: AppColors.disableTextColor.withAlpha(100),
               borderRadius: AppStyles.borderRadius5,
             ),
+            constraints: const BoxConstraints(
+              maxWidth: 20.0,
+              minWidth: 15.0,
+              maxHeight: 20.0,
+              minHeight: 15.0,
+            ),
             alignment: Alignment.center,
             child: const Icon(
               Icons.remove,
@@ -31,11 +37,7 @@ class CounterWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10.0),
-        TextWidgets(
-          text: currentCounter,
-          fontSize: AppDimens.text14,
-          textColor: AppColors.darkColor,
-        ),
+        currentCounter,
         const SizedBox(width: 10.0),
         GestureDetector(
           onTap: increment,
@@ -43,6 +45,12 @@ class CounterWidget extends StatelessWidget {
             decoration: const BoxDecoration(
               color: AppColors.primaryColor,
               borderRadius: AppStyles.borderRadius5,
+            ),
+            constraints: const BoxConstraints(
+              maxWidth: 20.0,
+              minWidth: 15.0,
+              maxHeight: 20.0,
+              minHeight: 15.0,
             ),
             alignment: Alignment.center,
             child: const Icon(

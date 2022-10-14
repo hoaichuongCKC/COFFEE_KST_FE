@@ -13,31 +13,64 @@ part 'cart_state.dart';
 
 class CartServiceBloc extends Bloc<CartServiceEvent, CartServiceState> {
   final GetCartUseCase getCartUseCase;
-  CartServiceBloc(this.getCartUseCase) : super(CartInitial()) {
+  CartServiceBloc(this.getCartUseCase) : super(const CartServiceState()) {
     on<LoadCartEvent>(_handleLoadCart);
   }
   _handleLoadCart(LoadCartEvent event, Emitter<CartServiceState> emit) async {
-    emit(CartLoading());
+    emit(state.copyWith(state: CartLoading()));
     try {
       final result = await getCartUseCase.call(NoParams());
       result.fold(
         (Failure l) {
           if (l is InternetFailure) {
-            emit(const CartLoadFailed(messageError: MESSAGE_NOT_INTERNET));
+            emit(state.copyWith(
+                messageError: MESSAGE_NOT_INTERNET, state: CartLoadFailed()));
           } else if (l is ServerFailure) {
-            emit(const CartLoadFailed(messageError: MESSAGE_SERVER_FAILURE));
+            emit(state.copyWith(
+                messageError: MESSAGE_SERVER_FAILURE, state: CartLoadFailed()));
           }
         },
         (List<CartEntity> r) {
           if (r.isEmpty) {
-            emit(CartDataEmpty());
+            emit(state.copyWith(state: CartDataEmpty()));
           } else {
-            emit(CartLoaded(list: r));
+            emit(state.copyWith(list: r, state: CartLoaded()));
           }
         },
       );
     } catch (e) {
-      emit(CartLoadFailed(messageError: e.toString()));
+      emit(state.copyWith(messageError: e.toString(), state: CartLoadFailed()));
     }
   }
+
+  // _addToCartEvent(
+  //     AddToCartEvent event, Emitter<ProductDetailServiceState> emit) async {
+  //   try {
+  //     final result = await addToCartEmptyUseCase.call(const ParamAddToCartEmpty(
+  //         shippingAddress: 'shippingAddress',
+  //         shippingPhone: 'shippingPhone',
+  //         shippingName: 'shippingName',
+  //         total: 0,
+  //         quantity: 0,
+  //         productId: 0,
+  //         sizeName: 'sizeName',
+  //         price: 0));
+  //     result.fold(
+  //       (Failure l) {
+  //         if (l is InternetFailure) {
+  //           emit(state.copyWith(
+  //               message: MESSAGE_NOT_INTERNET,
+  //               state: ProductDetailLoadFailed()));
+  //         } else if (l is ServerFailure) {
+  //           emit(state.copyWith(
+  //               message: MESSAGE_SERVER_FAILURE,
+  //               state: ProductDetailLoadFailed()));
+  //         }
+  //       },
+  //       (int r) {},
+  //     );
+  //   } catch (e) {
+  //     print('Lỗi try catch trong add to cart');
+  //   }
+  // }
 }

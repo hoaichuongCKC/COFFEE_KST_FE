@@ -1,11 +1,18 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:coffee_kst/app/common/widgets/counter_widget.dart';
 import 'package:coffee_kst/app/screens/detail/domain/entities/topping.dart';
+import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail_service/product_detail_bloc.dart';
 import 'package:coffee_kst/main_export.dart';
 
 class ItemToppingDetail extends StatelessWidget {
-  const ItemToppingDetail({Key? key, required this.toppingEntity})
-      : super(key: key);
+  ItemToppingDetail({
+    Key? key,
+    required this.toppingEntity,
+  }) : super(key: key);
   final ToppingEntity toppingEntity;
+
+  int quantity = 0;
   @override
   Widget build(BuildContext context) {
     return LimitedBox(
@@ -37,18 +44,44 @@ class ItemToppingDetail extends StatelessWidget {
                 ),
                 const SizedBox(height: 5.0),
                 TextWidgets(
-                  text: '${toppingEntity.price}đ',
+                  text: Convert.instance.convertVND(toppingEntity.price),
                   fontSize: AppDimens.text12,
                   textColor: AppColors.textErrorColor,
                 ),
               ],
             ),
           ),
-          CounterWidget(
-            decrement: () {},
-            increment: () {},
-            currentCounter: '0',
-          ),
+          StatefulBuilder(builder: (contex, setState) {
+            return CounterWidget(
+              decrement: () {
+                if (quantity > 0) {
+                  setState(() {
+                    quantity--;
+                    context.read<ProductDetaiServicelBloc>().add(
+                        RemoveElementToppingEvent(toppingId: toppingEntity.id));
+                  });
+                }
+              },
+              increment: () {
+                setState(() {
+                  quantity++;
+                  context
+                      .read<ProductDetaiServicelBloc>()
+                      .add(AddElementToppingEvent(
+                        toppingParams: ToppingParams(
+                            id: toppingEntity.id,
+                            quantity: 1,
+                            price: toppingEntity.price),
+                      ));
+                });
+              },
+              currentCounter: TextWidgets(
+                text: quantity.toString(),
+                fontSize: AppDimens.text14,
+                textColor: AppColors.darkColor,
+              ),
+            );
+          }),
         ],
       ),
     );

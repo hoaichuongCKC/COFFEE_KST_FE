@@ -9,7 +9,7 @@ class ListProductCart extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CartServiceBloc, CartServiceState>(
       builder: (context, state) {
-        if (state is CartDataEmpty) {
+        if (state.state is CartDataEmpty) {
           return Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -27,14 +27,14 @@ class ListProductCart extends StatelessWidget {
             ),
           );
         }
-        if (state is CartLoadFailed) {
+        if (state.state is CartLoadFailed) {
           return TextWidgets(
             text: state.messageError,
             fontSize: AppDimens.text14,
             textColor: AppColors.textErrorColor,
           );
         }
-        if (state is CartLoading) {
+        if (state.state is CartLoading) {
           return AnimatedList(
             initialItemCount: 3,
             itemBuilder: (context, index, a1) {
@@ -51,34 +51,37 @@ class ListProductCart extends StatelessWidget {
             },
           );
         }
-        if (state is CartLoaded) {
-          return AnimatedList(
-            key: listKey,
-            initialItemCount: state.list.length,
-            itemBuilder: (context, index, a1) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ItemCart(
-                    onClear: () {
-                      _remoteItem(context, index);
-                    },
-                    entity: state.list[index],
-                    animation: a1,
-                  ),
-                  index == state.list.length - 1
-                      ? const SizedBox()
-                      : const SizedBox(height: 15.0),
-                  index == state.list.length - 1
-                      ? const SizedBox()
-                      : Container(
-                          height: 20.0,
-                          width: double.maxFinite,
-                          color: AppColors.disableTextColor.withAlpha(50),
-                        ),
-                ],
-              );
-            },
+        if (state.state is CartLoaded) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: AnimatedList(
+              key: listKey,
+              initialItemCount: state.list.length,
+              itemBuilder: (context, index, a1) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ItemCart(
+                      onClear: () {
+                        _remoteItem(context, index);
+                      },
+                      entity: state.list[index],
+                      animation: a1,
+                    ),
+                    index == state.list.length - 1
+                        ? const SizedBox()
+                        : const SizedBox(height: 15.0),
+                    index == state.list.length - 1
+                        ? const SizedBox()
+                        : Container(
+                            height: 20.0,
+                            width: double.maxFinite,
+                            color: AppColors.disableTextColor.withAlpha(50),
+                          ),
+                  ],
+                );
+              },
+            ),
           );
         }
         return const SizedBox();
@@ -88,8 +91,6 @@ class ListProductCart extends StatelessWidget {
 
   void _remoteItem(BuildContext context, int index) {
     final bloc = BlocProvider.of<CartServiceBloc>(context, listen: false).state;
-    if (bloc is CartLoaded) {
-      print(bloc.list.length);
-    }
+    if (bloc is CartLoaded) {}
   }
 }

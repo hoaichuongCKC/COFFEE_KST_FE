@@ -15,7 +15,7 @@ class CartModel extends CartEntity {
         productId: json["product_id"],
         quantity: json["quantity"],
         sizeName: json["size_name"],
-        price: json["price"],
+        price: int.parse(json["price"].toString()),
         productInfor: ProductInforModel.fromJson(json["product_infor"]),
       );
 
@@ -54,7 +54,7 @@ class ProductInforModel extends ProductInforEntity {
       );
 }
 
-class ToppingModel extends ToppingEntity {
+class ToppingModel extends ToppingCartEntity {
   const ToppingModel(
       {required super.imageUrl,
       required super.price,

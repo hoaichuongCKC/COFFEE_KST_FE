@@ -12,7 +12,7 @@ class AuthPhoneState extends Equatable {
   final String verificationId;
   final OtpState state;
   @override
-  List<Object> get props => [];
+  List<Object> get props => [messageError, otpCode, verificationId, state];
 
   AuthPhoneState copyWith({
     String? messageError,

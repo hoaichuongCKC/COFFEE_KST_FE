@@ -15,7 +15,7 @@ class DetailRepositoryImpl implements DetailRepository {
   });
 
   @override
-  Future<Either<Failure, DetailEnity>> getDetail(int productID) async {
+  Future<Either<Failure, DetailEntity>> getDetail(int productID) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteLogin = await remoteDataSource.getDetail(productID);

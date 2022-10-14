@@ -4,7 +4,7 @@ import 'package:coffee_kst/app/screens/detail/data/models/review.dart';
 import 'package:coffee_kst/app/screens/detail/data/models/topping.dart';
 import 'package:coffee_kst/app/screens/detail/domain/entities/detail.dart';
 
-class DetailModel extends DetailEnity {
+class DetailModel extends DetailEntity {
   const DetailModel(
       {required super.id,
       required super.name,

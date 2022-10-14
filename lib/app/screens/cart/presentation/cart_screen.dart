@@ -11,6 +11,7 @@ class CartScreen extends StatelessWidget {
       child: Scaffold(
         bottomNavigationBar: const BottomNavCart(),
         appBar: AppBar(
+          elevation: 0.5,
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: TextWidgets(
@@ -20,7 +21,7 @@ class CartScreen extends StatelessWidget {
             weight: FontWeight.w600,
           ),
         ),
-        backgroundColor: AppColors.lightColor,
+        backgroundColor: AppColors.disableTextColor.withAlpha(5),
         body: ListProductCart(),
       ),
     );

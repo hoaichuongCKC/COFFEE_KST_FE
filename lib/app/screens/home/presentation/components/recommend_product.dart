@@ -1,5 +1,5 @@
 import 'package:coffee_kst/app/common/components/item_product_horizontal.dart';
-import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail/product_detail_bloc.dart';
+import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail_service/product_detail_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/product/product_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/widgets/title_home.dart';
 import 'package:coffee_kst/main_export.dart';
@@ -102,7 +102,7 @@ class _RecommendListProductHomeState extends State<RecommendListProductHome> {
               return InkWell(
                   onTap: () {
                     AppRoutes.pushNamed(DETAIL_PATH);
-                    context.read<ProductDetailBloc>().add(
+                    context.read<ProductDetaiServicelBloc>().add(
                         LoadProductDetailEvent(
                             productID: state.list[index].id));
                   },

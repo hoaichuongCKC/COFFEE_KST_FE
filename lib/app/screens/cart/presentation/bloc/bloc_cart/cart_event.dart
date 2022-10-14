@@ -8,3 +8,7 @@ abstract class CartServiceEvent extends Equatable {
 }
 
 class LoadCartEvent extends CartServiceEvent {}
+
+class AddToCartIsNotEmpty extends CartServiceEvent {}
+
+class AddToCartEmpty extends CartServiceEvent {}

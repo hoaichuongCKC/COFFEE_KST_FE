@@ -24,11 +24,4 @@ extension StringX on String {
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(this);
   }
-
-  String convertDistanceNumberPhone() {
-    var phone = replaceRange(3, 3, ' ');
-    phone = phone.replaceRange(7, 7, ' ');
-    phone = phone.replaceRange(10, 10, ' ');
-    return phone;
-  }
 }

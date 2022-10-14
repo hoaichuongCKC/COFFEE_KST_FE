@@ -31,3 +31,15 @@ const String HOME_PAGE = 'Trang chủ';
 const String DASHBOARD_PAGE = 'Danh mục';
 const String CART_PAGE = 'Giỏ hàng';
 const String USER_PAGE = 'Cá nhân';
+
+class Convert {
+  Convert._privateConstructor();
+
+  static final Convert _instance = Convert._privateConstructor();
+
+  static Convert get instance => _instance;
+  String convertVND(number) {
+    final oCcy = NumberFormat("#,##0", "vi_VN");
+    return '${oCcy.format(number)}đ';
+  }
+}

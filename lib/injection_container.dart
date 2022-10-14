@@ -1,19 +1,21 @@
 import 'package:coffee_kst/app/screens/cart/data/datasource/invoice_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/cart/data/repositories/invoice_repository_impl.dart';
 import 'package:coffee_kst/app/screens/cart/domain/repositories/invoice_repository.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/add_to_cart.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/get_cart.dart';
 import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_bloc.dart';
 import 'package:coffee_kst/app/screens/detail/data/datasource/detail_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/detail/data/repositories/detail_repositories_impl.dart';
 import 'package:coffee_kst/app/screens/detail/domain/repositories/home_repository.dart';
 import 'package:coffee_kst/app/screens/detail/domain/usecase/get_detail.dart';
-import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail/product_detail_bloc.dart';
+import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail_service/product_detail_bloc.dart';
 import 'package:coffee_kst/app/screens/home/data/datasource/home_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/home/data/repositories/home_repositories_impl.dart';
 import 'package:coffee_kst/app/screens/home/domain/repositories/home_repository.dart';
 import 'package:coffee_kst/app/screens/home/domain/usecase/get_list_product.dart';
 import 'package:coffee_kst/app/screens/home/domain/usecase/get_product_type.dart';
 import 'package:coffee_kst/app/screens/home/domain/usecase/get_voucher.dart';
+import 'package:coffee_kst/app/screens/home/presentation/bloc/navigation_bottom/navigation_screen_cubit.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/product/product_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/product_type/product_type_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/voucher/voucher_bloc.dart';
@@ -49,6 +51,11 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //! Features - AuthenticationBloc
   // Bloc
+
+  sl.registerFactory(
+    () => NavigationScreenCubit(),
+  );
+
   _diAuth();
   //---------------------------------------------------
   //Feature UserController
@@ -186,10 +193,14 @@ _diHome() {
 _diDetail() {
   //Feature load product type
   sl.registerFactory(
-    () => ProductDetailBloc(sl()),
+    () => ProductDetaiServicelBloc(sl(), sl()),
   );
+  // sl.registerFactory(
+  //   () => AddToCartDetailBloc(),
+  // );
   // Use cases - PRoductControoller - voucher controller
   sl.registerLazySingleton(() => GetDetailUseCase(repository: sl()));
+  sl.registerLazySingleton(() => AddToCartEmptyUseCase(repository: sl()));
   // Repository - PRoductControoller
   sl.registerLazySingleton(
     () => DetailRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),

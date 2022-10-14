@@ -117,4 +117,24 @@ class DialogController {
       },
     );
   }
+
+  Future successNotAction(BuildContext context) async {
+    await showGeneralDialog(
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionBuilder: (context, a1, a2, child) {
+        return Opacity(
+          opacity: a1.value,
+          child: child,
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 500),
+      barrierDismissible: true,
+      barrierLabel: '',
+      context: context,
+      pageBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation) {
+        return const DialogSuccessNotAction();
+      },
+    );
+  }
 }
