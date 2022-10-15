@@ -27,7 +27,7 @@ class BodyPersonalInformation extends StatelessWidget {
             ),
             const SizedBox(height: 15.0),
             BuildItemWidget(
-              lable: LocaleKeys.phone.tr(),
+              lable: 'Số điện thoại',
               value: box.get(KEY_BOX_INFORMATION)!.phone,
               delay: const Duration(milliseconds: 400),
               isRight: true,

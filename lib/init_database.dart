@@ -20,9 +20,9 @@ Future initUser() async {
   final token = await BoxesUser.instance.getDataTokenUser();
 
   if (token.isNotEmpty) {
-    AppRoutes.initRoute = '/home';
+    AppRoutes.initRoute = HOME_PATH;
   } else {
-    AppRoutes.initRoute = '/';
+    AppRoutes.initRoute = LOGIN_PATH;
   }
 }
 

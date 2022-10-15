@@ -3,19 +3,21 @@ import 'dart:convert';
 import 'package:coffee_kst/app/screens/home/domain/entities/product.dart';
 
 class ProductModel extends ProductEntity {
-  const ProductModel(
-      {required super.id,
-      required super.name,
-      required super.description,
-      required super.size1,
-      required super.size2,
-      required super.size3,
-      required super.price1,
-      required super.price2,
-      required super.price3,
-      required super.unit,
-      required super.imageUrl,
-      required super.categName});
+  const ProductModel({
+    required super.id,
+    required super.name,
+    required super.description,
+    required super.size1,
+    required super.size2,
+    required super.size3,
+    required super.price1,
+    required super.price2,
+    required super.price3,
+    required super.unit,
+    required super.imageUrl,
+    required super.categName,
+    required super.countRating,
+  });
   static List<ProductModel> productEnityFromJson(String str) =>
       List<ProductModel>.from(
           json.decode(str).map((x) => ProductModel.fromJson(x)));
@@ -32,6 +34,7 @@ class ProductModel extends ProductEntity {
         unit: json["unit"],
         imageUrl: json["image_url"],
         categName: json["categ_name"],
+        countRating: json["count_rating"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,6 +50,7 @@ class ProductModel extends ProductEntity {
         "unit": unit,
         "image_url": imageUrl,
         "categ_name": categName,
+        "count_rating": countRating,
       };
   @override
   String toString() => toJson().toString();

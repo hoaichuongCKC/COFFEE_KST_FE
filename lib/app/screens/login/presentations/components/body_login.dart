@@ -145,7 +145,7 @@ class _BodyLoginState extends State<BodyLogin> {
                 LengthLimitingTextInputFormatter(10),
                 FilteringTextInputFormatter.digitsOnly,
               ],
-              label: LocaleKeys.phone.tr(),
+              label: 'Số điện thoại',
               textInputAction: loginMethod.value == LoginMethod.PASSWORD_LOGIN
                   ? TextInputAction.next
                   : TextInputAction.done,
@@ -222,7 +222,7 @@ class _BodyLoginState extends State<BodyLogin> {
                                   }
                                 },
                                 controller: passwordController,
-                                label: LocaleKeys.password.tr(),
+                                label: 'Mật khẩu',
                                 hintText: 'Nhập mật khẩu của bạn',
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.name,

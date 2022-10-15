@@ -106,6 +106,7 @@ class ProductDetaiServicelBloc
     try {
       final result =
           await getDetailUseCase.call(ParamDetail(productID: event.productID));
+
       result.fold(
         (Failure l) {
           if (l is InternetFailure) {

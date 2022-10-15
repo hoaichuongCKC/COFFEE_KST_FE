@@ -26,11 +26,6 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       body: Builder(builder: (context) {
         return BlocBuilder<PersonalInformationBloc, PersonalInformationState>(
-          buildWhen: ((previous, current) {
-            // print("Trạng thái trước đó: $previous");
-            // print("Trạng thái hiện tại: $current");
-            return current is! PILoadedState;
-          }),
           builder: (context, state) {
             if (state is PIFailedState) {
               return Center(

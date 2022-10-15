@@ -18,6 +18,7 @@ class DetailEntity extends Equatable {
     required this.categName,
     required this.reviews,
     required this.toppings,
+    required this.countRating,
   });
 
   final int id;
@@ -34,6 +35,7 @@ class DetailEntity extends Equatable {
   final String categName;
   final List<ReviewModel> reviews;
   final List<ToppingModel> toppings;
+  final dynamic countRating;
 
   @override
   List<Object?> get props => [
@@ -49,6 +51,7 @@ class DetailEntity extends Equatable {
         unit,
         imageUrl,
         reviews,
+        countRating,
         toppings
       ];
 }

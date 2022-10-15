@@ -7,6 +7,7 @@ import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/core/utils/const_form_state.dart';
 import 'package:coffee_kst/injection_container.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:coffee_kst/routes/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'components/form_old_password.dart';
 
@@ -53,8 +54,10 @@ class ChangePasswordScreen extends StatelessWidget {
                   context
                       .read<ChangePasswordBloc>()
                       .add(InitChangedPasswordEvent());
-                  DialogController.instance
-                      .success(message: state.message, context: context);
+                  DialogController.instance.success(
+                      message: state.message,
+                      context: context,
+                      onClicked: () => AppRoutes.pop());
                 }
                 if (state.formAppState is FormSubmitFailedState) {
                   DialogController.instance

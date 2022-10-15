@@ -36,7 +36,6 @@ class CodegenLoader extends AssetLoader {
     "processing": "Processing",
     "please_fill_in_this_field": "Please fill in this field",
     "fullname": "Fullname",
-    "phone": "Phone",
     "address": "Address",
     "gender": "Gender",
     "male_gender": "Male",
@@ -50,7 +49,6 @@ class CodegenLoader extends AssetLoader {
     "commune": "Communes",
     "specific_address": "Specific address",
     "edit_successfully": "Edit successfully",
-    "password": "Password",
     "enter_your_phone": "Enter your phone",
     "login_with_phone": "Login with phone",
     "login_with_password": "Login with password"
@@ -77,7 +75,6 @@ class CodegenLoader extends AssetLoader {
     "processing": "Đang xử lý",
     "please_fill_in_this_field": "Vui lòng nhập trường này",
     "fullname": "Họ tên",
-    "phone": "Số điện thoại",
     "address": "Địa chỉ",
     "gender": "Giới tính",
     "male_gender": "Nam",
@@ -91,7 +88,6 @@ class CodegenLoader extends AssetLoader {
     "commune": "Phường xã",
     "specific_address": "Địa chỉ cụ thể",
     "edit_successfully": "Chỉnh sửa thành công",
-    "password": "Mật khẩu",
     "enter_your_phone": "Nhập số điện thoại của bạn",
     "login_with_phone": "Đăng nhập với số điện thoại",
     "login_with_password": "Đăng nhập với mật khẩu"

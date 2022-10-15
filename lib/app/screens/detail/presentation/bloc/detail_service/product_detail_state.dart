@@ -58,7 +58,8 @@ class ProductDetailServiceState extends Equatable {
         imageUrl: '',
         categName: '',
         reviews: [],
-        toppings: []),
+        toppings: [],
+        countRating: 0),
   });
 
   @override

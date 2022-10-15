@@ -18,11 +18,20 @@ class TitleDetail extends StatelessWidget {
             children: [
               const SizedBox(height: 10.0),
               state.state is ProductDetailLoaded
-                  ? TextWidgets(
-                      text: state.data.name,
-                      fontSize: AppDimens.text18,
-                      weight: FontWeight.w500,
-                      textColor: Theme.of(context).textTheme.bodyMedium!.color!,
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextWidgets(
+                          text: state.data.name,
+                          fontSize: AppDimens.text18,
+                          weight: FontWeight.w500,
+                          textColor:
+                              Theme.of(context).textTheme.bodyMedium!.color!,
+                        ),
+                        state.data.countRating != 0
+                            ? ItemStar(star: state.data.countRating.toString())
+                            : const SizedBox()
+                      ],
                     )
                   : state.state is ProductDetailLoading
                       ? const SkeletonWidget.rectangle(width: 150, height: 10)

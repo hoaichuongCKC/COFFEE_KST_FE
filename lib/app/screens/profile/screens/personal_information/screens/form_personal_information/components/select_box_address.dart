@@ -21,13 +21,20 @@ class SelectBoxAddressPI extends StatelessWidget {
               textColor: AppColors.disableTextColor,
             ),
             const SizedBox(width: 5.0),
-            context.watch<EditInformationUserBloc>().state.address.isEmpty
-                ? const SizedBox()
-                : TextWidgets(
-                    text: '(Đã chỉnh sửa)',
-                    fontSize: AppDimens.text10,
-                    textColor: AppColors.textErrorColor,
-                  ),
+            BlocBuilder<EditInformationUserBloc, EditInformationUserState>(
+              buildWhen: (previous, current) =>
+                  previous.address != current.address,
+              builder: (context, stateEdit) {
+                if (stateEdit.address.isEmpty) {
+                  return const SizedBox();
+                }
+                return TextWidgets(
+                  text: '(Đã chỉnh sửa)',
+                  fontSize: AppDimens.text10,
+                  textColor: AppColors.textErrorColor,
+                );
+              },
+            ),
           ],
         ),
         const SizedBox(height: 8.0),
@@ -43,32 +50,32 @@ class SelectBoxAddressPI extends StatelessWidget {
                 border: Theme.of(context).brightness == Brightness.light
                     ? Border.all(color: AppColors.primaryColor, width: 0.5)
                     : null),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: TextWidgets(
-                    text: address!.isEmpty
-                        ? 'Chọn địa chỉ của bạn'
-                        : context
-                                .watch<EditInformationUserBloc>()
-                                .state
-                                .address
-                                .isNotEmpty
-                            ? context
-                                .watch<EditInformationUserBloc>()
-                                .state
-                                .address
-                            : address!,
-                    fontSize: AppDimens.text14,
-                    maxline: 2,
-                    textColor: address!.isEmpty
-                        ? AppColors.disableTextColor
-                        : AppColors.darkColor,
-                  ),
-                ),
-                SvgPicture.asset(AppIcons.ARROW_RIGHT_ASSET)
-              ],
+            child:
+                BlocBuilder<EditInformationUserBloc, EditInformationUserState>(
+              buildWhen: (previous, current) =>
+                  previous.address != current.address,
+              builder: (context, stateEdit) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: TextWidgets(
+                        text: address!.isEmpty
+                            ? 'Chọn địa chỉ của bạn'
+                            : stateEdit.address.isNotEmpty
+                                ? stateEdit.address
+                                : address!,
+                        fontSize: AppDimens.text14,
+                        maxline: 2,
+                        textColor: address!.isEmpty
+                            ? AppColors.disableTextColor
+                            : AppColors.darkColor,
+                      ),
+                    ),
+                    SvgPicture.asset(AppIcons.ARROW_RIGHT_ASSET)
+                  ],
+                );
+              },
             ),
           ),
         ),

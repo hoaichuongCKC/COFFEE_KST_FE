@@ -5,7 +5,6 @@ import 'package:coffee_kst/app/common/widgets/counter_widget.dart';
 import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_bloc.dart';
 import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail_service/product_detail_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/navigation_bottom/navigation_screen_cubit.dart';
-import 'package:coffee_kst/core/utils/const_code_state.dart';
 import 'package:coffee_kst/main_export.dart';
 import 'package:coffee_kst/routes/routes.dart';
 
@@ -66,10 +65,10 @@ class BottomNavigatorDetail extends StatelessWidget {
           ButtonWidget(
             label: 'Thêm giỏ hàng',
             onClicked: () async {
-              if (BlocProvider.of<CartServiceBloc>(context, listen: false)
-                  .state
-                  .list
-                  .isEmpty) {
+              final cartBloc =
+                  BlocProvider.of<CartServiceBloc>(context, listen: false)
+                      .state;
+              if (cartBloc.list.isEmpty) {
                 context.read<ProductDetaiServicelBloc>().add(AddToCartEvent());
                 await DialogController.instance.successNotAction(context);
                 AppRoutes.pop();

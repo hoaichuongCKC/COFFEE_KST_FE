@@ -69,10 +69,20 @@ class ItemCart extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 5.0),
-                        TextWidgets(
-                          text: Convert.instance.convertVND(entity.price),
-                          fontSize: AppDimens.text14,
-                          textColor: AppColors.textErrorColor,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextWidgets(
+                              text: Convert.instance.convertVND(entity.price),
+                              fontSize: AppDimens.text14,
+                              textColor: AppColors.textErrorColor,
+                            ),
+                            TextWidgets(
+                              text: 'Loại: ${entity.sizeName}',
+                              fontSize: AppDimens.text14,
+                              textColor: AppColors.disableTextColor,
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 5.0),
                         Row(

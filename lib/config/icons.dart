@@ -45,4 +45,5 @@ class AppIcons {
   static const String SETTING_ASSET = "assets/icons/setting.svg";
   static const String MALE_ASSET = "assets/icons/male.svg";
   static const String FEMALE_ASSET = "assets/icons/female.svg";
+  static const String CALCULATOR_ASSET = "assets/icons/calculator.svg";
 }

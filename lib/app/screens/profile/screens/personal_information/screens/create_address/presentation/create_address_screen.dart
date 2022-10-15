@@ -1,5 +1,6 @@
 import 'package:coffee_kst/app/common/dialog/dialog_controller.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/bloc/address_country/address_country_bloc.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/components/overlay_select_box.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
 import 'package:coffee_kst/core/locale_keys.g.dart';
 import 'package:coffee_kst/main_export.dart';
@@ -24,6 +25,7 @@ class CreateAddressScreen extends StatelessWidget {
                   bloc.districtEntity.name.isEmpty &&
                   bloc.communeEntity.name.isEmpty) {
                 Navigator.of(context).pop();
+                OverlaySelectBox.dismiss();
               } else {
                 DialogController.instance.warning(
                   message:
@@ -57,20 +59,21 @@ class CreateAddressScreen extends StatelessWidget {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15.0),
           child: ButtonWidget(
-              label: LocaleKeys.update.tr(),
-              onClicked: bloc.provinceEntity.name.isEmpty ||
-                      bloc.districtEntity.name.isEmpty ||
-                      bloc.communeEntity.name.isEmpty
-                  ? null
-                  : () {
-                      context.read<EditInformationUserBloc>().add(
-                            ChangedAddressNewEvent(
-                                address:
-                                    '${bloc.specificAddress}, ${bloc.communeEntity.name}, ${bloc.districtEntity.name}, ${bloc.provinceEntity.name}'),
-                          );
-                      context.read<AddressCountryBloc>().add(LoadAddressInit());
-                      Navigator.of(context).pop();
-                    }),
+            label: LocaleKeys.update.tr(),
+            onClicked: bloc.provinceEntity.name.isEmpty ||
+                    bloc.districtEntity.name.isEmpty ||
+                    bloc.communeEntity.name.isEmpty
+                ? null
+                : () {
+                    context.read<EditInformationUserBloc>().add(
+                          ChangedAddressNewEvent(
+                              address:
+                                  '${bloc.specificAddress}, ${bloc.communeEntity.name}, ${bloc.districtEntity.name}, ${bloc.provinceEntity.name}'),
+                        );
+                    context.read<AddressCountryBloc>().add(LoadAddressInit());
+                    Navigator.of(context).pop();
+                  },
+          ),
         ),
       ),
     );

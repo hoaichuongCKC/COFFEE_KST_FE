@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 import 'package:coffee_kst/app/common/animations/push_screen/slide_top_left.dart';
 import 'package:coffee_kst/app/screens/detail/presentation/detail_screen.dart';
+import 'package:coffee_kst/app/screens/home/data/models/voucher.dart';
 import 'package:coffee_kst/app/screens/home/presentation/home_screen.dart';
 import 'package:coffee_kst/app/screens/home/screens/notification/notification_screen.dart';
 import 'package:coffee_kst/app/screens/login/presentations/login_screen.dart';
@@ -10,6 +11,7 @@ import 'package:coffee_kst/app/screens/profile/screens/personal_information/scre
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/form_personal_information_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/personal_information/personal_information_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/settings/settings_screen.dart';
+import 'package:coffee_kst/app/screens/voucher/voucher_screen.dart';
 import 'package:flutter/material.dart';
 
 //router -- alone
@@ -22,8 +24,8 @@ const String CREATE_ACCOUNT_PATH = '/create_account';
 
 //router home
 const String HOME_PATH = '/home';
-const String NOTIFICATION_PATH = 'home/notification';
-
+const String NOTIFICATION_PATH = '$HOME_PATH/notification';
+const String VOUCHER_PATH = '$HOME_PATH/voucher';
 //router profile
 const String PROFILE_PATH = '/profile';
 const String SETTING_PATH_PROFILE = '$PROFILE_PATH/setting';
@@ -57,12 +59,19 @@ class AppRoutes {
       //router home
       case HOME_PATH:
         return MaterialPageRoute(
-          builder: (_) => HomeScreen(),
+          builder: (_) => const HomeScreen(),
         );
 
       case NOTIFICATION_PATH:
         return MaterialPageRoute(
           builder: (_) => const NotificationScreen(),
+        );
+
+      case VOUCHER_PATH:
+        return MaterialPageRoute(
+          builder: (_) => VoucherScreen(
+            entity: settings.arguments as VoucherModel,
+          ),
         );
 
       //router profile
@@ -100,15 +109,12 @@ class AppRoutes {
     });
   }
 
-  static pushNamed(String route) {
-    navigatorKey.currentState!.pushNamed(route);
-  }
+  static void pushNamed(String route, {Object? argument}) =>
+      navigatorKey.currentState!.pushNamed(route, arguments: argument);
 
-  static pop() {
-    navigatorKey.currentState!.pop();
-  }
+  static void pop() => navigatorKey.currentState!.pop();
 
-  static pushNameAndRemoveUntil(String route) {
+  static void pushNameAndRemoveUntil(String route) {
     navigatorKey.currentState!.pushNamedAndRemoveUntil(route, (route) => false);
   }
 }

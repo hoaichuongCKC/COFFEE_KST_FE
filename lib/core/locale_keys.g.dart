@@ -24,7 +24,6 @@ abstract class LocaleKeys {
   static const processing = 'processing';
   static const please_fill_in_this_field = 'please_fill_in_this_field';
   static const fullname = 'fullname';
-  static const phone = 'phone';
   static const address = 'address';
   static const gender = 'gender';
   static const male_gender = 'male_gender';
@@ -38,7 +37,6 @@ abstract class LocaleKeys {
   static const commune = 'commune';
   static const specific_address = 'specific_address';
   static const edit_successfully = 'edit_successfully';
-  static const password = 'password';
   static const enter_your_phone = 'enter_your_phone';
   static const login_with_phone = 'login_with_phone';
   static const login_with_password = 'login_with_password';

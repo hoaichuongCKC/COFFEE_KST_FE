@@ -3,6 +3,7 @@ import 'package:coffee_kst/app/common/components/item_voucher.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/voucher/voucher_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/widgets/title_home.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:coffee_kst/routes/routes.dart';
 
 class VoucherHome extends StatelessWidget {
   const VoucherHome({Key? key}) : super(key: key);
@@ -94,9 +95,10 @@ class VoucherHome extends StatelessWidget {
                                 right: index == state.list.length - 1
                                     ? 15.0
                                     : 0.0),
-                            child: ItemVoucher(
-                                key: PageStorageKey(list[index].id),
-                                entity: list[index]),
+                            child: InkWell(
+                                onTap: () => AppRoutes.pushNamed(VOUCHER_PATH,
+                                    argument: list[index]),
+                                child: ItemVoucher(entity: list[index])),
                           );
                         },
                       ),

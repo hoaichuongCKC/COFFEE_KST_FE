@@ -53,7 +53,7 @@ class ItemProductHorizontal extends StatelessWidget {
                         fontSize: AppDimens.text12,
                         textColor: AppColors.disableTextColor,
                       ),
-                      const SizedBox(height: 5.0),
+                      const SizedBox(height: 8.0),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -63,7 +63,16 @@ class ItemProductHorizontal extends StatelessWidget {
                             textColor: AppColors.disableTextColor,
                           ),
                           const Spacer(),
-                          const ItemStar(star: '4'),
+                          entity.countRating == null
+                              ? TextWidgets(
+                                  text: 'Chưa có',
+                                  fontSize: AppDimens.text10,
+                                  textColor: AppColors.disableTextColor,
+                                )
+                              : ItemStar(
+                                  star: double.parse(entity.countRating)
+                                      .toInt()
+                                      .toString()),
                         ],
                       )
                     ],

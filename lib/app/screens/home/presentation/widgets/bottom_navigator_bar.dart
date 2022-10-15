@@ -37,7 +37,7 @@ class BottomNavigator extends StatelessWidget {
             ),
             ItemBottomNavigatorHomeWidget(
               label: DASHBOARD_PAGE,
-              iconUrl: AppIcons.DASBOARD_ASSET,
+              iconUrl: AppIcons.CALCULATOR_ASSET,
               page: 1,
               changeScreens: () => context
                   .read<NavigationScreenCubit>()

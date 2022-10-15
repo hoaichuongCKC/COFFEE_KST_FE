@@ -31,8 +31,6 @@ class InvoiceRemoteDataSourceImpl extends InvoiceRemoteDataSource with Api {
 
   @override
   Future<int> addToCartEmpty(ParamAddToCartEmpty params) async {
-    print((List<dynamic>.from(
-        params.listToppings.map((element) => element.toJson()))));
     final data = {
       "params": {
         "shipping_address": params.shippingAddress,
@@ -49,7 +47,6 @@ class InvoiceRemoteDataSourceImpl extends InvoiceRemoteDataSource with Api {
     };
     final reponse = await postService(ENDPOINT_ADD_TO_CAR_EMPTY,
         data: jsonEncode(data), options: Options(headers: await setupHeader()));
-    print(reponse.statusCode!);
     return reponse.statusCode!;
   }
 }

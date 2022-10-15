@@ -19,6 +19,7 @@ class DetailModel extends DetailEntity {
       required super.imageUrl,
       required super.categName,
       required super.reviews,
+      required super.countRating,
       required super.toppings});
 
   static DetailModel detailModelFromJson(String str) =>
@@ -37,6 +38,7 @@ class DetailModel extends DetailEntity {
         price2: json["price2"],
         price3: json["price3"],
         unit: json["unit"],
+        countRating: json["count_rating"],
         imageUrl: json["image_url"],
         categName: json["categ_name"],
         reviews: List<ReviewModel>.from(
@@ -58,6 +60,7 @@ class DetailModel extends DetailEntity {
         "unit": unit,
         "image_url": imageUrl,
         "categ_name": categName,
+        "rating_star": countRating,
         "reviews": List<dynamic>.from(reviews.map((x) => x.toJson())),
         "toppings": List<dynamic>.from(toppings.map((x) => x.toJson())),
       };

@@ -29,28 +29,8 @@ class RecommendTitleHome extends StatelessWidget {
   }
 }
 
-class RecommendListProductHome extends StatefulWidget {
+class RecommendListProductHome extends StatelessWidget {
   const RecommendListProductHome({Key? key}) : super(key: key);
-
-  @override
-  State<RecommendListProductHome> createState() =>
-      _RecommendListProductHomeState();
-}
-
-class _RecommendListProductHomeState extends State<RecommendListProductHome> {
-  late ScrollController _scrollController;
-  @override
-  void initState() {
-    _scrollController = ScrollController();
-    _scrollController.addListener(() {});
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +76,7 @@ class _RecommendListProductHomeState extends State<RecommendListProductHome> {
           return ListView.separated(
             itemCount: state.list.length,
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            physics: const ScrollPhysics(),
             separatorBuilder: (context, index) => const SizedBox(),
             itemBuilder: (context, index) {
               return InkWell(

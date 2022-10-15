@@ -1,5 +1,6 @@
 import 'package:coffee_kst/app/common/animations/do_fade/fade_in_right.dart';
 import 'package:coffee_kst/app/common/dialog/dialog_controller.dart';
+import 'package:coffee_kst/app/screens/home/presentation/bloc/navigation_bottom/navigation_screen_cubit.dart';
 import 'package:coffee_kst/core/utils/constants_profile.dart';
 import 'package:coffee_kst/database/box/box_user.dart';
 import 'package:coffee_kst/main_export.dart';
@@ -53,8 +54,8 @@ class BodyProfile extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () => _handleScreenSwitching(e['label'], context),
-                    child: _buildItemProfile(
-                        context, e['icon'], e['label'], index),
+                    child: ItemProfile(
+                        icon: e['icon'], label: e['label'], index: index),
                   ),
                   const SizedBox(height: 15.0),
                 ],
@@ -85,6 +86,9 @@ class BodyProfile extends StatelessWidget {
           nameConfirm: 'Thoát',
           onConfirm: () {
             BoxesUser.instance.deleteTokenUser();
+            context
+                .read<NavigationScreenCubit>()
+                .changeNavigatorBottom(const HomeScreenState());
             AppRoutes.pushNameAndRemoveUntil(LOGIN_PATH);
           },
           onCancle: () => Navigator.pop(context),
@@ -94,16 +98,30 @@ class BodyProfile extends StatelessWidget {
       default:
     }
   }
+}
 
-  Widget _buildItemProfile(
-      BuildContext context, Widget icon, String label, int index) {
-    bool isLight = (Theme.of(context).brightness == Brightness.light);
+class ItemProfile extends StatelessWidget {
+  const ItemProfile({
+    Key? key,
+    required this.icon,
+    required this.index,
+    required this.label,
+  }) : super(key: key);
 
+  final Widget icon;
+
+  final int index;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
     return FadeInRight(
       delay: Duration(milliseconds: 100 * index),
       duration: const Duration(milliseconds: 300),
       child: ClipPath(
-        clipper: isLight ? null : DrawItemProfile(),
+        clipper: Theme.of(context).brightness == Brightness.dark
+            ? null
+            : DrawItemProfile(),
         child: Container(
           width: double.infinity,
           padding: EdgeInsets.symmetric(
@@ -111,7 +129,7 @@ class BodyProfile extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.08,
           decoration: BoxDecoration(
             color: AppColors.lightColor,
-            border: isLight
+            border: Theme.of(context).brightness == Brightness.dark
                 ? Border(
                     bottom: BorderSide(
                         color: AppColors.disableTextColor.withAlpha(200),

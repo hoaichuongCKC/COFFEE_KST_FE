@@ -23,7 +23,7 @@ class BoxesSettings {
     var boxTheme = await openBoxTheme();
     var boxLanguage = await openBoxLanguage();
     if (!boxTheme.containsKey(KEY_BOX_THEME)) {
-      boxTheme.put(KEY_BOX_THEME, ThemeHive(isDarkTheme: true));
+      boxTheme.put(KEY_BOX_THEME, ThemeHive(isDarkTheme: false));
     }
     if (!boxLanguage.containsKey(KEY_BOX_LANGUAGE)) {
       boxLanguage.put(

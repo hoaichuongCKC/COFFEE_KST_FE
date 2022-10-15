@@ -18,6 +18,7 @@ class ProductEntity extends Equatable {
     required this.unit,
     required this.imageUrl,
     required this.categName,
+    required this.countRating,
   });
 
   final int id;
@@ -32,7 +33,7 @@ class ProductEntity extends Equatable {
   final String unit;
   final String imageUrl;
   final String categName;
-
+  final dynamic countRating;
   @override
   List<Object?> get props => [
         id,
@@ -46,6 +47,6 @@ class ProductEntity extends Equatable {
         price3,
         unit,
         imageUrl,
-        categName
+        categName,countRating
       ];
 }
