@@ -96,6 +96,7 @@ class TextFormFielddWidget extends TextFormFieldWidget {
     EdgeInsetsGeometry? contentPadding,
     FocusNode? focusNode,
     bool obscureText = false,
+    bool autoFocus = false,
     bool readOnly = false,
     Widget? suffixIcon,
     Widget? prefixIcon,
@@ -117,6 +118,7 @@ class TextFormFielddWidget extends TextFormFieldWidget {
           obscureText: obscureText,
           suffixIcon: suffixIcon,
           line: maxLine,
+          autoFocus: autoFocus,
           hintText: hintText,
           filledColor: filledColor,
           decoration: InputDecoration(
@@ -189,6 +191,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.suffixIcon,
     this.hintText,
     this.filledColor,
+    this.autoFocus = false,
     required this.decoration,
     this.line = 1,
   }) : super(key: key);
@@ -208,9 +211,11 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final Color? filledColor;
   final InputDecoration decoration;
+  final bool autoFocus;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: autoFocus,
       readOnly: readOnly,
       maxLines: line,
       style: const TextStyle(

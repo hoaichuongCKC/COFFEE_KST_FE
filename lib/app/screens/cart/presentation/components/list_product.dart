@@ -58,27 +58,22 @@ class ListProductCart extends StatelessWidget {
               key: listKey,
               initialItemCount: state.list.length,
               itemBuilder: (context, index, a1) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ItemCart(
-                      onClear: () {
-                        _remoteItem(context, index);
-                      },
-                      entity: state.list[index],
-                      animation: a1,
-                    ),
-                    index == state.list.length - 1
-                        ? const SizedBox()
-                        : const SizedBox(height: 15.0),
-                    index == state.list.length - 1
-                        ? const SizedBox()
-                        : Container(
-                            height: 20.0,
-                            width: double.maxFinite,
-                            color: AppColors.disableTextColor.withAlpha(50),
-                          ),
-                  ],
+                return Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ItemCart(
+                        onClear: () {
+                          _remoteItem(context, index);
+                        },
+                        entity: state.list[index],
+                        animation: a1,
+                      ),
+                      index == state.list.length - 1
+                          ? const SizedBox()
+                          : const SizedBox(height: 15.0),
+                    ],
+                  ),
                 );
               },
             ),

@@ -8,21 +8,34 @@ class HeaderDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductDetaiServicelBloc, ProductDetailServiceState>(
-      buildWhen: (previous, current) => previous.sizeName != current.sizeName,
+      buildWhen: (previous, current) =>
+          previous.sizeName != current.sizeName || previous.sizeName.isEmpty,
       builder: (context, state) {
         if (state.state is ProductDetailLoaded) {
-          return Expanded(
+          return Container(
+            width: double.maxFinite,
+            height: 250,
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height * 0.2,
+              maxHeight: MediaQuery.of(context).size.height * 0.3,
+            ),
             child: Stack(
               fit: StackFit.expand,
               children: [
-                Hero(
-                  tag: state.data.id,
-                  child: ImageWidget(
-                    url: state.data.imageUrl,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: ClipRRect(
+                    borderRadius: AppStyles.borderRadius12,
+                    child: ImageWidget(
+                      url: state.data.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
+                Positioned(
+                  top: 0,
+                  right: 10.0,
+                  bottom: 0.0,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: FadeInRight(
@@ -143,27 +156,29 @@ class HeaderDetail extends StatelessWidget {
           );
         }
         if (state.state is ProductDetailLoading) {
-          return Expanded(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: const SkeletonWidget.rectangle(
-                width: double.maxFinite,
-                height: double.maxFinite,
-                borderRadius: RoundedRectangleBorder(
-                  borderRadius: AppStyles.borderRadius10,
-                ),
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            height: 250,
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height * 0.2,
+              maxHeight: MediaQuery.of(context).size.height * 0.3,
+            ),
+            child: const SkeletonWidget.rectangle(
+              width: double.maxFinite,
+              height: double.maxFinite,
+              borderRadius: RoundedRectangleBorder(
+                borderRadius: AppStyles.borderRadius10,
               ),
             ),
           );
         }
         if (state.state is ProductDetailLoadFailed) {
-          return Expanded(
-              child: TextWidgets(
+          return TextWidgets(
             text: state.message,
             textColor: AppColors.textErrorColor,
             fontSize: AppDimens.text14,
             maxline: 3,
-          ));
+          );
         }
         return const SizedBox();
       },

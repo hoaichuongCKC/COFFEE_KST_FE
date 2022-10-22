@@ -1,8 +1,9 @@
 import 'dart:io';
 import 'package:coffee_kst/app/app.dart';
-import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_bloc.dart';
 import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail_service/product_detail_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/navigation_bottom/navigation_screen_cubit.dart';
+import 'package:coffee_kst/app/screens/home/presentation/bloc/product/product_bloc.dart';
+import 'package:coffee_kst/app/screens/home/presentation/bloc/product_type/product_type_bloc.dart';
 import 'package:coffee_kst/app/screens/login/presentations/bloc/auth_phone/auth_phone_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
 import 'package:coffee_kst/core/codegen_loader.g.dart';
@@ -45,13 +46,17 @@ void main() async {
             create: (context) => sl<ProductDetaiServicelBloc>(),
           ),
           BlocProvider(
-            create: (context) => sl<CartServiceBloc>()..add(LoadCartEvent()),
-          ),
-          BlocProvider(
             create: (context) => sl<AddressCountryBloc>(),
           ),
           BlocProvider(
             create: (context) => sl<EditInformationUserBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<ProductBloc>()..add(LoadAllProductEvent()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                sl<ProductTypeBloc>()..add(LoadTypeProductEvent()),
           ),
         ],
         child: const MyApp(),

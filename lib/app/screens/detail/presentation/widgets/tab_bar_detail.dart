@@ -18,19 +18,23 @@ class _TabbarDetailState extends State<TabbarDetail> {
   bool isDescription = false;
   bool isTopping = false;
   bool isRating = false;
+  bool isLoadTab = false;
   late ProductDetaiServicelBloc bloc;
   @override
   void initState() {
     bloc = BlocProvider.of<ProductDetaiServicelBloc>(context);
-    bloc.stream.listen((state) {
-      if (state.state is ProductDetailLoaded) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) {
-            _init(keyTopping, isTopping);
-          }
-        });
-      }
-    });
+    bloc.stream.listen(
+      (state) {
+        if (state.state is ProductDetailLoaded && !isLoadTab) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              _init(keyTopping, isTopping);
+            }
+          });
+          isLoadTab = true;
+        }
+      },
+    );
     super.initState();
   }
 

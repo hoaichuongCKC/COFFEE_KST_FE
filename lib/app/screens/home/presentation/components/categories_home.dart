@@ -1,5 +1,6 @@
 import 'package:coffee_kst/app/common/animations/do_fade/fade_in_right.dart';
 import 'package:coffee_kst/app/screens/dashboard/presentation/bloc/tab_categ/change_tab_categ_cubit.dart';
+import 'package:coffee_kst/app/screens/home/presentation/bloc/navigation_bottom/navigation_screen_cubit.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/product_type/product_type_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/widgets/item_cate_home.dart';
 import 'package:coffee_kst/app/screens/home/presentation/widgets/title_home.dart';
@@ -25,13 +26,13 @@ class CategoriesHome extends StatelessWidget {
               maxHeight: 70.0,
               child: BlocBuilder<ProductTypeBloc, ProductTypeState>(
                 builder: (context, state) {
-                  if (state is LoadingState) {
+                  if (state.state is LoadingState) {
                     return skeletonType;
                   }
-                  if (state is LoadFailedState) {
-                    return errorWidget(state, context);
+                  if (state.state is LoadFailedState) {
+                    return errorWidget(state.messageError, context);
                   }
-                  if (state is LoadedState) {
+                  if (state.state is LoadedState) {
                     return FadeInRight(
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
@@ -40,9 +41,15 @@ class CategoriesHome extends StatelessWidget {
                           return ItemCategHome(
                             data: list[index],
                             index: index,
-                            onClicked: () => context
-                                .read<ChangeTabCategCubit>()
-                                .changeTab(list[index].categ_name),
+                            onClicked: () {
+                              context
+                                  .read<ChangeTabCategCubit>()
+                                  .changeTab(list[index].categ_name);
+                              context
+                                  .read<NavigationScreenCubit>()
+                                  .changeNavigatorBottom(
+                                      const DashboardScreenState());
+                            },
                           );
                         },
                         separatorBuilder: (context, index) =>
@@ -61,13 +68,13 @@ class CategoriesHome extends StatelessWidget {
     );
   }
 
-  Padding errorWidget(LoadFailedState state, BuildContext context) {
+  Padding errorWidget(String message, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Stack(
         children: [
           TextWidgets(
-            text: state.messageError,
+            text: message,
             maxline: 3,
             fontSize: AppDimens.text14,
             textColor: AppColors.textErrorColor,

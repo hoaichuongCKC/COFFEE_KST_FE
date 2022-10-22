@@ -1,4 +1,5 @@
 import 'package:coffee_kst/app/common/components/avatar_small.dart';
+import 'package:coffee_kst/app/screens/home/presentation/bloc/navigation_bottom/navigation_screen_cubit.dart';
 import 'package:coffee_kst/main_export.dart';
 import 'package:coffee_kst/routes/routes.dart';
 
@@ -23,7 +24,12 @@ class HeaderHomePage extends StatelessWidget {
                 textColor: Theme.of(context).textTheme.bodyMedium!.color!,
               ),
               const Spacer(),
-              SvgPicture.asset(AppIcons.SEARCH_ASSET),
+              GestureDetector(
+                onTap: () => context
+                    .read<NavigationScreenCubit>()
+                    .changeNavigatorBottom(const DashboardScreenState()),
+                child: SvgPicture.asset(AppIcons.SEARCH_ASSET),
+              ),
               const SizedBox(width: 10.0),
               GestureDetector(
                   onTap: () => AppRoutes.pushNamed(NOTIFICATION_PATH),

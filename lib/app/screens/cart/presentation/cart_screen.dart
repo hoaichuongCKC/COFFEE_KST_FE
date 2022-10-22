@@ -21,7 +21,7 @@ class CartScreen extends StatelessWidget {
             weight: FontWeight.w600,
           ),
         ),
-        backgroundColor: AppColors.disableTextColor.withAlpha(5),
+        backgroundColor: AppColors.disableTextColor.withAlpha(40),
         body: ListProductCart(),
       ),
     );

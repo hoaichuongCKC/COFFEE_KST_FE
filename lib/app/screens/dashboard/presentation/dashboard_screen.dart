@@ -1,38 +1,39 @@
-import 'package:coffee_kst/app/screens/dashboard/presentation/bloc/tab_categ/change_tab_categ_cubit.dart';
+import 'package:coffee_kst/app/screens/dashboard/presentation/components/appbar_dash.dart';
+import 'package:coffee_kst/app/screens/dashboard/presentation/components/body_load_list.dart';
 import 'package:coffee_kst/main_export.dart';
 
-import 'components/tabbar_dashboard.dart';
+import 'components/list_tabbar.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: false,
-          title: TextWidgets(
-            text: 'Danh mục',
-            fontSize: AppDimens.text22,
-            textColor: AppColors.darkColor,
-          ),
-          bottom: const PreferredSize(
-            preferredSize: Size.fromHeight(50.0),
-            child: TabbarDashBoard(),
-          ),
-          actions: <Widget>[
-            SvgPicture.asset(AppIcons.SEARCH_ASSET),
-            const SizedBox(width: 10.0),
-            SvgPicture.asset(AppIcons.FILTER_ASSET),
-            const SizedBox(width: 10.0),
-          ],
-        ),
-        backgroundColor: const Color.fromARGB(255, 252, 252, 252),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[],
+          children: <Widget>[
+            const AppBarDashBoard(),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const ListTabbarCateg(),
+                  Container(
+                    height: 10,
+                    color: AppColors.disableTextColor.withAlpha(30),
+                  ),
+                  const Expanded(
+                      child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: BodyLoadList(),
+                  ))
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -15,29 +15,33 @@ class ProductTypeBloc extends Bloc<ProductTypeEvent, ProductTypeState> {
   GetProducTypeUseCase getProducTypeUseCase;
   ProductTypeBloc(
     this.getProducTypeUseCase,
-  ) : super(InitialState()) {
+  ) : super(const ProductTypeState()) {
     on<LoadTypeProductEvent>(_handleLoad);
   }
   _handleLoad(
       LoadTypeProductEvent event, Emitter<ProductTypeState> emit) async {
-    emit(LoadingState());
+    emit(state.copyWith(state: LoadingState()));
     try {
       final result = await getProducTypeUseCase.call(NoParams());
 
       result.fold(
         (Failure left) {
           if (left is InternetFailure) {
-            emit(const LoadFailedState(messageError: MESSAGE_NOT_INTERNET));
+            emit(state.copyWith(
+                messageError: MESSAGE_NOT_INTERNET, state: LoadFailedState()));
           } else if (left is ServerFailure) {
-            emit(const LoadFailedState(messageError: MESSAGE_SERVER_FAILURE));
+            emit(state.copyWith(
+                messageError: MESSAGE_SERVER_FAILURE,
+                state: LoadFailedState()));
           }
         },
         (List<ProductTypeEntity> r) {
-          emit(LoadedState(list: r));
+          emit(state.copyWith(list: r, state: LoadedState()));
         },
       );
     } catch (e) {
-      emit(LoadFailedState(messageError: e.toString()));
+      emit(
+          state.copyWith(messageError: e.toString(), state: LoadFailedState()));
     }
   }
 }

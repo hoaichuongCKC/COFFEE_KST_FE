@@ -19,17 +19,21 @@ class ItemCart extends StatelessWidget {
       position: Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero)
           .animate(CurvedAnimation(parent: animation, curve: Curves.easeIn)),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20.0),
         decoration: const BoxDecoration(
           color: AppColors.lightColor,
           borderRadius: AppStyles.borderRadius10,
         ),
-        padding: const EdgeInsets.only(right: 10.0, left: 10, bottom: 10.0),
+        constraints: BoxConstraints(
+          minWidth: MediaQuery.of(context).size.width * 0.9,
+          maxWidth: MediaQuery.of(context).size.width * 0.95,
+        ),
+        padding:
+            const EdgeInsets.only(right: 8.0, left: 8, bottom: 10.0, top: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(5.0),
               constraints: const BoxConstraints(
                 minHeight: 80.0,
                 maxHeight: 100.0,
@@ -37,32 +41,41 @@ class ItemCart extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ImageWidget(
-                    url: entity.productInfor.imageUrl,
-                    fit: BoxFit.contain,
+                  AspectRatio(
+                    aspectRatio: 16 / 14,
+                    child: ClipRRect(
+                      borderRadius: AppStyles.borderRadius10,
+                      child: ImageWidget(
+                        url: entity.imageUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                  const SizedBox(width: 15.0),
+                  const SizedBox(width: 8.0),
                   // const Spacer(),
                   Expanded(
                     flex: 2,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            TextWidgets(
-                              text: entity.productInfor.name,
-                              fontSize: AppDimens.text16,
-                              textColor: AppColors.darkColor,
+                            Expanded(
+                              child: TextWidgets(
+                                text: entity.name,
+                                fontSize: AppDimens.text14,
+                                textColor: AppColors.darkColor,
+                                weight: FontWeight.w500,
+                                maxline: 2,
+                              ),
                             ),
-                            const Spacer(),
                             GestureDetector(
                               onTap: onClear,
                               child: const Icon(
                                 Icons.clear,
-                                size: 20.0,
+                                size: 18.0,
                                 color: AppColors.disableTextColor,
                               ),
                             )
@@ -73,13 +86,14 @@ class ItemCart extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextWidgets(
-                              text: Convert.instance.convertVND(entity.price),
-                              fontSize: AppDimens.text14,
+                              text: Convert.instance
+                                  .convertVND(int.parse(entity.price)),
+                              fontSize: AppDimens.text12,
                               textColor: AppColors.textErrorColor,
                             ),
                             TextWidgets(
-                              text: 'Loại: ${entity.sizeName}',
-                              fontSize: AppDimens.text14,
+                              text: 'size: ${entity.sizeName}',
+                              fontSize: AppDimens.text12,
                               textColor: AppColors.disableTextColor,
                             ),
                           ],
@@ -93,13 +107,13 @@ class ItemCart extends StatelessWidget {
                                 increment: () {},
                                 currentCounter: TextWidgets(
                                   text: entity.quantity.toString(),
-                                  fontSize: AppDimens.text14,
+                                  fontSize: AppDimens.text12,
                                   textColor: AppColors.darkColor,
                                 )),
                             const Spacer(),
                             TextWidgets(
-                              text: 'Loại: ${entity.productInfor.categName}',
-                              fontSize: AppDimens.text14,
+                              text: 'Loại: ${entity.categName}',
+                              fontSize: AppDimens.text12,
                               textColor: AppColors.disableTextColor,
                             ),
                           ],
@@ -110,20 +124,18 @@ class ItemCart extends StatelessWidget {
                 ],
               ),
             ),
-            entity.productInfor.listToppings.isEmpty
-                ? const SizedBox()
-                : const Divider(),
-            entity.productInfor.listToppings.isEmpty
+            entity.listTopping.isEmpty ? const SizedBox() : const Divider(),
+            entity.listTopping.isEmpty
                 ? const SizedBox()
                 : TextWidgets(
                     text: 'Danh sách topping:',
                     fontSize: AppDimens.text14,
                     textColor: AppColors.disableTextColor,
                   ),
-            entity.productInfor.listToppings.isEmpty
+            entity.listTopping.isEmpty
                 ? const SizedBox()
-                : const SizedBox(height: 5.0),
-            entity.productInfor.listToppings.isEmpty
+                : const SizedBox(height: 10.0),
+            entity.listTopping.isEmpty
                 ? const SizedBox()
                 : ListTopping(entity: entity)
           ],
@@ -145,8 +157,8 @@ class ListTopping extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: entity.productInfor.listToppings.map((e) {
-        final index = entity.productInfor.listToppings.indexOf(e);
+      children: entity.listTopping.map((e) {
+        final index = entity.listTopping.indexOf(e);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -202,7 +214,7 @@ class ListTopping extends StatelessWidget {
                 ],
               ),
             ),
-            index == entity.productInfor.listToppings.length - 1
+            index == entity.listTopping.length - 1
                 ? const SizedBox()
                 : const SizedBox(height: 8.0),
           ],

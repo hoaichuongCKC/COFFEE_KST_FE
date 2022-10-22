@@ -25,13 +25,15 @@ class DetailScreen extends StatelessWidget {
           const SizedBox(width: 10.0)
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          HeaderDetail(),
-          TitleDetail(),
-          BodyDetail(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            HeaderDetail(),
+            TitleDetail(),
+            BodyDetail(),
+          ],
+        ),
       ),
     );
   }

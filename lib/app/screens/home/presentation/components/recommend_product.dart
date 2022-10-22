@@ -1,9 +1,7 @@
 import 'package:coffee_kst/app/common/components/item_product_horizontal.dart';
-import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail_service/product_detail_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/product/product_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/widgets/title_home.dart';
 import 'package:coffee_kst/main_export.dart';
-import 'package:coffee_kst/routes/routes.dart';
 
 class RecommendTitleHome extends StatelessWidget {
   const RecommendTitleHome({Key? key}) : super(key: key);
@@ -36,10 +34,10 @@ class RecommendListProductHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
-        if (state is ProductLoading) {
+        if (state.state is ProductLoading) {
           return skeletonWidget;
         }
-        if (state is ProductLoadFailed) {
+        if (state.state is ProductLoadFailed) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Stack(
@@ -55,7 +53,7 @@ class RecommendListProductHome extends StatelessWidget {
                   alignment: Alignment.bottomRight,
                   child: InkWell(
                     onTap: () =>
-                        context.read<ProductBloc>().add(LoadListProductEvent()),
+                        context.read<ProductBloc>().add(LoadAllProductEvent()),
                     child: SizedBox(
                       height: 50,
                       child: Center(
@@ -72,21 +70,14 @@ class RecommendListProductHome extends StatelessWidget {
             ),
           );
         }
-        if (state is ProductLoaded) {
+        if (state.state is ProductLoaded) {
           return ListView.separated(
-            itemCount: state.list.length,
+            itemCount: state.listAllProduct.take(15).toList().length,
             shrinkWrap: true,
             physics: const ScrollPhysics(),
             separatorBuilder: (context, index) => const SizedBox(),
             itemBuilder: (context, index) {
-              return InkWell(
-                  onTap: () {
-                    AppRoutes.pushNamed(DETAIL_PATH);
-                    context.read<ProductDetaiServicelBloc>().add(
-                        LoadProductDetailEvent(
-                            productID: state.list[index].id));
-                  },
-                  child: ItemProductHorizontal(entity: state.list[index]));
+              return ItemProductHorizontal(entity: state.listAllProduct[index]);
             },
           );
         }

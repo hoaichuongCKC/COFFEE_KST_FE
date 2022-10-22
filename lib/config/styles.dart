@@ -35,7 +35,8 @@ class AppStyles {
 
   static const BorderRadius borderRadiusTopLeftRight20 = BorderRadius.only(
       topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0));
-
+  static const BorderRadius borderRadiusBottomLeftRight20 = BorderRadius.only(
+      bottomLeft: Radius.circular(20.0), bottomRight: Radius.circular(20.0));
   //border - container
   // static const BorderRadius borderPurple = BorderRadius.only(
   //     topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0));

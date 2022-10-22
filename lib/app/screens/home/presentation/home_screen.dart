@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable
+import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_bloc.dart';
 import 'package:coffee_kst/app/screens/cart/presentation/cart_screen.dart';
 import 'package:coffee_kst/app/screens/dashboard/presentation/bloc/tab_categ/change_tab_categ_cubit.dart';
 import 'package:coffee_kst/app/screens/dashboard/presentation/dashboard_screen.dart';
@@ -9,8 +10,6 @@ import 'package:coffee_kst/app/screens/profile/presentation/bloc/personal_inform
 import 'package:coffee_kst/app/screens/profile/presentation/profile_screen.dart';
 import 'package:coffee_kst/injection_container.dart';
 import 'package:coffee_kst/main_export.dart';
-import 'package:coffee_kst/app/screens/home/presentation/bloc/product/product_bloc.dart';
-import 'package:coffee_kst/app/screens/home/presentation/bloc/product_type/product_type_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/voucher/voucher_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -25,17 +24,13 @@ class HomeScreen extends StatelessWidget {
               sl<PersonalInformationBloc>()..add(LoadPIEvent()),
         ),
         BlocProvider(
-          create: (context) =>
-              sl<ProductTypeBloc>()..add(LoadTypeProductEvent()),
-        ),
-        BlocProvider(
           create: (context) => sl<VoucherHomeBloc>()..add(LoadVoucherEvent()),
         ),
         BlocProvider(
-          create: (context) => sl<ProductBloc>()..add(LoadListProductEvent()),
+          create: (context) => ChangeTabCategCubit(),
         ),
         BlocProvider(
-          create: (context) => ChangeTabCategCubit(),
+          create: (context) => sl<CartServiceBloc>()..add(LoadCartEvent()),
         ),
       ],
       child: Scaffold(

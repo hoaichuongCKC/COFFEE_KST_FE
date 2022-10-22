@@ -27,24 +27,18 @@ class VoucherScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Hero(
-                  tag: entity.title,
-                  child: TextWidgets(
-                    text: entity.title,
-                    fontSize: AppDimens.text18,
-                    textColor: AppColors.primaryColor,
-                    weight: FontWeight.w500,
-                  ),
+                TextWidgets(
+                  text: entity.title,
+                  fontSize: AppDimens.text18,
+                  textColor: AppColors.primaryColor,
+                  weight: FontWeight.w500,
                 ),
                 const SizedBox(height: 8.0),
-                Hero(
-                  tag: 'Giảm ngay ${entity.discount}%',
-                  child: TextWidgets(
-                    text: 'Giảm ngay ${entity.discount}%',
-                    fontSize: AppDimens.text14,
-                    textColor: AppColors.textErrorColor,
-                    weight: FontWeight.w400,
-                  ),
+                TextWidgets(
+                  text: 'Giảm ngay ${entity.discount}%',
+                  fontSize: AppDimens.text14,
+                  textColor: AppColors.textErrorColor,
+                  weight: FontWeight.w400,
                 ),
                 const SizedBox(height: 8.0),
                 Row(

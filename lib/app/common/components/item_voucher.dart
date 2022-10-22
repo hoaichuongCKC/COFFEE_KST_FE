@@ -42,23 +42,17 @@ class ItemVoucher extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Hero(
-                  tag: entity.title,
-                  child: TextWidgets(
-                    text: entity.title,
-                    fontSize: AppDimens.text14,
-                    maxline: 2,
-                    weight: FontWeight.w500,
-                    textColor: AppColors.darkColor,
-                  ),
+                TextWidgets(
+                  text: entity.title,
+                  fontSize: AppDimens.text14,
+                  maxline: 2,
+                  weight: FontWeight.w500,
+                  textColor: AppColors.darkColor,
                 ),
-                Hero(
-                  tag: 'Giảm ${entity.discount}%',
-                  child: TextWidgets(
-                    text: 'Giảm ${entity.discount}%',
-                    fontSize: AppDimens.text14,
-                    textColor: AppColors.primaryColor,
-                  ),
+                TextWidgets(
+                  text: 'Giảm ${entity.discount}%',
+                  fontSize: AppDimens.text14,
+                  textColor: AppColors.primaryColor,
                 ),
                 TextWidgets(
                   text: 'HSD: ${entity.endDate}',

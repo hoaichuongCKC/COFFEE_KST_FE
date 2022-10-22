@@ -3,29 +3,39 @@ import 'dart:convert';
 import 'package:coffee_kst/app/screens/cart/domain/entities/cart.dart';
 
 class CartModel extends CartEntity {
-  const CartModel(
-      {required super.id,
-      required super.productId,
-      required super.quantity,
-      required super.sizeName,
-      required super.price,
-      required super.productInfor});
+  const CartModel({
+    required super.id,
+    required super.productId,
+    required super.imageUrl,
+    required super.name,
+    required super.categName,
+    required super.price,
+    required super.quantity,
+    required super.sizeName,
+    required super.listTopping,
+  });
   factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
         id: json["id"],
         productId: json["product_id"],
-        quantity: json["quantity"],
+        imageUrl: json["image_url"],
+        name: json["name"],
+        categName: json["categ_name"],
+        listTopping: List<ListToppingModel>.from(
+            json["list_topping"].map((x) => ListToppingModel.fromJson(x))),
+        price: json["price"],
         sizeName: json["size_name"],
-        price: int.parse(json["price"].toString()),
-        productInfor: ProductInforModel.fromJson(json["product_infor"]),
+        quantity: json["quantity"],
       );
-
   Map<String, dynamic> toJson() => {
         "id": id,
         "product_id": productId,
-        "quantity": quantity,
-        "size_name": sizeName,
+        "image_url": imageUrl,
+        "name": name,
+        "categ_name": categName,
         "price": price,
-        "image_url": productInfor,
+        "size_name": sizeName,
+        "quantity": quantity,
+        "list_topping": List<dynamic>.from(listTopping.map((x) => x.toJson())),
       };
   static List<CartModel> cartModelFromJson(String str) =>
       List<CartModel>.from(json.decode(str).map((x) => CartModel.fromJson(x)));
@@ -36,36 +46,20 @@ class CartModel extends CartEntity {
   String toString() => toJson().toString();
 }
 
-class ProductInforModel extends ProductInforEntity {
-  const ProductInforModel(
-      {required super.id,
-      required super.imageUrl,
-      required super.name,
-      required super.categName,
-      required super.listToppings});
-  factory ProductInforModel.fromJson(Map<String, dynamic> json) =>
-      ProductInforModel(
-        id: json["id"],
-        imageUrl: json["image_url"],
-        name: json["name"],
-        categName: json["categ_name"],
-        listToppings: List<ToppingModel>.from(
-            json["list_topping"].map((x) => ToppingModel.fromJson(x))),
-      );
-}
-
-class ToppingModel extends ToppingCartEntity {
-  const ToppingModel(
-      {required super.imageUrl,
+class ListToppingModel extends ListToppingEntity {
+  const ListToppingModel(
+      {required super.name,
       required super.price,
-      required super.quantity,
-      required super.name,
-      required super.unit});
-  factory ToppingModel.fromJson(Map<String, dynamic> json) => ToppingModel(
+      required super.unit,
+      required super.imageUrl,
+      required super.quantity});
+
+  factory ListToppingModel.fromJson(Map<String, dynamic> json) =>
+      ListToppingModel(
+        name: json["name"],
         price: json["price"],
+        unit: json["unit"],
         imageUrl: json["image_url"],
         quantity: json["quantity"],
-        name: json["name"],
-        unit: json["unit"],
       );
 }

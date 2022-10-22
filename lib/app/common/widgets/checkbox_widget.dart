@@ -1,10 +1,17 @@
 import 'package:coffee_kst/main_export.dart';
 
 class CheckBoxWidget extends StatelessWidget {
-  const CheckBoxWidget({Key? key, required this.onChanged, required this.value})
+  const CheckBoxWidget(
+      {Key? key,
+      required this.onChanged,
+      required this.value,
+      this.height = 25.0,
+      this.width = 25.0})
       : super(key: key);
   final Function(bool) onChanged;
   final bool value;
+  final double height;
+  final double width;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -13,7 +20,7 @@ class CheckBoxWidget extends StatelessWidget {
       child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInCubic,
-          width: 25.0,
+          width: width,
           decoration: BoxDecoration(
             color: value
                 ? AppColors.primaryColor
@@ -21,7 +28,7 @@ class CheckBoxWidget extends StatelessWidget {
             border: value ? null : Border.all(color: AppColors.primaryColor),
             borderRadius: AppStyles.borderRadius5,
           ),
-          height: 25.0,
+          height: height,
           alignment: Alignment.center,
           child: value
               ? const Icon(
