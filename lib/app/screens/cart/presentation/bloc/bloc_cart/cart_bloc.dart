@@ -127,6 +127,7 @@ class CartServiceBloc extends Bloc<CartServiceEvent, CartServiceState> {
     final state = this.state;
     state.list[event.productIndex].listTopping[event.index].quantity += 1;
     emit(state.copyWith(list: state.list, state: CartLoaded()));
+    add(UpdateTotalCartEvent());
   }
 
   _onDecrementTopping(
@@ -140,6 +141,7 @@ class CartServiceBloc extends Bloc<CartServiceEvent, CartServiceState> {
       state.list[event.productIndex].listTopping[event.index].quantity -= 1;
     }
     emit(state.copyWith(list: state.list, state: CartLoaded()));
+    add(UpdateTotalCartEvent());
   }
 
   _onIncrementProduct(
@@ -147,6 +149,7 @@ class CartServiceBloc extends Bloc<CartServiceEvent, CartServiceState> {
     final state = this.state;
     state.list[event.productIndex].quantity += 1;
     emit(state.copyWith(list: state.list, state: CartLoaded()));
+    add(UpdateTotalCartEvent());
   }
 
   _onDecrementProduct(
@@ -159,5 +162,6 @@ class CartServiceBloc extends Bloc<CartServiceEvent, CartServiceState> {
       state.list[event.productIndex].quantity -= 1;
     }
     emit(state.copyWith(list: state.list, state: CartLoaded()));
+    add(UpdateTotalCartEvent());
   }
 }

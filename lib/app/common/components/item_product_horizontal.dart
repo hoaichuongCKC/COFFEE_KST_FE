@@ -25,75 +25,66 @@ class ItemProductHorizontal extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(7.0),
           constraints: const BoxConstraints(maxHeight: 130.0, minHeight: 100.0),
-          child: Stack(
-            fit: StackFit.expand,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  AspectRatio(
-                    aspectRatio: 16 / 14,
-                    child: ClipRRect(
-                      borderRadius: AppStyles.borderRadius12,
-                      child: ImageWidget(
-                        url: entity.imageUrl,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+              AspectRatio(
+                aspectRatio: 16 / 14,
+                child: ClipRRect(
+                  borderRadius: AppStyles.borderRadius12,
+                  child: ImageWidget(
+                    url: entity.imageUrl,
+                    fit: BoxFit.cover,
                   ),
-                  const SizedBox(width: 15.0),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+              ),
+              const SizedBox(width: 15.0),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextWidgets(
+                      text: entity.name,
+                      fontSize: AppDimens.text16,
+                      textColor: AppColors.darkColor,
+                    ),
+                    const SizedBox(height: 5.0),
+                    TextWidgets(
+                      text: Convert.instance.convertVND(entity.price1),
+                      fontSize: AppDimens.text14,
+                      textColor: AppColors.textErrorColor,
+                    ),
+                    const SizedBox(height: 5.0),
+                    TextWidgets(
+                      text: 'Loại: ${entity.categName} / 1 ${entity.unit}',
+                      fontSize: AppDimens.text12,
+                      textColor: AppColors.disableTextColor,
+                    ),
+                    const SizedBox(height: 8.0),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         TextWidgets(
-                          text: entity.name,
-                          fontSize: AppDimens.text16,
-                          textColor: AppColors.darkColor,
-                        ),
-                        const SizedBox(height: 5.0),
-                        TextWidgets(
-                          text: Convert.instance.convertVND(entity.price1),
-                          fontSize: AppDimens.text14,
-                          textColor: AppColors.textErrorColor,
-                        ),
-                        const SizedBox(height: 5.0),
-                        TextWidgets(
-                          text: 'Loại: ${entity.categName} / 1 ${entity.unit}',
-                          fontSize: AppDimens.text12,
+                          text: 'Đánh giá:',
+                          fontSize: AppDimens.text10,
                           textColor: AppColors.disableTextColor,
                         ),
-                        const SizedBox(height: 8.0),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            TextWidgets(
-                              text: 'Đánh giá:',
-                              fontSize: AppDimens.text10,
-                              textColor: AppColors.disableTextColor,
-                            ),
-                            const Spacer(),
-                            entity.countRating == null
-                                ? TextWidgets(
-                                    text: 'Chưa có',
-                                    fontSize: AppDimens.text10,
-                                    textColor: AppColors.disableTextColor,
-                                  )
-                                : ItemStar(
-                                    star: double.parse(entity.countRating)
-                                        .toInt()
-                                        .toString()),
-                          ],
-                        )
+                        const Spacer(),
+                        entity.countRating == null
+                            ? TextWidgets(
+                                text: 'Chưa có',
+                                fontSize: AppDimens.text10,
+                                textColor: AppColors.disableTextColor,
+                              )
+                            : ItemStar(
+                                star: double.parse(entity.countRating)
+                                    .toInt()
+                                    .toString()),
                       ],
-                    ),
-                  )
-                ],
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: SvgPicture.asset(AppIcons.FAVORITE_ASSET),
+                    )
+                  ],
+                ),
               )
             ],
           ),

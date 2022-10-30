@@ -17,10 +17,6 @@ List<Map<String, dynamic>> listProfile = [
     'label': ITEM_CHANGE_PASSWORD,
   },
   {
-    'icon': SvgPicture.asset(AppIcons.FAVORITE_ASSET),
-    'label': ITEM_FAVORITE_PRODUCT,
-  },
-  {
     'icon': SvgPicture.asset(AppIcons.INVOICE_ASSET),
     'label': ITEM_MY_INVOICE,
   },

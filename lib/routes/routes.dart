@@ -6,6 +6,7 @@ import 'package:coffee_kst/app/screens/home/presentation/home_screen.dart';
 import 'package:coffee_kst/app/screens/home/screens/notification/notification_screen.dart';
 import 'package:coffee_kst/app/screens/login/presentations/login_screen.dart';
 import 'package:coffee_kst/app/screens/login/screens/otp/otp_screen.dart';
+import 'package:coffee_kst/app/screens/pay/pay_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/change_password/change_password_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/create_address_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/form_personal_information_screen.dart';
@@ -14,8 +15,11 @@ import 'package:coffee_kst/app/screens/profile/screens/settings/settings_screen.
 import 'package:coffee_kst/app/screens/voucher/voucher_screen.dart';
 import 'package:flutter/material.dart';
 
-//router -- alone
+//router -- detail
 const String DETAIL_PATH = '/detail';
+
+//router -- pay
+const String PAY_PATH = '/pay';
 
 //router login
 const String LOGIN_PATH = '/';
@@ -73,7 +77,10 @@ class AppRoutes {
             entity: settings.arguments as VoucherModel,
           ),
         );
-
+      case PAY_PATH:
+        return MaterialPageRoute(
+          builder: (_) => const PayScreen(),
+        );
       //router profile
       case INFORMATION_PATH_PROFILE:
         return PushSlideToLeft(child: const PersonalInformationScreen());

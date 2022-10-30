@@ -1,5 +1,6 @@
 import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_bloc.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:coffee_kst/routes/routes.dart';
 
 class BottomNavCart extends StatelessWidget {
   const BottomNavCart({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class BottomNavCart extends StatelessWidget {
               children: [
                 ButtonWidget(
                   label: 'Thanh toán',
-                  onClicked: () {},
+                  onClicked: () => AppRoutes.pushNamed(PAY_PATH),
                   height: 40,
                 ),
               ],
