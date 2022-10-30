@@ -9,4 +9,5 @@ abstract class UserRepository {
       String oldPassowrd, String newPassword);
   Future<Either<Failure, UserEntity>> editInformationUser(
       String? phone, String? fullname, String? gender, String? address);
+  Future<Either<Failure, UserEntity>> updateAvatar(String url);
 }

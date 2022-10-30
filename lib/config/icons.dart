@@ -6,6 +6,8 @@ class AppIcons {
   //  svg bg_login
   static const String HALF_CIRCLE_BELOW = "assets/bg_svg/bg_login_below.svg";
   static const String HALF_CIRCLE_ABOVE = "assets/bg_svg/bg_login_above.svg";
+  static const String NO_INTERNET = "assets/icons/404 Error-cuate.svg";
+  static const String TRASH_ASSET = "assets/icons/trash.svg";
 
   //icon for screens
   static const String SUCCESS_ASSET = "assets/icons/success.svg";

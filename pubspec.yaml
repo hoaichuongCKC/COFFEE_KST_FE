@@ -47,7 +47,6 @@ dependencies:
   firebase_core:
   firebase_storage:
   firebase_auth: ^3.6.0
-  file_picker:
 
   #image
   cached_network_image: ^3.2.1
@@ -61,6 +60,7 @@ dependencies:
 
   #format VND
   intl: 
+  file_picker: ^5.2.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

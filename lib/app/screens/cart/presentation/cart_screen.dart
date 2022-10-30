@@ -9,6 +9,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        extendBody: true,
         bottomNavigationBar: const BottomNavCart(),
         appBar: AppBar(
           elevation: 0.5,
@@ -21,7 +22,7 @@ class CartScreen extends StatelessWidget {
             weight: FontWeight.w600,
           ),
         ),
-        backgroundColor: AppColors.disableTextColor.withAlpha(40),
+        backgroundColor: AppColors.disableTextColor.withAlpha(5),
         body: ListProductCart(),
       ),
     );

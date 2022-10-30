@@ -52,8 +52,9 @@ class DialogSuccess extends StatelessWidget {
 class DialogSuccessNotAction extends StatefulWidget {
   const DialogSuccessNotAction({
     Key? key,
+    required this.msg,
   }) : super(key: key);
-
+  final String msg;
   @override
   State<DialogSuccessNotAction> createState() => _DialogSuccessNotActionState();
 }
@@ -88,7 +89,7 @@ class _DialogSuccessNotActionState extends State<DialogSuccessNotAction> {
             SvgPicture.asset(AppIcons.SUCCESS_ASSET),
             const SizedBox(height: 8.0),
             TextWidgets(
-              text: 'Thêm thành công',
+              text: widget.msg,
               fontSize: AppDimens.text14,
               textColor: AppColors.darkColor,
               weight: FontWeight.w400,

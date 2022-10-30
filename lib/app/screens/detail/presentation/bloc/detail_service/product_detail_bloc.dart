@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/add_to_cart.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/add_to_cart_is_not_empty.dart';
 import 'package:coffee_kst/app/screens/detail/domain/entities/detail.dart';
 import 'package:coffee_kst/app/screens/detail/domain/usecase/get_detail.dart';
 import 'package:coffee_kst/core/error/failures.dart';
@@ -16,7 +17,9 @@ class ProductDetaiServicelBloc
     extends Bloc<ProductDetailServiceEvent, ProductDetailServiceState> {
   final GetDetailUseCase getDetailUseCase;
   final AddToCartEmptyUseCase addToCartEmptyUseCase;
-  ProductDetaiServicelBloc(this.getDetailUseCase, this.addToCartEmptyUseCase)
+  final AddToCartIsNotEmptyUseCase addToCartIsNotEmptyUseCase;
+  ProductDetaiServicelBloc(this.getDetailUseCase, this.addToCartEmptyUseCase,
+      this.addToCartIsNotEmptyUseCase)
       : super(const ProductDetailServiceState()) {
     on<LoadProductDetailEvent>(_handleGetDetail);
     on<ResetEvent>((event, emit) => emit(const ProductDetailServiceState()));
@@ -99,6 +102,7 @@ class ProductDetaiServicelBloc
       emit(state.copyWith(total: total as int));
     });
     on<AddToCartEvent>(_handleAddToCart);
+    on<AddToCartIsNotEmptyEvent>(_onAddToCartIsNotEmpty);
   }
   _handleGetDetail(LoadProductDetailEvent event,
       Emitter<ProductDetailServiceState> emit) async {
@@ -106,7 +110,6 @@ class ProductDetaiServicelBloc
     try {
       final result =
           await getDetailUseCase.call(ParamDetail(productID: event.productID));
-
       result.fold(
         (Failure l) {
           if (l is InternetFailure) {
@@ -145,6 +148,41 @@ class ProductDetaiServicelBloc
             shippingPhone: '',
             shippingName: '',
             total: state.total,
+            quantity: state.quantity,
+            productId: state.productId,
+            sizeName: state.sizeName,
+            price: state.defautlPrice,
+            listToppings: state.listTopping),
+      );
+      result.fold((Failure l) {
+        if (l is InternetFailure) {
+          emit(state.copyWith(
+              message: MESSAGE_NOT_INTERNET, state: ProductDetailLoadFailed()));
+        } else if (l is ServerFailure) {
+          emit(state.copyWith(
+              message: MESSAGE_SERVER_FAILURE,
+              state: ProductDetailLoadFailed()));
+        }
+      }, (int code) {
+        if (code == SUCCESS_CODE) {
+          emit(state.copyWith(
+              message: "Thêm thành công!!", codeState: SucessCode()));
+        } else if (code == FAILED_CODE) {
+          emit(
+              state.copyWith(message: "Lỗi server!!", codeState: FailedCode()));
+        }
+      });
+    } catch (e) {
+      emit(state.copyWith(message: e.toString(), codeState: FailedCode()));
+    }
+  }
+
+  _onAddToCartIsNotEmpty(AddToCartIsNotEmptyEvent event,
+      Emitter<ProductDetailServiceState> emit) async {
+    emit(state.copyWith(codeState: SucessCode()));
+    try {
+      final result = await addToCartIsNotEmptyUseCase.call(
+        ParamAddToCartIsNotEmpty(
             quantity: state.quantity,
             productId: state.productId,
             sizeName: state.sizeName,

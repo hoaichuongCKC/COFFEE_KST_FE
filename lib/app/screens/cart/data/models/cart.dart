@@ -1,9 +1,11 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 
 import 'package:coffee_kst/app/screens/cart/domain/entities/cart.dart';
 
 class CartModel extends CartEntity {
-  const CartModel({
+  CartModel({
     required super.id,
     required super.productId,
     required super.imageUrl,
@@ -46,9 +48,10 @@ class CartModel extends CartEntity {
   String toString() => toJson().toString();
 }
 
-class ListToppingModel extends ListToppingEntity {
-  const ListToppingModel(
+class ListToppingModel extends ToppingEntity {
+  ListToppingModel(
       {required super.name,
+      required super.id,
       required super.price,
       required super.unit,
       required super.imageUrl,
@@ -56,6 +59,7 @@ class ListToppingModel extends ListToppingEntity {
 
   factory ListToppingModel.fromJson(Map<String, dynamic> json) =>
       ListToppingModel(
+        id: json["id"],
         name: json["name"],
         price: json["price"],
         unit: json["unit"],

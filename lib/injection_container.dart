@@ -2,7 +2,9 @@ import 'package:coffee_kst/app/screens/cart/data/datasource/invoice_remote_datas
 import 'package:coffee_kst/app/screens/cart/data/repositories/invoice_repository_impl.dart';
 import 'package:coffee_kst/app/screens/cart/domain/repositories/invoice_repository.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/add_to_cart.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/add_to_cart_is_not_empty.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/get_cart.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/remove_cart.dart';
 import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_bloc.dart';
 import 'package:coffee_kst/app/screens/detail/data/datasource/detail_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/detail/data/repositories/detail_repositories_impl.dart';
@@ -31,6 +33,7 @@ import 'package:coffee_kst/app/screens/profile/domain/repositories/profile_repos
 import 'package:coffee_kst/app/screens/profile/domain/usecases/change_password_user.dart';
 import 'package:coffee_kst/app/screens/profile/domain/usecases/edit_information_user.dart';
 import 'package:coffee_kst/app/screens/profile/domain/usecases/get_information_user.dart';
+import 'package:coffee_kst/app/screens/profile/domain/usecases/update_avatar.dart';
 import 'package:coffee_kst/app/screens/profile/presentation/bloc/personal_information_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/screens/change_password/bloc/change_password_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/data/datasource/address_remote_datasource.dart';
@@ -41,6 +44,7 @@ import 'package:coffee_kst/app/screens/profile/screens/personal_information/scre
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/domain/usecases/get_province.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/bloc/address_country/address_country_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
+import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/personal_information/bloc/update_avatar/update_avatar_bloc.dart';
 import 'package:coffee_kst/core/network/network_info.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
@@ -126,13 +130,20 @@ _diUserController() {
   sl.registerFactory(
     () => EditInformationUserBloc(editInformationUserUsecases: sl()),
   );
+  sl.registerFactory(
+    () => UpdateAvatarBloc(
+      updateAvatarUsecases: sl(),
+    ),
+  );
   //Use cases - UserController
+
   sl.registerLazySingleton(() => GetInformationUserUsecases(sl()));
   sl.registerLazySingleton(() => ChangePasswordUserUsecases(sl()));
   sl.registerLazySingleton(() => GetProvinceUseCase(repository: sl()));
   sl.registerLazySingleton(() => GetDistrictUseCase(repository: sl()));
   sl.registerLazySingleton(() => GetCommuneUsecase(repository: sl()));
   sl.registerLazySingleton(() => EditInformationUserUsecases(sl()));
+  sl.registerLazySingleton(() => UpdateAvatarUsecases(sl()));
   // Repository - UserController
   sl.registerLazySingleton(
     () => UserRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),
@@ -193,14 +204,12 @@ _diHome() {
 _diDetail() {
   //Feature load product type
   sl.registerFactory(
-    () => ProductDetaiServicelBloc(sl(), sl()),
+    () => ProductDetaiServicelBloc(sl(), sl(), sl()),
   );
-  // sl.registerFactory(
-  //   () => AddToCartDetailBloc(),
-  // );
   // Use cases - PRoductControoller - voucher controller
   sl.registerLazySingleton(() => GetDetailUseCase(repository: sl()));
   sl.registerLazySingleton(() => AddToCartEmptyUseCase(repository: sl()));
+  sl.registerLazySingleton(() => AddToCartIsNotEmptyUseCase(repository: sl()));
   // Repository - PRoductControoller
   sl.registerLazySingleton(
     () => DetailRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),
@@ -219,10 +228,11 @@ _diDetail() {
 
 _diInvoice() {
   sl.registerFactory(
-    () => CartServiceBloc(sl()),
+    () => CartServiceBloc(sl(), sl()),
   );
   // Use cases - PRoductControoller - voucher controller
   sl.registerLazySingleton(() => GetCartUseCase(repository: sl()));
+  sl.registerLazySingleton(() => RemoveItemUseCase(repository: sl()));
   // Repository - PRoductControoller
   sl.registerLazySingleton(
     () => InvoiceRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),

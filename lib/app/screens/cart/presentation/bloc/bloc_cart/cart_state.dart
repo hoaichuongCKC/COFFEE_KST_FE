@@ -5,24 +5,28 @@ class CartServiceState extends Equatable {
   final String messageError;
   final List<CartEntity> list;
   final CartPageState state;
+  final int total;
   const CartServiceState({
     this.messageError = '',
     this.list = const [],
+    this.total = 0,
     this.state = const CartInitial(),
   });
 
   @override
-  List<Object> get props => [list, messageError, state];
+  List<Object> get props => [list, messageError, state, total];
 
   CartServiceState copyWith({
     String? messageError,
     List<CartEntity>? list,
     CartPageState? state,
+    int? total,
   }) {
     return CartServiceState(
       messageError: messageError ?? this.messageError,
       list: list ?? this.list,
       state: state ?? this.state,
+      total: total ?? this.total,
     );
   }
 }

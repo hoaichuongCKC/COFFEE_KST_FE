@@ -33,12 +33,13 @@ class CategoriesHome extends StatelessWidget {
                     return errorWidget(state.messageError, context);
                   }
                   if (state.state is LoadedState) {
-                    return FadeInRight(
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          final list = state.list;
-                          return ItemCategHome(
+                    return ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        final list = state.list;
+                        return FadeInRight(
+                          delay: Duration(milliseconds: 100 * index),
+                          child: ItemCategHome(
                             data: list[index],
                             index: index,
                             onClicked: () {
@@ -50,12 +51,12 @@ class CategoriesHome extends StatelessWidget {
                                   .changeNavigatorBottom(
                                       const DashboardScreenState());
                             },
-                          );
-                        },
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(width: 0.0),
-                        itemCount: state.list.length,
-                      ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 0.0),
+                      itemCount: state.list.length,
                     );
                   }
                   return const SizedBox();

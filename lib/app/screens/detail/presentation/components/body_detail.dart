@@ -69,38 +69,36 @@ class _BodyDetailState extends State<BodyDetail> {
                       );
                     } else if (tab == TabDetail.RATING) {
                       if (state.data.reviews.isEmpty) {
-                        return Expanded(
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                TextWidgets(
-                                  text: 'Hiện tại chưa có đánh giá nào',
-                                  fontSize: AppDimens.text14,
-                                  textColor: AppColors.disableTextColor,
-                                )
-                              ],
-                            ),
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              TextWidgets(
+                                text: 'Hiện tại chưa có đánh giá nào',
+                                fontSize: AppDimens.text14,
+                                textColor: AppColors.disableTextColor,
+                              )
+                            ],
                           ),
                         );
                       }
-                      return Expanded(
-                        child: ListView.separated(
-                          separatorBuilder: (BuildContext context, int index) =>
-                              Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              SizedBox(height: 20.0),
-                              Divider(),
-                            ],
-                          ),
-                          itemCount: state.data.reviews.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return ItemRatingDetail(
-                                enity: state.data.reviews[index]);
-                          },
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            SizedBox(height: 20.0),
+                            Divider(),
+                          ],
                         ),
+                        itemCount: state.data.reviews.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ItemRatingDetail(
+                              enity: state.data.reviews[index]);
+                        },
                       );
                     }
                     return const SizedBox();

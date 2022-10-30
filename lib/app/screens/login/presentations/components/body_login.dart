@@ -55,19 +55,14 @@ class _BodyLoginState extends State<BodyLogin> {
     final size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        Padding(
-          padding: MediaQuery.of(context).viewInsets,
-          child: SingleChildScrollView(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildTitleApp(),
-                const SizedBox(height: 25.0),
-                _buildFormLogin(),
-                const SizedBox(height: 20),
-              ],
+        Align(
+          alignment: Alignment.center,
+          child: Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: SingleChildScrollView(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+              child: _buildFormLogin(),
             ),
           ),
         ),
@@ -291,60 +286,6 @@ class _BodyLoginState extends State<BodyLogin> {
           }
         }
       },
-    );
-  }
-
-  Row _buildTitleApp() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FadeInDown(
-                from: 50,
-                child: TextWidgets(
-                  text: 'XIN CHÀO BẠN,',
-                  fontSize: AppDimens.text24,
-                  weight: FontWeight.w600,
-                  textColor: Theme.of(context).textTheme.titleLarge!.color!,
-                ),
-              ),
-              FadeInLeft(
-                from: 50,
-                delay: const Duration(milliseconds: 900),
-                child: TextWidgets(
-                  text: 'CHÀO MỪNG BẠN ĐẾN',
-                  fontSize: AppDimens.text24,
-                  weight: FontWeight.w600,
-                  textColor: Theme.of(context).textTheme.titleLarge!.color!,
-                ),
-              ),
-              FadeInUp(
-                delay: const Duration(milliseconds: 1000),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextWidgets(
-                      text: 'VỚI ',
-                      fontSize: AppDimens.text24,
-                      weight: FontWeight.w600,
-                      textColor: Theme.of(context).textTheme.titleLarge!.color!,
-                    ),
-                    TextWidgets(
-                      text: 'COFFEE KST',
-                      fontSize: AppDimens.text24,
-                      textColor: AppColors.primaryColor,
-                      weight: FontWeight.w600,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
     );
   }
 }

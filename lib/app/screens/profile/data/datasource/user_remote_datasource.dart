@@ -14,6 +14,7 @@ abstract class UserRemoteDataSource {
   Future<AppModel> changePasswordUser(String oldPassowrd, String newPassword);
   Future<UserModel> editInformationUser(
       String? phone, String? fullname, String? gender, String? address);
+  Future<UserModel> updateAvatar(String urlImage);
 }
 
 class UserRemoteDataSourceImpl with Api implements UserRemoteDataSource {
@@ -82,5 +83,22 @@ class UserRemoteDataSourceImpl with Api implements UserRemoteDataSource {
       options: Options(headers: await setupHeader()),
     );
     return UserModel.fromJson(response.data['results']['data']);
+  }
+
+  @override
+  Future<UserModel> updateAvatar(String urlImage) async {
+    final data = jsonEncode(
+      {
+        "params": {
+          "avatar": urlImage,
+        }
+      },
+    );
+    final response = await postService(
+      ENDPOINT_UPDATE_AVATAR,
+      data: data,
+      options: Options(headers: await setupHeader()),
+    );
+    return UserModel.fromJson(response.data['results']);
   }
 }

@@ -60,4 +60,18 @@ class UserRepositoryImpl implements UserRepository {
       return Left(InternetFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> updateAvatar(String url) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteLogin = await remoteDataSource.updateAvatar(url);
+        return Right(remoteLogin);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
 }

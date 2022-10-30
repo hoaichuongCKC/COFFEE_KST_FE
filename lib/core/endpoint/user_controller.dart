@@ -9,3 +9,5 @@ const String ENDPOINT_RESET_PASSWORD = "$CONTROLLER/reset_password";
 
 const String ENDPOINT_EDIT_INFORMATION_USER =
     "$CONTROLLER/edit_information_user";
+
+const String ENDPOINT_UPDATE_AVATAR = "$CONTROLLER/update_avatar";

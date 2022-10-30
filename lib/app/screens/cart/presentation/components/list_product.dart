@@ -1,3 +1,5 @@
+import 'package:coffee_kst/app/common/dialog/dialog_controller.dart';
+import 'package:coffee_kst/app/screens/cart/domain/entities/cart.dart';
 import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_bloc.dart';
 import 'package:coffee_kst/app/screens/cart/presentation/widgets/item_cart.dart';
 import 'package:coffee_kst/main_export.dart';
@@ -8,6 +10,7 @@ class ListProductCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CartServiceBloc, CartServiceState>(
+      buildWhen: (previous, current) => previous.state != current.state,
       builder: (context, state) {
         if (state.state is CartDataEmpty) {
           return Center(
@@ -28,15 +31,30 @@ class ListProductCart extends StatelessWidget {
           );
         }
         if (state.state is CartLoadFailed) {
-          return TextWidgets(
-            text: state.messageError,
-            fontSize: AppDimens.text14,
-            textColor: AppColors.textErrorColor,
+          return Column(
+            children: [
+              TextWidgets(
+                text: state.messageError,
+                fontSize: AppDimens.text14,
+                textColor: AppColors.textErrorColor,
+              ),
+              const SizedBox(height: 8.0),
+              GestureDetector(
+                onTap: () =>
+                    context.read<CartServiceBloc>().add(LoadCartEvent()),
+                child: TextWidgets(
+                  text: 'Kết nối lại',
+                  fontSize: AppDimens.text14,
+                  textColor: AppColors.primaryColor,
+                  weight: FontWeight.w500,
+                ),
+              )
+            ],
           );
         }
         if (state.state is CartLoading) {
           return AnimatedList(
-            initialItemCount: 3,
+            initialItemCount: 2,
             itemBuilder: (context, index, a1) {
               return const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
@@ -53,7 +71,7 @@ class ListProductCart extends StatelessWidget {
         }
         if (state.state is CartLoaded) {
           return Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+            padding: const EdgeInsets.only(top: 8.0),
             child: AnimatedList(
               key: listKey,
               initialItemCount: state.list.length,
@@ -63,14 +81,17 @@ class ListProductCart extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ItemCart(
-                        onClear: () {
-                          _remoteItem(context, index);
+                        onClear: () async {
+                          _remoteItem(context, index, state.list[index]);
+                          DialogController.instance
+                              .successNotAction(context, 'Xoá thành công');
                         },
                         entity: state.list[index],
                         animation: a1,
+                        index: index,
                       ),
                       index == state.list.length - 1
-                          ? const SizedBox()
+                          ? const SizedBox(height: 30)
                           : const SizedBox(height: 15.0),
                     ],
                   ),
@@ -84,8 +105,21 @@ class ListProductCart extends StatelessWidget {
     );
   }
 
-  void _remoteItem(BuildContext context, int index) {
-    final bloc = BlocProvider.of<CartServiceBloc>(context, listen: false).state;
-    if (bloc is CartLoaded) {}
+  void _remoteItem(BuildContext context, int index, CartEntity entity) async {
+    final bloc = BlocProvider.of<CartServiceBloc>(context, listen: false);
+    bloc.add(RemoveItemCartLocalEvent(
+        invoiceDetailId: entity.id,
+        productID: entity.productId,
+        sizeName: entity.sizeName ?? ''));
+    final item = bloc.state.list[index];
+    listKey.currentState!.removeItem(
+        index,
+        (context, animation) => ItemCart(
+              onClear: () {},
+              entity: item,
+              animation: animation,
+              index: index,
+            ),
+        duration: const Duration(milliseconds: 400));
   }
 }

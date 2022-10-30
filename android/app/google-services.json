@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "17612148947",
-    "project_id": "coffee-ccd31",
-    "storage_bucket": "coffee-ccd31.appspot.com"
+    "project_number": "446695991834",
+    "project_id": "project-5782012589266614539",
+    "storage_bucket": "project-5782012589266614539.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:17612148947:android:ea5ea1fe73ff976e9ec426",
+        "mobilesdk_app_id": "1:446695991834:android:2e9645be54603876e7ffa3",
         "android_client_info": {
           "package_name": "com.example.coffee_kst"
         }
       },
       "oauth_client": [
         {
-          "client_id": "17612148947-jhsemnea09onu7j4a8qtlittj4ddpc7g.apps.googleusercontent.com",
+          "client_id": "446695991834-9rbl04im7puthpcas1gemasrp1vunmph.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDFYEqKe-Z7r11e-KbLe-hH3xNrz6VdRvA"
+          "current_key": "AIzaSyBCmskRUt5EGNom-474USKB-1qaGIF2gk4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "17612148947-jhsemnea09onu7j4a8qtlittj4ddpc7g.apps.googleusercontent.com",
+              "client_id": "446695991834-9rbl04im7puthpcas1gemasrp1vunmph.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

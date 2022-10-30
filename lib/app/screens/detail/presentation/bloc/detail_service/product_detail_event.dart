@@ -21,6 +21,8 @@ class LoadProductDetailEvent extends ProductDetailServiceEvent {
 
 class AddToCartEvent extends ProductDetailServiceEvent {}
 
+class AddToCartIsNotEmptyEvent extends ProductDetailServiceEvent {}
+
 class InitDetailEvent extends ProductDetailServiceEvent {
   final String sizeName;
   final int total;

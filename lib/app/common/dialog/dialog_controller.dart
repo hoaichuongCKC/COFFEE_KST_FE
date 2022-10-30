@@ -1,7 +1,7 @@
 import 'package:coffee_kst/app/common/dialog/dialog_failed.dart';
 import 'package:coffee_kst/app/common/dialog/dialog_success.dart';
 import 'package:coffee_kst/app/common/dialog/dialog_warning.dart';
-import 'package:flutter/material.dart';
+import 'package:coffee_kst/main_export.dart';
 
 class DialogController {
   static DialogController instance = DialogController();
@@ -118,7 +118,7 @@ class DialogController {
     );
   }
 
-  Future successNotAction(BuildContext context) async {
+  Future successNotAction(BuildContext context, String msg) async {
     await showGeneralDialog(
       barrierColor: Colors.black.withOpacity(0.5),
       transitionBuilder: (context, a1, a2, child) {
@@ -133,8 +133,44 @@ class DialogController {
       context: context,
       pageBuilder: (BuildContext context, Animation<double> animation,
           Animation<double> secondaryAnimation) {
-        return const DialogSuccessNotAction();
+        return DialogSuccessNotAction(msg: msg);
       },
     );
   }
+
+  showLoading(BuildContext context) => showDialog(
+        context: context,
+        builder: (context) => Dialog(
+          elevation: 10.0,
+          shape: const RoundedRectangleBorder(
+            borderRadius: AppStyles.borderRadius12,
+          ),
+          backgroundColor: AppColors.lightColor,
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            constraints: const BoxConstraints(
+              minWidth: 80,
+              minHeight: 80,
+              maxHeight: 100,
+              maxWidth: 100,
+            ),
+            alignment: Alignment.center,
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  loading,
+                  const SizedBox(height: 6.0),
+                  TextWidgets(
+                    text: 'Vui lòng đợi',
+                    fontSize: AppDimens.text14,
+                    textColor: AppColors.darkColor,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
 }

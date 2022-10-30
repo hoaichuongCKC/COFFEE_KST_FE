@@ -1,5 +1,6 @@
 import 'package:coffee_kst/app/common/widgets/counter_widget.dart';
 import 'package:coffee_kst/app/screens/cart/domain/entities/cart.dart';
+import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_bloc.dart';
 import 'package:coffee_kst/main_export.dart';
 
 class ItemCart extends StatelessWidget {
@@ -7,15 +8,17 @@ class ItemCart extends StatelessWidget {
       {Key? key,
       required this.onClear,
       required this.entity,
-      required this.animation})
+      required this.animation,
+      required this.index})
       : super(key: key);
   final VoidCallback onClear;
   final CartEntity entity;
+  final int index;
   final Animation<double> animation;
   @override
   Widget build(BuildContext context) {
     return SlideTransition(
-      key: ValueKey(entity.id),
+      key: ValueKey(entity.imageUrl),
       position: Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero)
           .animate(CurvedAnimation(parent: animation, curve: Curves.easeIn)),
       child: Container(
@@ -73,10 +76,9 @@ class ItemCart extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: onClear,
-                              child: const Icon(
-                                Icons.clear,
-                                size: 18.0,
-                                color: AppColors.disableTextColor,
+                              child: SvgPicture.asset(
+                                AppIcons.TRASH_ASSET,
+                                color: AppColors.textErrorColor,
                               ),
                             )
                           ],
@@ -86,16 +88,18 @@ class ItemCart extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextWidgets(
-                              text: Convert.instance
-                                  .convertVND(int.parse(entity.price)),
+                              text:
+                                  'Giá: ${Convert.instance.convertVND(int.parse(entity.price))}',
                               fontSize: AppDimens.text12,
                               textColor: AppColors.textErrorColor,
                             ),
-                            TextWidgets(
-                              text: 'size: ${entity.sizeName}',
-                              fontSize: AppDimens.text12,
-                              textColor: AppColors.disableTextColor,
-                            ),
+                            entity.sizeName != null
+                                ? TextWidgets(
+                                    text: 'size: ${entity.sizeName}',
+                                    fontSize: AppDimens.text12,
+                                    textColor: AppColors.disableTextColor,
+                                  )
+                                : const SizedBox(),
                           ],
                         ),
                         const SizedBox(height: 5.0),
@@ -103,13 +107,20 @@ class ItemCart extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             CounterWidget(
-                                decrement: () {},
-                                increment: () {},
-                                currentCounter: TextWidgets(
-                                  text: entity.quantity.toString(),
-                                  fontSize: AppDimens.text12,
-                                  textColor: AppColors.darkColor,
-                                )),
+                              decrement: () => context
+                                  .read<CartServiceBloc>()
+                                  .add(DecrementProductEvent(
+                                      productIndex: index)),
+                              increment: () => context
+                                  .read<CartServiceBloc>()
+                                  .add(IncrementProductEvent(
+                                      productIndex: index)),
+                              currentCounter: TextWidgets(
+                                text: entity.quantity.toString(),
+                                fontSize: AppDimens.text12,
+                                textColor: AppColors.darkColor,
+                              ),
+                            ),
                             const Spacer(),
                             TextWidgets(
                               text: 'Loại: ${entity.categName}',
@@ -137,7 +148,10 @@ class ItemCart extends StatelessWidget {
                 : const SizedBox(height: 10.0),
             entity.listTopping.isEmpty
                 ? const SizedBox()
-                : ListTopping(entity: entity)
+                : ListTopping(
+                    entity: entity,
+                    productIndex: index,
+                  )
           ],
         ),
       ),
@@ -149,10 +163,11 @@ class ListTopping extends StatelessWidget {
   const ListTopping({
     Key? key,
     required this.entity,
+    required this.productIndex,
   }) : super(key: key);
 
   final CartEntity entity;
-
+  final int productIndex;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -193,8 +208,18 @@ class ListTopping extends StatelessWidget {
                               textColor: AppColors.darkColor,
                             ),
                             CounterWidget(
-                              decrement: () {},
-                              increment: () {},
+                              decrement: () => context
+                                  .read<CartServiceBloc>()
+                                  .add(DecrementToppingEvent(
+                                    productIndex: productIndex,
+                                    index: index,
+                                  )),
+                              increment: () => context
+                                  .read<CartServiceBloc>()
+                                  .add(IncrementToppingEvent(
+                                    productIndex: productIndex,
+                                    index: index,
+                                  )),
                               currentCounter: TextWidgets(
                                 text: e.quantity.toString(),
                                 fontSize: AppDimens.text14,

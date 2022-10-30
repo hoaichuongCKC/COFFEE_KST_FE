@@ -131,8 +131,13 @@ class FormPersonalInformationScreen extends StatelessWidget {
     return BlocConsumer<EditInformationUserBloc, EditInformationUserState>(
       listenWhen: (previous, current) =>
           current.state is FormSubmitFailedState ||
-          current.state is FormSubmitSuccessState,
+          current.state is FormSubmitSuccessState ||
+          current.state is FormSubmittingState,
       listener: (context, state) {
+        if (state.state is FormSubmittingState) {
+          DialogController.instance.showLoading(context);
+        }
+
         if (state.state is FormSubmitSuccessState) {
           DialogController.instance.success(
               message: LocaleKeys.edit_successfully.tr(),

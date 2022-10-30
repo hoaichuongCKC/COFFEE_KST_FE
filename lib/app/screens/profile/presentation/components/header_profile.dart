@@ -37,7 +37,9 @@ class HeaderProfileWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const AvatarUserBig(),
+                      AvatarUserBig(
+                        onClicked: () {},
+                      ),
                       const SizedBox(height: 8.0),
                       TextWidgets(
                         text: box.get(KEY_BOX_INFORMATION)!.fullname,

@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_bloc.dart';
 import 'package:coffee_kst/app/screens/cart/presentation/cart_screen.dart';
 import 'package:coffee_kst/app/screens/dashboard/presentation/bloc/tab_categ/change_tab_categ_cubit.dart';
 import 'package:coffee_kst/app/screens/dashboard/presentation/dashboard_screen.dart';
@@ -28,9 +27,6 @@ class HomeScreen extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ChangeTabCategCubit(),
-        ),
-        BlocProvider(
-          create: (context) => sl<CartServiceBloc>()..add(LoadCartEvent()),
         ),
       ],
       child: Scaffold(
