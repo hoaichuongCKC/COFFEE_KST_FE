@@ -1,8 +1,11 @@
 import 'package:coffee_kst/app/screens/cart/data/datasource/invoice_remote_datasource.dart';
+import 'package:coffee_kst/app/screens/cart/data/models/info_receipt.dart';
 import 'package:coffee_kst/app/screens/cart/domain/entities/cart.dart';
 import 'package:coffee_kst/app/screens/cart/domain/repositories/invoice_repository.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/add_to_cart.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/add_to_cart_is_not_empty.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/delete_order.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/payment.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/remove_cart.dart';
 import 'package:coffee_kst/core/error/exception.dart';
 import 'package:coffee_kst/core/network/network_info.dart';
@@ -65,6 +68,48 @@ class InvoiceRepositoryImpl extends InvoiceRepository {
     if (await networkInfo.isConnected) {
       try {
         final remoteData = await remoteDataSource.addToCartIsNotEmpty(params);
+        return Right(remoteData);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> paymentInvoice(ParamPayment params) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteData = await remoteDataSource.paymentInvoice(params);
+        return Right(remoteData);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<InvoiceModels>>> getNewOrder() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteData = await remoteDataSource.getNewOrder();
+        return Right(remoteData);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> deleteOrder(ParamsDeleteOrder params) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteData = await remoteDataSource.deleteOrder(params);
         return Right(remoteData);
       } on ServerException {
         return Left(ServerFailure());

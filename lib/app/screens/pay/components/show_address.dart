@@ -30,7 +30,7 @@ class ShowAddress extends StatelessWidget {
                   SvgPicture.asset(AppIcons.EDIT_ASSET)
                 ],
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 4.0),
               ValueListenableBuilder<Box<InformationUserHive>>(
                   valueListenable:
                       Hive.box<InformationUserHive>(NAME_BOX_INFORMATION)

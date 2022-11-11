@@ -7,6 +7,7 @@ import 'package:coffee_kst/app/screens/cart/domain/entities/cart.dart';
 class CartModel extends CartEntity {
   CartModel({
     required super.id,
+    required super.invoiceDetailId,
     required super.productId,
     required super.imageUrl,
     required super.name,
@@ -18,6 +19,7 @@ class CartModel extends CartEntity {
   });
   factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
         id: json["id"],
+        invoiceDetailId: json["invoice_detail_id"],
         productId: json["product_id"],
         imageUrl: json["image_url"],
         name: json["name"],

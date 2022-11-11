@@ -7,7 +7,10 @@ import 'package:coffee_kst/app/screens/home/screens/notification/notification_sc
 import 'package:coffee_kst/app/screens/login/presentations/login_screen.dart';
 import 'package:coffee_kst/app/screens/login/screens/otp/otp_screen.dart';
 import 'package:coffee_kst/app/screens/pay/pay_screen.dart';
+import 'package:coffee_kst/app/screens/pay/widgets/edit_info_order_screen.dart';
+import 'package:coffee_kst/app/screens/pay/widgets/list_voucher.dart';
 import 'package:coffee_kst/app/screens/profile/screens/change_password/change_password_screen.dart';
+import 'package:coffee_kst/app/screens/profile/screens/my_invoice/my_invoice_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/presentation/create_address_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/form_personal_information_screen.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/personal_information/personal_information_screen.dart';
@@ -20,6 +23,8 @@ const String DETAIL_PATH = '/detail';
 
 //router -- pay
 const String PAY_PATH = '/pay';
+const String LIST_VOUCHER_PATH = '/pay/list_voucher';
+const String EDIT_INFOR_CUSTOMER_PAY_PATH = '/pay/edit_infor_customer_pay';
 
 //router login
 const String LOGIN_PATH = '/';
@@ -33,6 +38,7 @@ const String VOUCHER_PATH = '$HOME_PATH/voucher';
 //router profile
 const String PROFILE_PATH = '/profile';
 const String SETTING_PATH_PROFILE = '$PROFILE_PATH/setting';
+const String MY_INVOICE_PATH = '$PROFILE_PATH/my_invoice';
 const String CHANGE_PASSWORD_PATH_PROFILE = '$PROFILE_PATH/change_password';
 const String INFORMATION_PATH_PROFILE = '$PROFILE_PATH/information';
 const String EDIT_PATH_PROFILE_INFORMATION =
@@ -70,7 +76,10 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => const NotificationScreen(),
         );
-
+      case LIST_VOUCHER_PATH:
+        return MaterialPageRoute(
+          builder: (_) => const ListVoucherScreen(),
+        );
       case VOUCHER_PATH:
         return MaterialPageRoute(
           builder: (_) => VoucherScreen(
@@ -81,6 +90,15 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => const PayScreen(),
         );
+      case MY_INVOICE_PATH:
+        return MaterialPageRoute(
+          builder: (_) => const MyInvoiceScreen(),
+        );
+      case EDIT_INFOR_CUSTOMER_PAY_PATH:
+        return MaterialPageRoute(
+          builder: (_) => const EditInforOrderScreen(),
+        );
+
       //router profile
       case INFORMATION_PATH_PROFILE:
         return PushSlideToLeft(child: const PersonalInformationScreen());
@@ -121,7 +139,11 @@ class AppRoutes {
 
   static void pop() => navigatorKey.currentState!.pop();
 
-  static void pushNameAndRemoveUntil(String route) {
-    navigatorKey.currentState!.pushNamedAndRemoveUntil(route, (route) => false);
+  static void pushNameAndRemoveUntil(String route, {bool isRoute = false}) {
+    navigatorKey.currentState!
+        .pushNamedAndRemoveUntil(route, (route) => isRoute);
   }
+
+  static void popAndPushNamed(String route) =>
+      navigatorKey.currentState!.popAndPushNamed(route);
 }

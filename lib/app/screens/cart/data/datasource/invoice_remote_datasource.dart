@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:coffee_kst/app/screens/cart/data/models/cart.dart';
+import 'package:coffee_kst/app/screens/cart/data/models/info_receipt.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/add_to_cart.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/add_to_cart_is_not_empty.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/delete_order.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/payment.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/remove_cart.dart';
 import 'package:coffee_kst/core/api/api.dart';
 import 'package:coffee_kst/core/endpoint/invoice_controller.dart';
@@ -14,6 +17,9 @@ abstract class InvoiceRemoteDataSource {
   Future<int> addToCartEmpty(ParamAddToCartEmpty params);
   Future<int> removeITem(ParamsRemoveItem params);
   Future<int> addToCartIsNotEmpty(ParamAddToCartIsNotEmpty params);
+  Future<int> paymentInvoice(ParamPayment params);
+  Future<int> deleteOrder(ParamsDeleteOrder params);
+  Future<List<InvoiceModels>> getNewOrder();
 }
 
 class InvoiceRemoteDataSourceImpl extends InvoiceRemoteDataSource with Api {
@@ -93,9 +99,63 @@ class InvoiceRemoteDataSourceImpl extends InvoiceRemoteDataSource with Api {
     return code;
   }
 
-  isolateAddToCartIsNotEmpty(List param) async {
+  Future<int> isolateAddToCartIsNotEmpty(List param) async {
     final reponse = await postService(ENDPOINT_ADD_TO_CART_IS_NOT_EMPTY,
         data: jsonEncode(param[0]), options: Options(headers: param[1]));
     return reponse.statusCode!;
+  }
+
+  @override
+  Future<int> paymentInvoice(ParamPayment params) async {
+    final data = {
+      "params": {
+        'id': params.id,
+        "shipping_address": params.shippingAddress,
+        "shipping_name": params.shippingName,
+        "shipping_phone": params.shippingPhone,
+        "total": params.total,
+      },
+    };
+    final header = await setupHeader();
+    final code = await compute(isolatePayment, [data, header]);
+    return code;
+  }
+
+  Future<int> isolatePayment(List<dynamic> param) async {
+    final reponse = await postService(ENDPOINT_PAYMENT,
+        data: jsonEncode(param[0]), options: Options(headers: param[1]));
+    return reponse.statusCode!;
+  }
+
+  @override
+  Future<List<InvoiceModels>> getNewOrder() async {
+    final header = await setupHeader();
+    final data = await compute(isolateGetNewOrder, header);
+    return InvoiceModels.invoiceEntityFromJson(jsonEncode(data));
+  }
+
+  Future isolateGetNewOrder(Map<String, String> param) async {
+    final reponse = await postService(ENDPOINT_GET_NEW_ORDER,
+        data: jsonEncode([]), options: Options(headers: param));
+    return reponse.data['results']['data'];
+  }
+
+  @override
+  Future<int> deleteOrder(ParamsDeleteOrder params) async {
+    final header = await setupHeader();
+    final data = {
+      "params": {
+        "invoice_id": params.invoiceId,
+        "invoice_detail_id": params.invoiceDetailId
+      },
+    };
+    final code = await compute(isolateDeleteOrder, [header, data]);
+    return code;
+  }
+
+  Future isolateDeleteOrder(List param) async {
+    final reponse = await postService(ENDPOINT_DELETE_ORDER,
+        data: jsonEncode(param[1]), options: Options(headers: param[0]));
+    return reponse.statusCode;
   }
 }

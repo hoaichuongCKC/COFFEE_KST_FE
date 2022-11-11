@@ -9,6 +9,7 @@ import 'package:equatable/equatable.dart';
 class CartEntity extends Equatable {
   CartEntity({
     required this.id,
+    required this.invoiceDetailId,
     required this.productId,
     required this.imageUrl,
     required this.name,
@@ -20,6 +21,7 @@ class CartEntity extends Equatable {
   });
 
   int id;
+  int invoiceDetailId;
   int productId;
   String imageUrl;
   String name;
@@ -31,6 +33,7 @@ class CartEntity extends Equatable {
   @override
   List<Object?> get props => [
         id,
+        invoiceDetailId,
         productId,
         imageUrl,
         name,

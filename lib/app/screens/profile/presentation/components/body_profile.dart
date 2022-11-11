@@ -71,6 +71,9 @@ class BodyProfile extends StatelessWidget {
       case ITEM_CHANGE_PASSWORD:
         AppRoutes.pushNamed(CHANGE_PASSWORD_PATH_PROFILE);
         break;
+      case ITEM_MY_INVOICE:
+        AppRoutes.pushNamed(MY_INVOICE_PATH);
+        break;
       case ITEM_SETTINGS:
         AppRoutes.pushNamed(SETTING_PATH_PROFILE);
         break;

@@ -25,4 +25,9 @@ class BoxesInformationUser {
     var box = await BoxesInformationUser.openBoxUser();
     await box.delete(KEY_BOX_INFORMATION);
   }
+
+  Future<InformationUserHive?> getInformationUser() async {
+    final box = await openBoxUser();
+    return box.get(KEY_BOX_INFORMATION);
+  }
 }

@@ -9,7 +9,6 @@ import 'package:coffee_kst/app/screens/profile/presentation/bloc/personal_inform
 import 'package:coffee_kst/app/screens/profile/presentation/profile_screen.dart';
 import 'package:coffee_kst/injection_container.dart';
 import 'package:coffee_kst/main_export.dart';
-import 'package:coffee_kst/app/screens/home/presentation/bloc/voucher/voucher_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,9 +20,6 @@ class HomeScreen extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               sl<PersonalInformationBloc>()..add(LoadPIEvent()),
-        ),
-        BlocProvider(
-          create: (context) => sl<VoucherHomeBloc>()..add(LoadVoucherEvent()),
         ),
         BlocProvider(
           create: (context) => ChangeTabCategCubit(),

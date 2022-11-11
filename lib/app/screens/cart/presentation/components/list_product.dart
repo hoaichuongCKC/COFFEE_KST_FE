@@ -108,7 +108,7 @@ class ListProductCart extends StatelessWidget {
   void _remoteItem(BuildContext context, int index, CartEntity entity) async {
     final bloc = BlocProvider.of<CartServiceBloc>(context, listen: false);
     bloc.add(RemoveItemCartLocalEvent(
-        invoiceDetailId: entity.id,
+        invoiceDetailId: entity.invoiceDetailId,
         productID: entity.productId,
         sizeName: entity.sizeName ?? ''));
     final item = bloc.state.list[index];

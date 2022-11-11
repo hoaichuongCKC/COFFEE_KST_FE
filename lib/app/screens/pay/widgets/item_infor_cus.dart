@@ -1,7 +1,9 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:coffee_kst/main_export.dart';
 
 class ItemInforInvoice extends StatelessWidget {
-  const ItemInforInvoice({
+  ItemInforInvoice({
     super.key,
     required this.label,
     required this.text,
@@ -9,6 +11,7 @@ class ItemInforInvoice extends StatelessWidget {
     this.weightLabel = FontWeight.w400,
     this.colorText = AppColors.disableTextColor,
     this.weightText = FontWeight.w400,
+    this.onClicked,
   });
   final String label;
   final String text;
@@ -16,6 +19,7 @@ class ItemInforInvoice extends StatelessWidget {
   final FontWeight weightLabel;
   final Color colorText;
   final FontWeight weightText;
+  void Function()? onClicked;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -27,11 +31,14 @@ class ItemInforInvoice extends StatelessWidget {
           textColor: colorLabel,
           weight: weightLabel,
         ),
-        TextWidgets(
-          text: text,
-          fontSize: AppDimens.text14,
-          textColor: colorText,
-          weight: weightText,
+        GestureDetector(
+          onTap: onClicked,
+          child: TextWidgets(
+            text: text,
+            fontSize: AppDimens.text14,
+            textColor: colorText,
+            weight: weightText,
+          ),
         ),
       ],
     );

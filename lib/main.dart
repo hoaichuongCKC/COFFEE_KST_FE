@@ -4,7 +4,10 @@ import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail_service/p
 import 'package:coffee_kst/app/screens/home/presentation/bloc/navigation_bottom/navigation_screen_cubit.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/product/product_bloc.dart';
 import 'package:coffee_kst/app/screens/home/presentation/bloc/product_type/product_type_bloc.dart';
+import 'package:coffee_kst/app/screens/home/presentation/bloc/voucher/voucher_bloc.dart';
 import 'package:coffee_kst/app/screens/login/presentations/bloc/auth_phone/auth_phone_bloc.dart';
+import 'package:coffee_kst/app/screens/pay/bloc/cubit/payment_invoice_cubit.dart';
+import 'package:coffee_kst/app/screens/profile/screens/my_invoice/bloc/cubit/my_invoice_cubit.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/form_personal_information/bloc/edit_information_user_bloc.dart';
 import 'package:coffee_kst/core/codegen_loader.g.dart';
 import 'package:coffee_kst/init_database.dart';
@@ -60,6 +63,13 @@ void main() async {
           ),
           BlocProvider(
             create: (context) => sl<CartServiceBloc>()..add(LoadCartEvent()),
+          ),
+          BlocProvider(
+            create: (context) => sl<VoucherHomeBloc>()..add(LoadVoucherEvent()),
+          ),
+          BlocProvider(create: (context) => sl<PaymentInvoiceCubit>()),
+          BlocProvider(
+            create: (context) => sl<MyInvoiceCubit>()..getAllOrder(),
           ),
         ],
         child: const MyApp(),

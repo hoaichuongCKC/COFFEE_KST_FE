@@ -67,6 +67,12 @@ class _ButtonWidgetState extends State<ButtonWidget>
   }
 
   @override
+  void dispose() {
+    _animate.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (widget.onClicked == null) {
       widget.backgroundColor = AppColors.disablePrimaryButtonColor;

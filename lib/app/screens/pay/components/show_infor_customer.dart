@@ -3,6 +3,7 @@ import 'package:coffee_kst/app/screens/pay/widgets/item_infor_cus.dart';
 import 'package:coffee_kst/database/box/information_user.dart';
 import 'package:coffee_kst/database/hive/infor_user/infor_user.dart';
 import 'package:coffee_kst/main_export.dart';
+import 'package:coffee_kst/routes/routes.dart';
 
 class ShowInforCustomer extends StatelessWidget {
   const ShowInforCustomer({super.key});
@@ -21,7 +22,10 @@ class ShowInforCustomer extends StatelessWidget {
               textColor: AppColors.darkColor,
               weight: FontWeight.w500,
             ),
-            SvgPicture.asset(AppIcons.EDIT_ASSET)
+            GestureDetector(
+              onTap: () => AppRoutes.pushNamed(EDIT_INFOR_CUSTOMER_PAY_PATH),
+              child: SvgPicture.asset(AppIcons.EDIT_ASSET),
+            )
           ],
         ),
         const SizedBox(height: 7.0),
@@ -54,14 +58,15 @@ class ShowInforCustomer extends StatelessWidget {
           weightText: FontWeight.w400,
         ),
         const SizedBox(height: 7.0),
-        const ItemInforInvoice(
+        ItemInforInvoice(
           label: 'Khuyến mãi',
           text: 'Áp dụng ngay',
+          onClicked: () => AppRoutes.pushNamed(LIST_VOUCHER_PATH),
           colorText: AppColors.primaryColor,
           weightText: FontWeight.w500,
         ),
         const SizedBox(height: 7.0),
-        const ItemInforInvoice(
+        ItemInforInvoice(
           label: 'Tiền ship',
           text: '0đ',
           colorText: AppColors.textErrorColor,

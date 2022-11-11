@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, must_be_immutable
 
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
@@ -7,26 +7,26 @@ part 'infor_user.g.dart';
 
 @HiveType(typeId: 3)
 class InformationUserHive extends Equatable {
-  const InformationUserHive(this.user_id, this.phone, this.fullname,
+  InformationUserHive(this.user_id, this.phone, this.fullname,
       this.full_address, this.gender, this.avatar_url);
 
   @HiveField(0)
-  final int user_id;
+  late int user_id;
 
   @HiveField(1)
-  final String phone;
+  late String phone;
 
   @HiveField(2)
-  final String fullname;
+  late String fullname;
 
   @HiveField(3)
-  final String full_address;
+  late String full_address;
 
   @HiveField(4)
-  final String gender;
+  late String gender;
 
   @HiveField(5)
-  final dynamic avatar_url;
+  late dynamic avatar_url;
 
   @override
   String toString() {

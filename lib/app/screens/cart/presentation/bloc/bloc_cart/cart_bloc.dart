@@ -18,6 +18,8 @@ class CartServiceBloc extends Bloc<CartServiceEvent, CartServiceState> {
   final RemoveItemUseCase removeItemUseCase;
   CartServiceBloc(this.getCartUseCase, this.removeItemUseCase)
       : super(const CartServiceState()) {
+    on<InitCartEvent>(
+        (event, emit) => emit(state.copyWith(list: [], total: 0)));
     on<LoadCartEvent>(_handleLoadCart);
     on<RemoveItemCartLocalEvent>(_onRemoveItem);
     on<RemoveItemCartServerEvent>(_onRemoveItemServer);

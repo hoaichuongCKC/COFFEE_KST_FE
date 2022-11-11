@@ -3,7 +3,10 @@ import 'package:coffee_kst/app/screens/cart/data/repositories/invoice_repository
 import 'package:coffee_kst/app/screens/cart/domain/repositories/invoice_repository.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/add_to_cart.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/add_to_cart_is_not_empty.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/delete_order.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/get_cart.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/get_new_order.dart';
+import 'package:coffee_kst/app/screens/cart/domain/usecase/payment.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/remove_cart.dart';
 import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_bloc.dart';
 import 'package:coffee_kst/app/screens/detail/data/datasource/detail_remote_datasource.dart';
@@ -27,6 +30,7 @@ import 'package:coffee_kst/app/screens/login/domain/repositories/auth_login_repo
 import 'package:coffee_kst/app/screens/login/domain/usecases/auth_login.dart';
 import 'package:coffee_kst/app/screens/login/presentations/bloc/auth/authentication_bloc.dart';
 import 'package:coffee_kst/app/screens/login/presentations/bloc/auth_phone/auth_phone_bloc.dart';
+import 'package:coffee_kst/app/screens/pay/bloc/cubit/payment_invoice_cubit.dart';
 import 'package:coffee_kst/app/screens/profile/data/datasource/user_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/profile/data/repositories/user_repository_impl.dart';
 import 'package:coffee_kst/app/screens/profile/domain/repositories/profile_repository.dart';
@@ -36,6 +40,7 @@ import 'package:coffee_kst/app/screens/profile/domain/usecases/get_information_u
 import 'package:coffee_kst/app/screens/profile/domain/usecases/update_avatar.dart';
 import 'package:coffee_kst/app/screens/profile/presentation/bloc/personal_information_bloc.dart';
 import 'package:coffee_kst/app/screens/profile/screens/change_password/bloc/change_password_bloc.dart';
+import 'package:coffee_kst/app/screens/profile/screens/my_invoice/bloc/cubit/my_invoice_cubit.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/data/datasource/address_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/data/repositories/address_repository_impl.dart';
 import 'package:coffee_kst/app/screens/profile/screens/personal_information/screens/create_address/domain/repositories/address_repository.dart';
@@ -230,9 +235,18 @@ _diInvoice() {
   sl.registerFactory(
     () => CartServiceBloc(sl(), sl()),
   );
+  sl.registerFactory(
+    () => PaymentInvoiceCubit(sl()),
+  );
+  sl.registerFactory(
+    () => MyInvoiceCubit(sl(), sl()),
+  );
   // Use cases - PRoductControoller - voucher controller
   sl.registerLazySingleton(() => GetCartUseCase(repository: sl()));
+  sl.registerLazySingleton(() => PaymentUseCase(repository: sl()));
   sl.registerLazySingleton(() => RemoveItemUseCase(repository: sl()));
+  sl.registerLazySingleton(() => GetNewOrderUseCase(repository: sl()));
+  sl.registerLazySingleton(() => DeleteOrderUseCase(repository: sl()));
   // Repository - PRoductControoller
   sl.registerLazySingleton(
     () => InvoiceRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),
