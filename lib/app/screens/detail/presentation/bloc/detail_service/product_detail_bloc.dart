@@ -179,7 +179,7 @@ class ProductDetaiServicelBloc
 
   _onAddToCartIsNotEmpty(AddToCartIsNotEmptyEvent event,
       Emitter<ProductDetailServiceState> emit) async {
-    emit(state.copyWith(codeState: SucessCode()));
+    emit(state.copyWith(codeState: LoadingCode()));
     try {
       final result = await addToCartIsNotEmptyUseCase.call(
         ParamAddToCartIsNotEmpty(
@@ -201,7 +201,9 @@ class ProductDetaiServicelBloc
       }, (int code) {
         if (code == SUCCESS_CODE) {
           emit(state.copyWith(
-              message: "Thêm thành công!!", codeState: SucessCode()));
+            message: "Thêm thành công!!",
+            codeState: SucessCode(),
+          ));
         } else if (code == FAILED_CODE) {
           emit(
               state.copyWith(message: "Lỗi server!!", codeState: FailedCode()));

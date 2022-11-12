@@ -8,4 +8,6 @@ class InititalCode extends CodeState {
 
 class SucessCode extends CodeState {}
 
+class LoadingCode extends CodeState {}
+
 class FailedCode extends CodeState {}

@@ -1,8 +1,9 @@
+import 'package:coffee_kst/app/screens/home/domain/entities/product.dart';
 import 'package:coffee_kst/main_export.dart';
 
 class ItemBestSeller extends StatelessWidget {
-  const ItemBestSeller({Key? key}) : super(key: key);
-
+  const ItemBestSeller({Key? key, required this.entity}) : super(key: key);
+  final ProductEntity entity;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -20,28 +21,27 @@ class ItemBestSeller extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const AspectRatio(
+                  AspectRatio(
                     aspectRatio: 16.0 / 12.0,
                     child: ImageWidget(
-                      url:
-                          'https://salt.tikicdn.com/cache/w1200/ts/product/f5/37/e6/d675c1cc4992841067e018a7d0b086dc.jpg',
+                      url: entity.imageUrl,
                     ),
                   ),
                   const SizedBox(height: 5.0),
                   TextWidgets(
-                    text: 'Cà phê sữa',
+                    text: entity.name,
                     fontSize: AppDimens.text16,
                     textColor: Theme.of(context).textTheme.bodyMedium!.color!,
                   ),
                   const SizedBox(height: 5.0),
                   TextWidgets(
-                    text: '14.000đ',
+                    text: Convert.instance.convertVND((entity.price1)),
                     fontSize: AppDimens.text14,
                     textColor: AppColors.textErrorColor,
                   ),
                   const SizedBox(height: 5.0),
                   TextWidgets(
-                    text: 'Loại: COFFEE',
+                    text: 'Loại: ${entity.categName}',
                     fontSize: AppDimens.text12,
                     textColor: AppColors.disableTextColor,
                   ),
@@ -55,16 +55,16 @@ class ItemBestSeller extends StatelessWidget {
                         textColor: AppColors.disableTextColor,
                       ),
                       const Spacer(),
-                      const ItemStar(star: '4'),
+                      ItemStar(star: '${(entity.countRating)}'),
                     ],
                   )
                 ],
               ),
-              Align(
+              const Align(
                 alignment: Alignment.topRight,
-                child: SvgPicture.asset(
-                  AppIcons.FAVORITE_ASSET,
-                  color: AppColors.indicatorColor,
+                child: Banner(
+                  message: 'Hot',
+                  location: BannerLocation.topEnd,
                 ),
               )
             ],

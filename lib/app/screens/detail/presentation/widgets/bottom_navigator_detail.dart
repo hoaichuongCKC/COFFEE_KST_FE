@@ -84,13 +84,13 @@ class BottomNavigatorDetail extends StatelessWidget {
                 await DialogController.instance
                     .successNotAction(context, 'Thêm giỏ hàng');
                 AppRoutes.pop();
+
                 context.read<CartServiceBloc>().add(LoadCartEvent());
                 context
                     .read<NavigationScreenCubit>()
                     .changeNavigatorBottom(const CartScreenState());
+                context.read<ProductDetaiServicelBloc>().add(ResetEvent());
               }
-              // context.read<ProductDetaiServicelBloc>().add(AddToCartEvent());
-              // context.read<CartServiceBloc>().add(LoadCartEvent());
             },
             height: 40.0,
           ),

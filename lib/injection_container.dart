@@ -17,6 +17,7 @@ import 'package:coffee_kst/app/screens/detail/presentation/bloc/detail_service/p
 import 'package:coffee_kst/app/screens/home/data/datasource/home_remote_datasource.dart';
 import 'package:coffee_kst/app/screens/home/data/repositories/home_repositories_impl.dart';
 import 'package:coffee_kst/app/screens/home/domain/repositories/home_repository.dart';
+import 'package:coffee_kst/app/screens/home/domain/usecase/get_best_seller.dart';
 import 'package:coffee_kst/app/screens/home/domain/usecase/get_list_product.dart';
 import 'package:coffee_kst/app/screens/home/domain/usecase/get_product_type.dart';
 import 'package:coffee_kst/app/screens/home/domain/usecase/get_voucher.dart';
@@ -184,12 +185,13 @@ _diHome() {
     () => VoucherHomeBloc(sl()),
   );
   sl.registerFactory(
-    () => ProductBloc(sl()),
+    () => ProductBloc(sl(), sl()),
   );
   // Use cases - PRoductControoller - voucher controller
   sl.registerLazySingleton(() => GetProducTypeUseCase(repository: sl()));
   sl.registerLazySingleton(() => GetListProductUseCase(repository: sl()));
   sl.registerLazySingleton(() => GetListVoucherUseCase(repository: sl()));
+  sl.registerLazySingleton(() => GetBestSellerUseCase(repository: sl()));
   // Repository - PRoductControoller
   sl.registerLazySingleton(
     () => HomeRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()),

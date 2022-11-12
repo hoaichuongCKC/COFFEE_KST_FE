@@ -8,4 +8,5 @@ abstract class HomeRepository {
   Future<Either<Failure, List<ProductTypeEntity>>> getProductType();
   Future<Either<Failure, List<VoucherEntity>>> getListVoucher();
   Future<Either<Failure, List<ProductEntity>>> getListProduct();
+  Future<Either<Failure, List<ProductEntity>>> getBestSeller();
 }

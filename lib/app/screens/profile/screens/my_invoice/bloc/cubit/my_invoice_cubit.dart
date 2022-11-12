@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, empty_catches
 // ignore_for_file: depend_on_referenced_packages
 import 'package:coffee_kst/app/screens/cart/data/models/info_receipt.dart';
 import 'package:coffee_kst/app/screens/cart/domain/usecase/delete_order.dart';
@@ -88,13 +88,10 @@ class MyInvoiceCubit extends Cubit<MyInvoiceState> {
           }
         },
         (int code) {
-          print(code);
           deleteItemNewOrderLocal(invoiceId, index);
         },
       );
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   void deleteItemNewOrderLocal(int invoiceId, int index) {

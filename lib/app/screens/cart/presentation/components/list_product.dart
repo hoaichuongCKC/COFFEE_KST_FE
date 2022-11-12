@@ -10,7 +10,6 @@ class ListProductCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CartServiceBloc, CartServiceState>(
-      buildWhen: (previous, current) => previous.state != current.state,
       builder: (context, state) {
         if (state.state is CartDataEmpty) {
           return Center(
@@ -107,10 +106,14 @@ class ListProductCart extends StatelessWidget {
 
   void _remoteItem(BuildContext context, int index, CartEntity entity) async {
     final bloc = BlocProvider.of<CartServiceBloc>(context, listen: false);
-    bloc.add(RemoveItemCartLocalEvent(
+    bloc.add(
+      RemoveItemCartLocalEvent(
         invoiceDetailId: entity.invoiceDetailId,
+        index: index,
         productID: entity.productId,
-        sizeName: entity.sizeName ?? ''));
+        sizeName: entity.sizeName ?? '',
+      ),
+    );
     final item = bloc.state.list[index];
     listKey.currentState!.removeItem(
         index,

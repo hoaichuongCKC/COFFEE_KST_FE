@@ -55,7 +55,9 @@ void main() async {
             create: (context) => sl<EditInformationUserBloc>(),
           ),
           BlocProvider(
-            create: (context) => sl<ProductBloc>()..add(LoadAllProductEvent()),
+            create: (context) => sl<ProductBloc>()
+              ..add(LoadAllProductEvent())
+              ..add(LoadBestSellerEvent()),
           ),
           BlocProvider(
             create: (context) =>

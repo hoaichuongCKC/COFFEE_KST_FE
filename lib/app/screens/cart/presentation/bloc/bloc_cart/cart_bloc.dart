@@ -60,8 +60,10 @@ class CartServiceBloc extends Bloc<CartServiceEvent, CartServiceState> {
   _onRemoveItem(
       RemoveItemCartLocalEvent event, Emitter<CartServiceState> emit) {
     final state = this.state;
-    state.list.removeWhere((element) => element.id == event.invoiceDetailId);
-    emit(state.copyWith(list: state.list));
+    state.list.removeAt(event.index);
+    if (state.list.isEmpty) {
+      emit(state.copyWith(list: [], state: CartDataEmpty()));
+    }
     add(RemoveItemCartServerEvent(
         invoiceDetailId: event.invoiceDetailId,
         productID: event.productID,
@@ -88,9 +90,9 @@ class CartServiceBloc extends Bloc<CartServiceEvent, CartServiceState> {
         (int code) {
           if (code == SUCCESS_CODE) {
             if (state.list.isEmpty) {
-              emit(state.copyWith(state: CartDataEmpty()));
+              emit(state.copyWith(state: CartDataEmpty(), list: state.list));
             } else {
-              emit(state.copyWith(state: CartLoaded()));
+              emit(state.copyWith(state: CartLoaded(), list: state.list));
             }
             add(UpdateTotalCartEvent());
           } else {

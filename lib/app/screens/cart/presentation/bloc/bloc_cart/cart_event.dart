@@ -14,14 +14,16 @@ class LoadCartEvent extends CartServiceEvent {}
 class RemoveItemCartLocalEvent extends CartServiceEvent {
   final int invoiceDetailId;
   final int productID;
+  final int index;
   final String sizeName;
 
   const RemoveItemCartLocalEvent(
       {required this.invoiceDetailId,
       required this.productID,
+      required this.index,
       required this.sizeName});
   @override
-  List<Object> get props => [invoiceDetailId, productID, sizeName];
+  List<Object> get props => [index, invoiceDetailId, productID, sizeName];
 }
 
 class RemoveItemCartServerEvent extends CartServiceEvent {

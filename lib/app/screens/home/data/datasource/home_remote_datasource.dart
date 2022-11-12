@@ -8,12 +8,14 @@ import 'package:coffee_kst/core/endpoint/product_controller.dart';
 import 'package:coffee_kst/core/endpoint/voucher_controller.dart';
 import 'package:coffee_kst/database/box/box_user.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class HomeRemoteDataSource {
   /// Throws a [ServerException] for all error codes.
   Future<List<ProductTypeModel>> getProductType();
   Future<List<VoucherModel>> getListVoucher();
   Future<List<ProductModel>> getListProduct();
+  Future<List<ProductModel>> getBestSeller();
 }
 
 class HomeRemoteDataSourceImpl with Api implements HomeRemoteDataSource {
@@ -49,5 +51,18 @@ class HomeRemoteDataSourceImpl with Api implements HomeRemoteDataSource {
         data: jsonEncode({}), options: Options(headers: await setupHeader()));
     return ProductModel.productEnityFromJson(
         jsonEncode(reponse.data['results']['data']));
+  }
+
+  @override
+  Future<List<ProductModel>> getBestSeller() async {
+    final header = await setupHeader();
+    final result = await compute(isolateGetBestSeller, [header]);
+    return ProductModel.productEnityFromJson(jsonEncode(result));
+  }
+
+  isolateGetBestSeller(List params) async {
+    final reponse = await postService(ENDPOINT_BEST_SELLER,
+        data: jsonEncode({}), options: Options(headers: params[0]));
+    return reponse.data['results'];
   }
 }

@@ -57,4 +57,18 @@ class HomeRepositoryImpl implements HomeRepository {
       return Left(InternetFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<ProductEntity>>> getBestSeller() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteData = await remoteDataSource.getBestSeller();
+        return Right(remoteData);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
+    }
+  }
 }

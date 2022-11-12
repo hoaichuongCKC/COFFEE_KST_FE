@@ -4,7 +4,6 @@ import 'package:coffee_kst/app/screens/cart/presentation/bloc/bloc_cart/cart_blo
 import 'package:coffee_kst/app/screens/home/presentation/bloc/navigation_bottom/navigation_screen_cubit.dart';
 import 'package:coffee_kst/app/screens/pay/bloc/cubit/payment_invoice_cubit.dart';
 import 'package:coffee_kst/app/screens/profile/screens/my_invoice/bloc/cubit/my_invoice_cubit.dart';
-import 'package:coffee_kst/injection_container.dart';
 import 'package:coffee_kst/main_export.dart';
 import 'package:coffee_kst/routes/routes.dart';
 import 'package:lottie/lottie.dart';
@@ -70,8 +69,8 @@ class _DialogPaymentOrderState extends State<DialogPaymentOrder>
             context
                 .read<NavigationScreenCubit>()
                 .changeNavigatorBottom(const ProfileScreenState());
-            context.read<CartServiceBloc>().add(InitCartEvent());
 
+            context.read<MyInvoiceCubit>().getAllOrder();
             AppRoutes.popAndPushNamed(MY_INVOICE_PATH);
           });
         }

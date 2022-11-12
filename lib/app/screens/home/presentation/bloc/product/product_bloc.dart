@@ -4,6 +4,7 @@ import 'dart:isolate';
 
 import 'package:bloc/bloc.dart';
 import 'package:coffee_kst/app/screens/home/domain/entities/product.dart';
+import 'package:coffee_kst/app/screens/home/domain/usecase/get_best_seller.dart';
 import 'package:coffee_kst/app/screens/home/domain/usecase/get_list_product.dart';
 import 'package:coffee_kst/core/error/failures.dart';
 import 'package:coffee_kst/core/usecases/usecase.dart';
@@ -18,11 +19,14 @@ part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final GetListProductUseCase getListProductUseCase;
-  ProductBloc(this.getListProductUseCase) : super(const ProductState()) {
+  final GetBestSellerUseCase getBestSellerUseCase;
+  ProductBloc(this.getListProductUseCase, this.getBestSellerUseCase)
+      : super(const ProductState()) {
     on<LoadAllProductEvent>(_handleLoadProductList);
     on<LoadCoffeeEvent>(_newIsolateLoadCoffee);
     on<LoadTeaEvent>(_newIsolateLoadTea);
     on<LoadCakeEvent>(_newIsolateLoadCake);
+    on<LoadBestSellerEvent>(_onLoadBestSeller);
     on<AddKeyFilterPrice>(_addKeywordFilterPrice);
     on<AddKeyFilterCateg>(_addKeywordFilterCateg);
     on<ChangedSearchEvent>(_searchProduct);
@@ -32,6 +36,31 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           filterState: const FilterInitital(),
         ))));
   }
+  _onLoadBestSeller(
+      LoadBestSellerEvent event, Emitter<ProductState> emit) async {
+    try {
+      final result = await getBestSellerUseCase.call(NoParams());
+      result.fold(
+        (Failure result) {
+          if (result is InternetFailure) {
+            emit(state.copyWith(
+                messageError: MESSAGE_NOT_INTERNET,
+                state: ProductLoadFailed()));
+          } else if (result is ServerFailure) {
+            emit(state.copyWith(
+                messageError: MESSAGE_SERVER_FAILURE,
+                state: ProductLoadFailed()));
+          }
+        },
+        (List<ProductEntity> r) {
+          emit(state.copyWith(listBestSeller: r));
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void _handleLoadProductList(
       LoadAllProductEvent event, Emitter<ProductState> emit) async {
     emit(state.copyWith(state: ProductLoading()));

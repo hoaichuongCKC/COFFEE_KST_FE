@@ -46,7 +46,6 @@ class PaymentInvoiceCubit extends Cubit<PaymentInvoiceState> {
         },
       );
     } catch (e) {
-      print(e);
       emit(state.copyWith(error: e.toString(), state: PaymentInvoiceFailed()));
     }
   }

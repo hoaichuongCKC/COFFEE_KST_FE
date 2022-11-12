@@ -8,12 +8,8 @@ class NewOrderView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MyInvoiceCubit, MyInvoiceState>(
-      // buildWhen: (previous, current) =>
-      //     previous.stateApi != current.stateApi ||
-      //     previous.listNewOrder != current.listNewOrder,
       listener: (context, state) {},
       builder: (context, state) {
-        print(1111);
         if (state.listNewOrder.isEmpty && state.stateApi is SuccessState) {
           return Center(
             child: TextWidgets(

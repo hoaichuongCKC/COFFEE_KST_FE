@@ -2,7 +2,6 @@ import 'package:coffee_kst/app/common/dialog/dialog_controller.dart';
 import 'package:coffee_kst/app/screens/cart/data/models/info_receipt.dart';
 import 'package:coffee_kst/app/screens/cart/domain/entities/info_receipt.dart';
 import 'package:coffee_kst/app/screens/profile/screens/my_invoice/bloc/cubit/my_invoice_cubit.dart';
-import 'package:coffee_kst/injection_container.dart';
 import 'package:coffee_kst/main_export.dart';
 import 'package:coffee_kst/routes/routes.dart';
 
